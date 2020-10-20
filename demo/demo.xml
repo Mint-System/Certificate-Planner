@@ -1,11 +1,19 @@
 <odoo>
     <data>
         <record id="document0" model="certificate_planer.document">
-          <field name="title">Master Document List</field>
+          <field name="name">Master Document List</field>
+        </record>
+
+        <record id="document1" model="certificate_planer.document">
+          <field name="name">Master Drawing List</field>
         </record>
 
         <record id="part0" model="certificate_planer.part">
-          <field name="title">EMS Equipment</field>
+          <field name="name">EMS Equipment</field>
+        </record>
+
+        <record id="part1" model="certificate_planer.part">
+          <field name="name">AC Power Kit</field>
         </record>
 <!--
           <record id="object0" model="certificate_planer.certificate_planer">
