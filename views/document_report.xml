@@ -1,0 +1,23 @@
+<odoo>
+
+    <report 
+        id="document_report"
+        model="certificate_planer.document"
+        string="Document Report"
+        name="certificate_planer.document_report_view"
+        file="certificate_planer.document_report"
+        report_type="qweb-pdf" />
+
+    <template id="document_report_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="doc.name"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
