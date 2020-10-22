@@ -2,14 +2,14 @@
 
 from odoo import models, fields, api
 
-class revision(models.Model):
+class DocumentRevision(models.Model):
     _name = 'certificate_planer.document.revision'
     _description = 'certificate_planer.document.revision'
 
     name = fields.Char(required=True, string="Title")
-    document_id = fields.Many2one("certificate_planer.document", "Document")
+    document_id = fields.Many2one("certificate_planer.document", string="Document")
 
-class document(models.Model):
+class Document(models.Model):
     _name = 'certificate_planer.document'
     _description = 'certificate_planer.document'
 
@@ -20,17 +20,20 @@ class document(models.Model):
         "document_id",
         "Revisions",
     )
-    part_ids = fields.Many2many('certificate_planer.part', string="Parts")
+    part_ids = fields.Many2many("certificate_planer.part", string="Parts")
 
-class part(models.Model):
+class Part(models.Model):
     _name = 'certificate_planer.part'
     _description = 'certificate_planer.part'
 
     name = fields.Char(required=True, string="Title")
+    number = fields.Char(required=True, string="Number")
+    # bom_id = fields.Many2one("certificate_planer.bom", "BoM")
 
-    parent_id = fields.Many2one('certificate_planer.part', string='BOM ID')
-    child_ids = fields.One2many(
-         'certificate_planer.part',
-         'parent_id',
-         string='BOM'
-    )
+class Bom(models.Model):
+    _name = 'certificate_planer.bom'
+    _description = 'certificate_planer.bom'
+    _rec_name = 'part_id'
+    
+    part_id = fields.Many2one("certificate_planer.part", string="Part")
+    part_ids = fields.Many2many("certificate_planer.part", string="Parts")

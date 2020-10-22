@@ -1,58 +1,17 @@
 <odoo>
   <data>
 
-    <!-- explicit list view definition -->
-
-    <record model="ir.ui.view" id="certificate_planer.document_list">
-      <field name="name">document list</field>
-      <field name="model">certificate_planer.document</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
-
-    <record model="ir.ui.view" id="certificate_planer.document_form">
-      <field name="name">document form</field>
-      <field name="model">certificate_planer.document</field>
-      <field name="arch" type="xml">
-        <form string="Document Form">
-          <sheet>
-            <group>
-              <field name="name"/>
-            </group>
-            <label for="part_ids"/>
-            <field name="part_ids"/>
-            <notebook>
-                <page string="Description">
-                    <field name="description"/>
-                </page>
-                <page string="About">
-                    This is an example of notebooks
-                </page>
-            </notebook>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-
-    <record model="ir.ui.view" id="certificate_planer.part_ist">
-      <field name="name">part list</field>
-      <field name="model">certificate_planer.part</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
-
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="certificate_planer.document_action_window">
       <field name="name">Documents</field>
       <field name="res_model">certificate_planer.document</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.document_revision_action_window">
+      <field name="name">Revisions</field>
+      <field name="res_model">certificate_planer.document.revision</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -62,30 +21,28 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="certificate_planer.bom_action_window">
+      <field name="name">BoM</field>
+      <field name="res_model">certificate_planer.bom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- Top menu item -->
 
-    <menuitem name="Certificate Planer" id="certificate_planer.menu_root"/>
+    <menuitem name="Certificate Planer" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
 
-    <!-- menu categories -->
+<!-- menu categories -->
 
-    <menuitem name="Documents" id="certificate_planer.documents" parent="certificate_planer.menu_root"/>
-    <menuitem name="Parts" id="certificate_planer.parts" parent="certificate_planer.menu_root"/>
+  <menuitem name="Documents" id="certificate_planer.documents" parent="certificate_planer.menu_root"/>
+  <menuitem name="Parts" id="certificate_planer.parts" parent="certificate_planer.menu_root"/>
+  <menuitem name="Configuration" id="certificate_planer.configuration" parent="certificate_planer.menu_root"/>
 
-    <!-- actions -->
+<!-- actions -->
 
-    <menuitem 
-      name="List" 
-      id="certificate_planer.document_list" 
-      parent="certificate_planer.documents" 
-      action="certificate_planer.document_action_window"
-    />
+  <menuitem name="Documents" id="certificate_planer.document_list" parent="certificate_planer.documents" action="certificate_planer.document_action_window"/>
+  <menuitem name="Revisions" id="certificate_planer.document_revision_list" parent="certificate_planer.documents" action="certificate_planer.document_revision_action_window"/>
+  <menuitem name="Parts" id="certificate_planer.part_list" parent="certificate_planer.parts" action="certificate_planer.part_action_window"/>
+  <menuitem name="BoM" id="certificate_planer.bom_list" parent="certificate_planer.parts" action="certificate_planer.bom_action_window"/>
 
-    <menuitem 
-      name="List" 
-      id="certificate_planer.part_list" 
-      parent="certificate_planer.parts" 
-      action="certificate_planer.part_action_window"
-    />
-
-  </data>
+</data>
 </odoo>

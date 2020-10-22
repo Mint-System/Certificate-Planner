@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_certificate_planer_document,certificate_planer.document,model_certificate_planer_document,base.group_user,1,1,1,1
 access_certificate_planer_part,certificate_planer.part,model_certificate_planer_part,base.group_user,1,1,1,1
+access_certificate_planer_document_revision,certificate_planer.document_revision,model_certificate_planer_document_revision,base.group_user,1,1,1,1
+"access_certificate_planer_bp,",certificate_planer.bom,model_certificate_planer_bom,base.group_user,1,1,1,1
