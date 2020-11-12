@@ -16,7 +16,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Operations',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -24,15 +24,24 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'views/document.xml',
-        'views/part.xml',
-        'views/views.xml',
-        'views/templates.xml',
         'views/document_report.xml',
+        'security/ir.model.access.csv',
+        'views/menu.xml',
+        'views/templates.xml',
+        'views/document.xml',
+        'views/document_type.xml',
+        'views/document_revision_state.xml',
+        'views/part.xml',
+        'views/specification.xml',
+        'views/issue_group.xml',
     ],
+
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+
+    # module registry settings
+    'installable': True,
+    'application': True,
 }

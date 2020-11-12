@@ -1,14 +1,29 @@
 <odoo>
-    <data>
+  <data>
 
     <record model="ir.ui.view" id="certificate_planer.part_ist">
-      <field name="name">part list</field>
+      <field name="name">Part List</field>
       <field name="model">certificate_planer.part</field>
       <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
-            <field name="number"/>
+          <field name="name"/>
+          <field name="description"/>
         </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="certificate_planer.part_form">
+      <field name="name">Part Form</field>
+      <field name="model">certificate_planer.part</field>
+      <field name="arch" type="xml">
+        <form string="Part Form">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="description"/>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
 

@@ -2,35 +2,27 @@
   <data>
 
     <record model="ir.ui.view" id="certificate_planer.document_list">
-      <field name="name">document list</field>
+      <field name="name">Document List</field>
       <field name="model">certificate_planer.document</field>
       <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
-            <field name="create_uid"/>
+          <field name="name"/>
+          <field name="description"/>
         </tree>
       </field>
     </record>
 
     <record model="ir.ui.view" id="certificate_planer.document_form">
-      <field name="name">document form</field>
+      <field name="name">Document Form</field>
       <field name="model">certificate_planer.document</field>
       <field name="arch" type="xml">
         <form string="Document Form">
           <sheet>
             <group>
               <field name="name"/>
+              <field name="description"/>
+              <field name="type_id"/>
             </group>
-            <label for="part_ids"/>
-            <field name="part_ids"/>
-            <notebook>
-                <page string="Description">
-                    <field name="description"/>
-                </page>
-                <page string="About">
-                    This is an example of notebooks
-                </page>
-            </notebook>
           </sheet>
         </form>
       </field>

@@ -1,21 +1,85 @@
 <odoo>
     <data>
-        <record id="document0" model="certificate_planer.document">
-          <field name="name">Master Document List</field>
+
+        <!-- Document Revision State -->
+
+        <record id="state1" model="certificate_planer.document_revision_state">
+          <field name="name">A</field>
         </record>
+        <record id="state2" model="certificate_planer.document_revision_state">
+          <field name="name">cancelled</field>
+        </record>
+        <record id="state3" model="certificate_planer.document_revision_state">
+          <field name="name">Z</field>
+        </record>
+
+        <!-- Document Type -->
+
+        <record id="type1" model="certificate_planer.document_type">
+          <field name="name">Master Document List</field>
+          <field name="abbreviation">MDL</field>
+        </record>
+        <record id="type2" model="certificate_planer.document_type">
+          <field name="name">Master Drawing List</field>
+          <field name="abbreviation">DWL</field>
+        </record>
+
+        <!-- Document -->
 
         <record id="document1" model="certificate_planer.document">
-          <field name="name">Master Drawing List</field>
+          <field name="name">MDL-19-002</field>
+          <field name="description">Master Document List</field>
+          <field name="type_id" ref="type1" />
+        </record>
+        <record id="document2" model="certificate_planer.document">
+          <field name="name">DWL-14-029</field>
+          <field name="description">Master Drawing List</field>
+          <field name="type_id" ref="type1" />
         </record>
 
-        <record id="part0" model="certificate_planer.part">
-          <field name="name">EMS Equipment</field>
-          <field name="number">EASA 10052111</field>
+        <!-- Document Revision -->
+
+        <record id="revision1" model="certificate_planer.document_revision">
+          <field name="reason">Latest Release</field>
+          <field name="document_id" ref="document1" />
+          <field name="state_id" ref="state1" />
         </record>
+        <record id="revision2" model="certificate_planer.document_revision">
+          <field name="reason">Latest Release</field>
+          <field name="document_id" ref="document2" />
+          <field name="state_id" ref="state2" />
+        </record>
+
+        <!-- Part -->
 
         <record id="part1" model="certificate_planer.part">
-          <field name="name">AC Power Kit</field>
-          <field name="number">0071605-501</field>
+          <field name="name">DDP-18-001</field>
+          <field name="description">PTU MRTT</field>
+        </record>
+        <record id="part2" model="certificate_planer.part">
+          <field name="name">145-0045739-501</field>
+          <field name="description">EMS Equipment</field>
+        </record>
+
+        <!-- Specification -->
+
+        <record id="specification1" model="certificate_planer.specification">
+          <field name="name">JAR-25</field>
+        </record>
+        <record id="specification2" model="certificate_planer.specification">
+          <field name="name">CS-29</field>
+        </record>
+
+        <!-- Issue Group -->
+
+        <record id="group1" model="certificate_planer.issue_group">
+          <field name="name">Issue 0-0</field>
+        </record>
+        <record id="group2" model="certificate_planer.issue_group">
+          <field name="name">Issue 1-0</field>
+        </record>
+        <record id="group3" model="certificate_planer.issue_group">
+          <field name="name">Issue 1-1</field>
         </record>
 
     </data>

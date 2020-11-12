@@ -1,0 +1,108 @@
+<odoo>
+  <data>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="certificate_planer.document_revision_state_action">
+      <field name="name">Document Revision States</field>
+      <field name="res_model">certificate_planer.document_revision_state</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  
+    <record model="ir.actions.act_window" id="certificate_planer.document_type_action">
+      <field name="name">Document Types</field>
+      <field name="res_model">certificate_planer.document_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.document_action">
+      <field name="name">Documents</field>
+      <field name="res_model">certificate_planer.document</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.document_revision_action">
+      <field name="name">Document Revisions</field>
+      <field name="res_model">certificate_planer.document_revision</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.part_action">
+      <field name="name">Parts</field>
+      <field name="res_model">certificate_planer.part</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.bom_action">
+      <field name="name">BoMs</field>
+      <field name="res_model">certificate_planer.bom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.specification_action">
+      <field name="name">Specifications</field>
+      <field name="res_model">certificate_planer.specification</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="certificate_planer.issue_group_action">
+      <field name="name">Issue Groups</field>
+      <field name="res_model">certificate_planer.issue_group</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Certificate Planer" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Documents" id="certificate_planer.documents" parent="certificate_planer.menu_root"/>
+    <menuitem name="Certificates" id="certificate_planer.certificates" parent="certificate_planer.menu_root"/>
+    <menuitem name="Parts" id="certificate_planer.parts" parent="certificate_planer.menu_root"/>
+    <menuitem name="Configuration" id="certificate_planer.configuration" parent="certificate_planer.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="Document Revision State"
+      id="certificate_planer.document_revision_state_list"
+      parent="certificate_planer.configuration"
+      action="certificate_planer.document_revision_state_action"/>
+
+    <menuitem name="Document Type"
+      id="certificate_planer.document_type_list"
+      parent="certificate_planer.configuration"
+      action="certificate_planer.document_type_action"/>
+
+    <menuitem name="Documents"
+      id="certificate_planer.document_list"
+      parent="certificate_planer.documents"
+      action="certificate_planer.document_action"/>
+
+    <menuitem name="Revisions"
+      id="certificate_planer.document_revision_list"
+      parent="certificate_planer.documents"
+      action="certificate_planer.document_revision_action"/>
+
+    <menuitem name="Parts"
+      id="certificate_planer.part_list"
+      parent="certificate_planer.parts"
+      action="certificate_planer.part_action"/>
+
+    <menuitem name="BoM"
+      id="certificate_planer.bom_list"
+      parent="certificate_planer.parts"
+      action="certificate_planer.bom_action"/>
+
+    <menuitem name="Specifications"
+      id="certificate_planer.specification_list"
+      parent="certificate_planer.certificates"
+      action="certificate_planer.specification_action"/>
+
+    <menuitem name="Issue Group"
+      id="certificate_planer.issue_group_list"
+      parent="certificate_planer.configuration"
+      action="certificate_planer.issue_group_action"/>
+
+  </data>
+</odoo>

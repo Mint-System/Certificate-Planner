@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="certificate_planer.issue_group_list">
+      <field name="name">Issue Group List</field>
+      <field name="model">certificate_planer.issue_group</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="certificate_planer.issue_group_form">
+      <field name="name">Issue Group Form</field>
+      <field name="model">certificate_planer.issue_group</field>
+      <field name="arch" type="xml">
+        <form string="Issue Group Form">
+          <sheet>
+            <group>
+              <field name="name"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

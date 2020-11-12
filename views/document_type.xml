@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="certificate_planer.document_type_list">
+      <field name="name">Document Type List</field>
+      <field name="model">certificate_planer.document_type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="abbreviation"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="certificate_planer.document_type_form">
+      <field name="name">Document Type Form</field>
+      <field name="model">certificate_planer.document_type</field>
+      <field name="arch" type="xml">
+        <form string="Document Type Form">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="abbreviation"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>
