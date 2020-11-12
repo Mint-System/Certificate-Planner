@@ -30,10 +30,12 @@
         'views/templates.xml',
         'views/document.xml',
         'views/document_type.xml',
+        'views/document_revision.xml',
         'views/document_revision_state.xml',
         'views/part.xml',
         'views/specification.xml',
         'views/issue_group.xml',
+        'views/certificate.xml',
     ],
 
     # only loaded in demonstration mode

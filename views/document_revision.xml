@@ -16,7 +16,7 @@
       <field name="name">Document Revision Form</field>
       <field name="model">certificate_planer.document_revision</field>
       <field name="arch" type="xml">
-        <form string="Document Type Form">
+        <form string="Document Revision Form">
           <sheet>
             <group>
               <field name="reason"/>

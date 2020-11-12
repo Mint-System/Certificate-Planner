@@ -12,6 +12,9 @@
         <record id="state3" model="certificate_planer.document_revision_state">
           <field name="name">Z</field>
         </record>
+       <record id="state4" model="certificate_planer.document_revision_state">
+          <field name="name">n/c</field>
+        </record>
 
         <!-- Document Type -->
 
@@ -23,6 +26,10 @@
           <field name="name">Master Drawing List</field>
           <field name="abbreviation">DWL</field>
         </record>
+        <record id="type3" model="certificate_planer.document_type">
+          <field name="name">Minor/Major Change Request</field>
+          <field name="abbreviation">MCR</field>
+        </record>
 
         <!-- Document -->
 
@@ -30,11 +37,20 @@
           <field name="name">MDL-19-002</field>
           <field name="description">Master Document List</field>
           <field name="type_id" ref="type1" />
+          <!-- <field name="currend_revision_id" ref="revision1" /> -->
         </record>
         <record id="document2" model="certificate_planer.document">
           <field name="name">DWL-14-029</field>
           <field name="description">Master Drawing List</field>
-          <field name="type_id" ref="type1" />
+          <field name="type_id" ref="type2" />
+          <!-- <field name="currend_revision_id" ref="revision2" /> -->
+        </record>
+        <record id="document3" model="certificate_planer.document">
+          <field name="name">MCR-18-038</field>
+          <field name="description">Minor/Major Change Request</field>
+          <field name="type_id" ref="type3" />
+          <!-- <field name="currend_revision_id" ref="revision3" /> -->
+          <!-- <field name="certificate_id" ref="certificate1" /> -->
         </record>
 
         <!-- Document Revision -->
@@ -49,6 +65,11 @@
           <field name="document_id" ref="document2" />
           <field name="state_id" ref="state2" />
         </record>
+        <record id="revision3" model="certificate_planer.document_revision">
+          <field name="reason">Latest Release</field>
+          <field name="document_id" ref="document3" />
+          <field name="state_id" ref="state4" />
+        </record>
 
         <!-- Part -->
 
@@ -59,6 +80,10 @@
         <record id="part2" model="certificate_planer.part">
           <field name="name">145-0045739-501</field>
           <field name="description">EMS Equipment</field>
+        </record>
+        <record id="part3" model="certificate_planer.part">
+          <field name="name">009185-501</field>
+          <field name="description">Asena CC retainer Assy</field>
         </record>
 
         <!-- Specification -->
@@ -80,6 +105,15 @@
         </record>
         <record id="group3" model="certificate_planer.issue_group">
           <field name="name">Issue 1-1</field>
+        </record>
+
+        <!-- Certificate -->
+
+        <record id="certificate1" model="certificate_planer.certificate">
+          <field name="name">DDP-18-001</field>
+          <field name="aircraft">A330 MRTT</field>
+          <field name="specification_id" ref="specification1" />
+          <field name="part_id" ref="part3" />
         </record>
 
     </data>

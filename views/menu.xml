@@ -51,6 +51,12 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="certificate_planer.certificate_action">
+      <field name="name">Certificates</field>
+      <field name="res_model">certificate_planer.certificate</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- Top menu item -->
 
     <menuitem name="Certificate Planer" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
@@ -94,6 +100,11 @@
       parent="certificate_planer.parts"
       action="certificate_planer.bom_action"/>
 
+    <menuitem name="Certificates"
+      id="certificate_planer.certificate_list"
+      parent="certificate_planer.certificates"
+      action="certificate_planer.certificate_action"/>
+  
     <menuitem name="Specifications"
       id="certificate_planer.specification_list"
       parent="certificate_planer.certificates"
