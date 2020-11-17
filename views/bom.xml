@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="certificate_planer.bom_search">
+      <field name="name">BoM Search</field>
+      <field name="model">certificate_planer.bom</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="part_id"/>
+        </search>
+      </field>
+    </record>
+  
+    <record model="ir.ui.view" id="certificate_planer.bom_list">
+      <field name="name">BoM List</field>
+      <field name="model">certificate_planer.bom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="part_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="certificate_planer.bom_form">
+      <field name="name">BoM Form</field>
+      <field name="model">certificate_planer.bom</field>
+      <field name="arch" type="xml">
+        <form string="BoM Form">
+          <sheet>
+            <div class="oe_title">
+              <div class="oe_edit_only">
+                <label for="part_id"/>
+              </div>
+              <h1>
+                <field name="part_id"/>
+              </h1>
+            </div>
+            <group>
+              <field name="part_ids"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

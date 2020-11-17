@@ -8,3 +8,5 @@ class Part(models.Model):
 
     name = fields.Char(required=True, string="Title")
     description = fields.Char(required=True, string="Description")
+    bom_ids = fields.Many2many("certificate_planer.bom", string="BoMs")
+    bom_id = fields.One2many("certificate_planer.bom", "part_id", string="BoM")

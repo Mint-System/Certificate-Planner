@@ -10,3 +10,4 @@ class Certificate(models.Model):
     part_id = fields.Many2one("certificate_planer.part", string="Part")
     aircraft = fields.Char(required=True, string="Aircraft")
     specification_id = fields.Many2one("certificate_planer.specification", string="Specification")
+    document_ids = fields.One2many("certificate_planer.document", "certificate_id", string="Documents")

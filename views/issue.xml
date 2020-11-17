@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="certificate_planer.issue_search">
+      <field name="name">Issue Search</field>
+      <field name="model">certificate_planer.issue</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="certificate_id"/>
+          <filter name="group_certificate" 
+              string="By Certificate"  
+              context="{'group_by': 'certificate_id'}"/>
+        </search>
+      </field>
+    </record>
+  
+    <record model="ir.ui.view" id="certificate_planer.issue_list">
+      <field name="name">Issue List</field>
+      <field name="model">certificate_planer.issue</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="certificate_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="certificate_planer.issue_form">
+      <field name="name">Issue Form</field>
+      <field name="model">certificate_planer.issue</field>
+      <field name="arch" type="xml">
+        <form string="Issue Form">
+          <sheet>
+            <div class="oe_title">
+              <div class="oe_edit_only">
+                <label for="name"/>
+              </div>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
+            <group>
+              <field name="certificate_id"/>
+              <field name="authority_number"/>
+              <field name="project_number"/>
+              <field name="group_id"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</odoo>

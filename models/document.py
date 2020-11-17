@@ -17,3 +17,4 @@ class Document(models.Model):
         "Revisions",
     )
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
+    issue_id = fields.Many2one("certificate_planer.issue", string="Issue")

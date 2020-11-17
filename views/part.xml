@@ -21,6 +21,8 @@
             <group>
               <field name="name"/>
               <field name="description"/>
+              <field name="bom_id" readonly="1"/>
+              <field name="bom_ids"/>
             </group>
           </sheet>
         </form>

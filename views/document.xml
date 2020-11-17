@@ -43,6 +43,7 @@
             <group>
               <field name="description"/>
               <field name="current_revision_id"/>
+              <field name="issue_id"/>
               <field name="type_id"/>
               <field name="certificate_id"/>
             </group>
