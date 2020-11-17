@@ -35,11 +35,12 @@
         'views/document_revision.xml',
         'views/document_revision_state.xml',
         'views/menu.xml',
+        'demo/demo.xml'
     ],
 
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
     ],
 
     # module registry settings

@@ -1,6 +1,17 @@
 <odoo>
   <data>
 
+    <record model="ir.ui.view" id="certificate_planer.certificate_search">
+      <field name="name">Certificate Search</field>
+      <field name="model">certificate_planer.certificate</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="aircraft"/>
+        </search>
+      </field>
+    </record>
+  
     <record model="ir.ui.view" id="certificate_planer.certificate_list">
       <field name="name">Certificate List</field>
       <field name="model">certificate_planer.certificate</field>
@@ -18,8 +29,15 @@
       <field name="arch" type="xml">
         <form string="Certificate Form">
           <sheet>
+            <div class="oe_title">
+              <div class="oe_edit_only">
+                <label for="name"/>
+              </div>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
             <group>
-              <field name="name"/>
               <field name="part_id"/>
               <field name="aircraft"/>
               <field name="specification_id"/>

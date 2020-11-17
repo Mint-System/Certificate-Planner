@@ -72,11 +72,17 @@
         </record>
 
         <!-- Link Document Revision -->
-        <!-- <record id="document1" model="certificate_planer.document">
-          <field name="name">MDL-19-002</field>
-          <field name="description">Master Document List</field>
-          <field name="type_id" ref="type1" />
+
+        <record id="document2" model="certificate_planer.document">
           <field name="current_revision_id" ref="revision1" />
+        </record> -->
+
+        <record id="document1" model="certificate_planer.document">
+          <field name="current_revision_id" ref="revision2" />
+        </record> -->
+
+        <record id="document3" model="certificate_planer.document">
+          <field name="current_revision_id" ref="revision3" />
         </record> -->
 
         <!-- Part -->
@@ -124,5 +130,10 @@
           <field name="part_id" ref="part3" />
         </record>
 
+        <!-- Link Certificate -->
+
+        <record id="document3" model="certificate_planer.document">
+          <field name="certificate_id" ref="certificate1" />
+        </record> -->
     </data>
 </odoo>

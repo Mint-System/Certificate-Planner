@@ -18,9 +18,9 @@
         <form string="Document Revision Form">
           <sheet>
             <group>
-              <field name="reason"/>
               <field name="document_id"/>
               <field name="state_id"/>
+              <field name="reason"/>
             </group>
           </sheet>
         </form>

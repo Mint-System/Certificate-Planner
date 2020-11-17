@@ -1,13 +1,27 @@
 <odoo>
   <data>
 
+    <record model="ir.ui.view" id="certificate_planer.document_search">
+      <field name="name">Document Search</field>
+      <field name="model">certificate_planer.document</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="type_id"/>
+          <filter name="group_type" 
+              string="By Type"  
+              context="{'group_by': 'type_id'}"/>
+        </search>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="certificate_planer.document_list">
       <field name="name">Document List</field>
       <field name="model">certificate_planer.document</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="name"/>
+          <field name="type_id"/>
         </tree>
       </field>
     </record>
@@ -18,8 +32,15 @@
       <field name="arch" type="xml">
         <form string="Document Form">
           <sheet>
+            <div class="oe_title">
+              <div class="oe_edit_only">
+                <label for="name"/>
+              </div>
+              <h1>
+                <field name="name"/>
+              </h1>
+            </div>
             <group>
-              <field name="name"/>
               <field name="description"/>
               <field name="current_revision_id"/>
               <field name="type_id"/>
