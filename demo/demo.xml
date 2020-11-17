@@ -71,6 +71,14 @@
           <field name="state_id" ref="state4" />
         </record>
 
+        <!-- Link Document Revision -->
+        <!-- <record id="document1" model="certificate_planer.document">
+          <field name="name">MDL-19-002</field>
+          <field name="description">Master Document List</field>
+          <field name="type_id" ref="type1" />
+          <field name="current_revision_id" ref="revision1" />
+        </record> -->
+
         <!-- Part -->
 
         <record id="part1" model="certificate_planer.part">

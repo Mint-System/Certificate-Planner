@@ -63,57 +63,57 @@
 
     <!-- menu categories -->
 
-    <menuitem name="Documents" id="certificate_planer.documents" parent="certificate_planer.menu_root"/>
-    <menuitem name="Certificates" id="certificate_planer.certificates" parent="certificate_planer.menu_root"/>
-    <menuitem name="Parts" id="certificate_planer.parts" parent="certificate_planer.menu_root"/>
-    <menuitem name="Configuration" id="certificate_planer.configuration" parent="certificate_planer.menu_root"/>
+    <menuitem name="Documents" id="certificate_planer.documents_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Certificates" id="certificate_planer.certificates_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Parts" id="certificate_planer.parts_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Configuration" id="certificate_planer.configuration_menu" parent="certificate_planer.menu_root"/>
 
     <!-- actions -->
 
     <menuitem name="Document Revision State"
-      id="certificate_planer.document_revision_state_list"
-      parent="certificate_planer.configuration"
+      id="certificate_planer.document_revision_state_menu"
+      parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_revision_state_action"/>
 
     <menuitem name="Document Type"
-      id="certificate_planer.document_type_list"
-      parent="certificate_planer.configuration"
+      id="certificate_planer.document_type_menu"
+      parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_type_action"/>
 
-    <menuitem name="Documents"
-      id="certificate_planer.document_list"
-      parent="certificate_planer.documents"
-      action="certificate_planer.document_action"/>
-
-    <menuitem name="Revisions"
-      id="certificate_planer.document_revision_list"
-      parent="certificate_planer.documents"
-      action="certificate_planer.document_revision_action"/>
+    <menuitem name="Issue Group"
+      id="certificate_planer.issue_group_menu"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.issue_group_action"/>
 
     <menuitem name="Parts"
-      id="certificate_planer.part_list"
-      parent="certificate_planer.parts"
+      id="certificate_planer.part_menu"
+      parent="certificate_planer.parts_menu"
       action="certificate_planer.part_action"/>
 
     <menuitem name="BoM"
-      id="certificate_planer.bom_list"
-      parent="certificate_planer.parts"
+      id="certificate_planer.bom_menu"
+      parent="certificate_planer.parts_menu"
       action="certificate_planer.bom_action"/>
 
     <menuitem name="Certificates"
-      id="certificate_planer.certificate_list"
-      parent="certificate_planer.certificates"
+      id="certificate_planer.certificate_menu"
+      parent="certificate_planer.certificates_menu"
       action="certificate_planer.certificate_action"/>
   
     <menuitem name="Specifications"
-      id="certificate_planer.specification_list"
-      parent="certificate_planer.certificates"
+      id="certificate_planer.specification_menu"
+      parent="certificate_planer.certificates_menu"
       action="certificate_planer.specification_action"/>
 
-    <menuitem name="Issue Group"
-      id="certificate_planer.issue_group_list"
-      parent="certificate_planer.configuration"
-      action="certificate_planer.issue_group_action"/>
+    <menuitem name="Documents"
+      id="certificate_planer.document_menu"
+      parent="certificate_planer.documents_menu"
+      action="certificate_planer.document_action"/>
+
+    <menuitem name="Revisions"
+      id="certificate_planer.document_revision_menu"
+      parent="certificate_planer.documents_menu"
+      action="certificate_planer.document_revision_action"/>
 
   </data>
 </odoo>

@@ -7,11 +7,10 @@
       <field name="arch" type="xml">
         <tree>
           <field name="document_id"/>
-          <field name="state_id"/>
         </tree>
       </field>
     </record>
-
+  
     <record model="ir.ui.view" id="certificate_planer.document_revision_form">
       <field name="name">Document Revision Form</field>
       <field name="model">certificate_planer.document_revision</field>
