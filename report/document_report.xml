@@ -1,0 +1,42 @@
+<odoo>
+
+    <record model="report.paperformat" id="paperformat_document_report">
+        <field name="name">Performat Document Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_width">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_right">5</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report 
+        id="document_report"
+        model="certificate_planer.document"
+        string="Document Report"
+        name="certificate_planer.document_report_view"
+        file="certificate_planer.document_report"
+        report_type="qweb-pdf"
+    />
+     <!-- paperformat="paperformat_document_report" -->
+
+    <template id="document_report_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="doc.name"/>
+                        <p t-field="doc.description"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

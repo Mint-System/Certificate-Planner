@@ -24,7 +24,6 @@
 
     # always loaded
     'data': [
-        'views/document_report.xml',
         'security/ir.model.access.csv',
         'views/part.xml',
         'views/bom.xml',
@@ -37,6 +36,7 @@
         'views/document_revision.xml',
         'views/document_revision_state.xml',
         'views/menu.xml',
+        'report/document_report.xml',
         'demo/demo.xml'
     ],
 
