@@ -29,6 +29,7 @@
       <field name="arch" type="xml">
         <form string="Certificate Form">
           <sheet>
+            <p>Certificate</p>
             <div class="oe_title">
               <div class="oe_edit_only">
                 <label for="name"/>
@@ -41,6 +42,8 @@
               <field name="part_id"/>
               <field name="aircraft"/>
               <field name="specification_id"/>
+              <field name="document_ids"/>
+              <field name="issue_ids"/>
             </group>
           </sheet>
         </form>

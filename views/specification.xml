@@ -17,6 +17,7 @@
       <field name="arch" type="xml">
         <form string="Specification Form">
           <sheet>
+            <p>Specification</p>
             <group>
               <field name="name"/>
             </group>

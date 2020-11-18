@@ -17,6 +17,7 @@
       <field name="arch" type="xml">
         <form string="Issue Group Form">
           <sheet>
+            <p>Issue Group</p>
             <group>
               <field name="name"/>
             </group>

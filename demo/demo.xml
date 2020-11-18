@@ -15,6 +15,12 @@
        <record id="state_nc" model="certificate_planer.document_revision_state">
           <field name="name">n/c</field>
         </record>
+        <record id="state_b" model="certificate_planer.document_revision_state">
+          <field name="name">B</field>
+        </record>
+        <record id="state_b" model="certificate_planer.document_revision_state">
+          <field name="name">C</field>
+        </record>
 
         <!-- Document Type -->
 
@@ -29,6 +35,14 @@
         <record id="type_mcr" model="certificate_planer.document_type">
           <field name="name">Minor/Major Change Request</field>
           <field name="abbreviation">MCR</field>
+        </record>
+        <record id="type_mis" model="certificate_planer.document_type">
+          <field name="name">Miscellaneous Document</field>
+          <field name="abbreviation">MIS</field>
+        </record>
+        <record id="type_adwg" model="certificate_planer.document_type">
+          <field name="name">Assembly Drawing</field>
+          <field name="abbreviation">ADWG</field>
         </record>
 
         <!-- Document -->
@@ -48,6 +62,16 @@
           <field name="description">Minor/Major Change Request</field>
           <field name="type_id" ref="type_mcr" />
         </record>
+        <record id="document_cid_18" model="certificate_planer.document">
+          <field name="name">CID-18-001</field>
+          <field name="description">Configuration Index Document</field>
+          <field name="type_id" ref="type_mis" />
+        </record>
+        <record id="document_330" model="certificate_planer.document">
+          <field name="name">330-0264230</field>
+          <field name="description">PTU MRTT</field>
+          <field name="type_id" ref="type_adwg" />
+        </record>
 
         <!-- Document Revision -->
 
@@ -66,20 +90,34 @@
           <field name="document_id" ref="document_mcr_18" />
           <field name="state_id" ref="state_nc" />
         </record>
+        <record id="revision_cid_18" model="certificate_planer.document_revision">
+          <field name="reason">Latest Release</field>
+          <field name="document_id" ref="document_cid_18" />
+          <field name="state_id" ref="state_b" />
+        </record>
+        <record id="revision_330" model="certificate_planer.document_revision">
+          <field name="reason">Latest Release</field>
+          <field name="document_id" ref="document_330" />
+          <field name="state_id" ref="state_c" />
+        </record>
 
         <!-- Link Document Revision -->
 
         <record id="document_mdl_19" model="certificate_planer.document">
           <field name="current_revision_id" ref="revision_mdl_19" />
-        </record> -->
-
+        </record>
         <record id="document_dwl_14" model="certificate_planer.document">
           <field name="current_revision_id" ref="revision_dwl_14" />
-        </record> -->
-
+        </record>
         <record id="document_mcr_18" model="certificate_planer.document">
           <field name="current_revision_id" ref="revision_mcr_18" />
-        </record> -->
+        </record>
+        <record id="document_cid_18" model="certificate_planer.document">
+          <field name="current_revision_id" ref="revision_cid_18" />
+        </record>
+        <record id="document_330" model="certificate_planer.document">
+          <field name="current_revision_id" ref="revision_330" />
+        </record>
 
         <!-- Part -->
 
@@ -102,6 +140,18 @@
         <record id="part_ptu_007" model="certificate_planer.part">
           <field name="name">007-0264232-501</field>
           <field name="description">PTU</field>
+        </record>
+
+        <!-- Link Part -->
+
+        <record id="part_ddp" model="certificate_planer.part">
+          <field name="document_ids" eval="[(4, ref('document_mdl_19'))]"/>
+        </record>
+        <record id="part_ddp" model="certificate_planer.part">
+          <field name="document_ids" eval="[(4, ref('document_cid_18'))]"/>
+        </record>
+        <record id="part_ptu" model="certificate_planer.part">
+          <field name="document_ids" eval="[(4, ref('document_330'))]"/>
         </record>
 
         <!-- BoM -->

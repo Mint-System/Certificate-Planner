@@ -17,6 +17,7 @@
       <field name="arch" type="xml">
         <form string="Document Revision State Form">
           <sheet>
+            <p>Document Revision State</p>
             <group>
               <field name="name"/>
             </group>

@@ -11,3 +11,4 @@ class Issue(models.Model):
     authority_number = fields.Char(required=True, string="Authority Number")
     project_number = fields.Char(required=True, string="Project Number")
     group_id = fields.Many2one("certificate_planer.issue_group", string="Group")
+    document_ids = fields.One2many("certificate_planer.document", "issue_id", string="Documents")

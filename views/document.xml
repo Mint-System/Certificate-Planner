@@ -32,6 +32,7 @@
       <field name="arch" type="xml">
         <form string="Document Form">
           <sheet>
+            <p>Document</p>
             <div class="oe_title">
               <div class="oe_edit_only">
                 <label for="name"/>
@@ -42,10 +43,12 @@
             </div>
             <group>
               <field name="description"/>
-              <field name="current_revision_id"/>
-              <field name="issue_id"/>
               <field name="type_id"/>
+              <field name="current_revision_id"/>
+              <field name="revision_ids"/>
+              <field name="issue_id"/>
               <field name="certificate_id"/>
+              <field name="part_ids"/>
             </group>
           </sheet>
         </form>
