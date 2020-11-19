@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 class Issue(models.Model):
     _name = 'certificate_planer.issue'
-    _description = 'certificate_planer.issue'
+    _description = 'Certificate Planer Issue'
 
     name = fields.Char(required=True, string="Title")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate")

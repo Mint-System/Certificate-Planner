@@ -3,8 +3,9 @@
 from odoo import models, fields, api
 
 class Document(models.Model):
+    _inherit = 'mail.thread'
     _name = 'certificate_planer.document'
-    _description = 'certificate_planer.document'
+    _description = 'Certificate Planer Document'
 
     name = fields.Char(required=True, string="Title")
     description = fields.Char(required=True, string="Description")
