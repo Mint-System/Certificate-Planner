@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class Issue(models.Model):
     _name = 'certificate_planer.issue'
     _description = 'Certificate Planer Issue'
 
+    # fields
     name = fields.Char(required=True, string="Title")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate")
     authority_number = fields.Char(required=True, string="Authority Number")

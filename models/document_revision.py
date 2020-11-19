@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 
 class DocumentRevision(models.Model):
     _name = 'certificate_planer.document_revision'
