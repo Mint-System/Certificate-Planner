@@ -12,5 +12,5 @@ class DocumentType(models.Model):
 
     # constraints
     _sql_constraints = [
-        ('name_unique', 'unique (name,abbreviation)', "Document Type with this Title and/or Abbreviation already exists."),
+        ('abbreviation_unique', 'unique (abbreviation)', "Document Type with this Abbreviation already exists."),
     ]
