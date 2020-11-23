@@ -30,6 +30,7 @@
             <group>
               <field name="state_id"/>
               <field name="reason"/>
+              <field name="issue_id"/>
             </group>
           </sheet>
         </form>

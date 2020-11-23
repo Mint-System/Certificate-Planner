@@ -13,6 +13,7 @@ class Issue(models.Model):
     authority_number = fields.Char(required=True, string="Authority Number")
     project_number = fields.Char(required=True, string="Project Number")
     group_id = fields.Many2one("certificate_planer.issue_group", required=True, string="Group")
+    revision_ids = fields.One2many("certificate_planer.document_revision", "issue_id", string="Document Revisions")
     document_ids = fields.One2many("certificate_planer.document", "issue_id", string="Documents")
 
     # constraints
@@ -23,4 +24,6 @@ class Issue(models.Model):
     def unlink(self):
         if len(self.document_ids) != 0:
             raise UserError(_('You cannot delete an Issue as long it is referenced by a Document.'))
+        if len(self.revision_ids) != 0:
+            raise UserError(_('You cannot delete an Issue as long it is referenced by a Document Revision.'))
         return super(Issue, self).unlink()

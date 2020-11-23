@@ -46,7 +46,8 @@
               <field name="authority_number"/>
               <field name="project_number"/>
               <field name="group_id"/>
-              <field name="document_ids"/>
+              <field name="revision_ids"/>
+              <field name="document_ids" readonly="1"/>
             </group>
           </sheet>
         </form>

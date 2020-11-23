@@ -216,6 +216,9 @@
         <record id="document_mcr_18" model="certificate_planer.document">
           <field name="issue_id" ref="issue_mcr" />
         </record>
+        <record id="revision_mcr_18" model="certificate_planer.document_revision">
+          <field name="issue_id" ref="issue_mcr" />
+        </record>
 
     </data>
 </odoo>
