@@ -1,21 +1,5 @@
 <odoo>
 
-    <record model="report.paperformat" id="paperformat_document_report">
-        <field name="name">Performat Document Report</field>
-        <field name="default" eval="True"/>
-        <field name="format">A4</field>
-        <field name="page_width">0</field>
-        <field name="page_width">0</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">30</field>
-        <field name="margin_right">5</field>
-        <field name="margin_bottom">10</field>
-        <field name="margin_left">5</field>
-        <field name="header_line" eval="False"/>
-        <field name="header_spacing">20</field>
-        <field name="dpi">90</field>
-    </record>
-
     <report 
         id="document_report"
         model="certificate_planer.document"
@@ -24,18 +8,70 @@
         file="certificate_planer.document_report"
         report_type="qweb-pdf"
     />
-     <!-- paperformat="paperformat_document_report" -->
 
     <template id="document_report_view">
         <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <h2 t-field="doc.name"/>
-                        <p t-field="doc.description"/>
-                    </div>
-                </t>
+
+            <div class="header">
+                <h4 t-esc="type.name"/>
+            </div>
+
+            <t t-call="web.internal_layout">
+                <div class="page">
+
+                    <h1 t-esc="type.name"/>
+                    <p>Print Date:</p>
+
+                    <table class="table">
+                        <tr>
+                            <td>Document No:</td>
+                            <td><h2 t-esc="document.name"/></td>
+                            <td>Revision:</td>
+                            <td><h2 t-esc="revision.state_id.name"/></td>
+                        </tr>
+                        <tr>
+                            <td>Subject:</td>
+                            <td><h2 t-esc="document.description"/></td>
+                        </tr>
+                        <tr>
+                            <td>Project Number:</td>
+                            <td><h2 t-esc="certificate.name"/></td>
+                        </tr>
+                        <tr>
+                            <td>Airfcraft Type:</td>
+                            <td><h2 t-esc="certificate.aircraft"/></td>
+                        </tr>
+                        <tr>
+                            <td>Requirements:</td>
+                            <td><h2 t-esc="certificate.specification_id.name"/></td>
+                        </tr>
+                    </table>
+
+                    <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
+
+                    <h2 t-esc="dis['key1']"/>
+
+                    <t t-foreach="issues" t-as="issue">
+                        <p t-field="issue.name"/>
+                        <t t-foreach="issue.revision_ids" t-as="revision">
+                            <p t-field="revision.state_id"/>
+                        </t>
+                    </t>
+
+                    <p style="page-break-before:always;" />
+
+                    <h2>Log of Ammendments</h2>
+
+                    <p style="page-break-before:always;" />
+
+                    <h2>Parts and Documents</h2>
+
+                </div>
             </t>
+
+            <div class="footer">
+                <h4 t-esc="revision.state_id.name"/>
+            </div>
         </t>
     </template>
 
