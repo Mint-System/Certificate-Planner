@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class Part(models.Model):
     _name = 'certificate_planer.part'
@@ -17,3 +18,8 @@ class Part(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Part with this Title already exists."),
     ]
+
+    def unlink(self):
+        if len(self.bom_ids) != 0:
+            raise UserError(_('You cannot delete a Part as long it is referenced by a parent BoM.'))
+        return super(Part, self).unlink()
