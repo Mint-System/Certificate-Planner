@@ -10,6 +10,6 @@ class DocumentRevision(models.Model):
     # fields
     # name = fields.Char(required=True, string="Title")
     reason = fields.Text(required=True, string="Reason")
-    document_id = fields.Many2one("certificate_planer.document", required=True, string="Document")
+    document_id = fields.Many2one("certificate_planer.document", string="Document")
     state_id = fields.Many2one("certificate_planer.document_revision_state", required=True, string="State")
     issue_id = fields.Many2one("certificate_planer.issue", string="Issue")

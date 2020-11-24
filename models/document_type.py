@@ -14,7 +14,7 @@ class DocumentType(models.Model):
 
     # constraints
     _sql_constraints = [
-        ('abbreviation_unique', 'unique (abbreviation)', "Document Type with this Abbreviation already exists."),
+        ('name_unique', 'unique (name)', "Document Type with this Title already exists."),
     ]
 
     def unlink(self):

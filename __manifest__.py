@@ -37,7 +37,7 @@
         'views/document_revision_state.xml',
         'views/menu.xml',
         'report/document_report.xml',
-        'demo/demo.xml'
+        #'demo/demo.xml'
     ],
 
     # only loaded in demonstration mode
