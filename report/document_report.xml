@@ -92,7 +92,22 @@
 
                     <h2>Parts and Documents</h2>
 
-                    
+                    <p t-field="certificate.part_id.name"/>
+
+                    <t t-foreach="certificate.part_id.document_ids" t-as="document">
+                        <span t-field="document.name"/><span t-field="document.current_revision_id.state_id"/><br/>
+                    </t>
+
+                    <br />
+                    <p>Child Parts:</p>
+
+                    <t t-set="i" t-value="1"/>
+
+                    <t t-foreach="certificate.part_id.bom_id.part_ids" t-as="part">
+                        <span t-esc="i"/>:
+                        <t t-set="i" t-value="i+1"/>
+                        <span t-field="part.name"/><br/>
+                    </t>
 
                 </div>
             </t>
