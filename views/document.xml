@@ -44,8 +44,8 @@
             <group>
               <field name="description"/>
               <field name="type_id"/>
-              <field name="current_revision_id"/>
-              <field name="revision_ids"/>
+              <field name="current_revision_id" context="{'default_document_id': id}"/>
+              <field name="revision_ids" context="{'default_document_id': id}"/>
               <field name="issue_id" readonly="1"/>
               <field name="certificate_id"/>
               <field name="part_ids"/>

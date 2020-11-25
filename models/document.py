@@ -11,11 +11,11 @@ class Document(models.Model):
     # fields
     name = fields.Char(required=True, string="Title")
     description = fields.Char(required=True, string="Description")
-    current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision")
+    current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]")
     issue_id = fields.Many2one("certificate_planer.issue", string="Issue")
     type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate")
-    revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions")
+    revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]")
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
 
     # constraints
