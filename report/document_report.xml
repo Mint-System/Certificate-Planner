@@ -73,7 +73,7 @@
                                 <p>Authority Ref: <span t-field="issue.project_number"/><br/>
                                 Internal Project Ref: <span t-field="issue.authority_number"/></p>
 
-                                <table class="table-striped">
+                                <table class="table-striped" width="100%">
                                 <t t-foreach="issue.revision_ids" t-as="revision">
                                     <tr>
                                         <td><span t-field="revision.document_id.name"/></td>
