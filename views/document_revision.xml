@@ -1,6 +1,18 @@
 <odoo>
   <data>
 
+    <record model="ir.ui.view" id="certificate_planer.document_revision_search">
+      <field name="name">Document Revision Search</field>
+      <field name="model">certificate_planer.document_revision</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="document_id"/>
+          <field name="state_id"/>
+          <filter name="group_state" string="By State" context="{'group_by': 'state_id'}"/>
+        </search>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="certificate_planer.document_revision_list">
       <field name="name">Document Revision List</field>
       <field name="model">certificate_planer.document_revision</field>
@@ -11,7 +23,7 @@
         </tree>
       </field>
     </record>
-  
+
     <record model="ir.ui.view" id="certificate_planer.document_revision_form">
       <field name="name">Document Revision Form</field>
       <field name="model">certificate_planer.document_revision</field>

@@ -21,3 +21,10 @@ class DocumentType(models.Model):
         if len(self.document_ids) != 0:
             raise UserError(_('You cannot delete a Document Type as long it is referenced by a Document.'))
         return super(DocumentType, self).unlink()
+
+    # defaults
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.abbreviation)))
+        return res

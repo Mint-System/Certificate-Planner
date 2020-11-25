@@ -8,9 +8,7 @@
         <search>
           <field name="name"/>
           <field name="type_id"/>
-          <filter name="group_type" 
-              string="By Type"  
-              context="{'group_by': 'type_id'}"/>
+          <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
         </search>
       </field>
     </record>

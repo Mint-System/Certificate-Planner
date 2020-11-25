@@ -16,8 +16,7 @@ class DocumentRevision(models.Model):
 
     # defaults
     def name_get(self):
-        result = []
-        for record in self:
-            record_name = record.document_id.name + ' - ' + record.state_id.name
-            result.append((record.id, record_name))
-        return result
+        res = []
+        for rec in self:
+            res.append((rec.id, _('%s (%s)') % (rec.document_id.name, rec.state_id.name)))
+        return res

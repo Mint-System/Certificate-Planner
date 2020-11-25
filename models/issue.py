@@ -27,3 +27,9 @@ class Issue(models.Model):
         if len(self.revision_ids) != 0:
             raise UserError(_('You cannot delete an Issue as long it is referenced by a Document Revision.'))
         return super(Issue, self).unlink()
+
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, _('%s (%s)') % (rec.name[0:50], rec.certificate_id.name)))
+        return res

@@ -18,3 +18,10 @@ class Certificate(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Certificate with this Title already exists."),
     ]
+
+    # defaults
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.aircraft)))
+        return res
