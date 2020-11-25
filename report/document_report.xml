@@ -32,39 +32,67 @@
                         <tr>
                             <td>Subject:</td>
                             <td><h2 t-esc="document.description"/></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Project Number:</td>
                             <td><h2 t-esc="certificate.name"/></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Airfcraft Type:</td>
                             <td><h2 t-esc="certificate.aircraft"/></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Requirements:</td>
                             <td><h2 t-esc="certificate.specification_id.name"/></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
 
                     <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
 
-                    <h2 t-esc="dis['key1']"/>
-
-                    <t t-foreach="issues" t-as="issue">
-                        <p t-field="issue.name"/>
-                        <t t-foreach="issue.revision_ids" t-as="revision">
-                            <p t-field="revision.state_id"/>
-                        </t>
-                    </t>
-
                     <p style="page-break-before:always;" />
 
                     <h2>Log of Ammendments</h2>
 
+                    <table class="table">
+                    <t t-foreach="issue_groups" t-as="group">
+
+                        <tr>
+                            <td><strong><p t-field="group.name"/></strong></td>
+
+                            <td>
+                            <t t-foreach="log[group.id]['issues']" t-as="issue">
+                                <p t-field="issue.name"/>
+                                <p>Authority Ref: <span t-field="issue.project_number"/><br/>
+                                Internal Project Ref: <span t-field="issue.authority_number"/></p>
+
+                                <table class="table-striped">
+                                <t t-foreach="issue.revision_ids" t-as="revision">
+                                    <tr>
+                                        <td><span t-field="revision.document_id.name"/></td>
+                                        <td><span t-field="revision.document_id.description"/></td>
+                                        <td><span t-field="revision.state_id"/></td>
+                                    </tr>
+                                </t>
+                                </table>
+                            </t>
+                            </td>
+                        </tr>
+                    </t>
+                    </table>
+
                     <p style="page-break-before:always;" />
 
                     <h2>Parts and Documents</h2>
+
+                    
 
                 </div>
             </t>
