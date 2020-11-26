@@ -96,7 +96,7 @@
       parent="certificate_planer.parts_menu"
       action="certificate_planer.part_action"/>
 
-    <menuitem name="BoM"
+    <menuitem name="BoMs"
       id="certificate_planer.bom_menu"
       parent="certificate_planer.parts_menu"
       action="certificate_planer.bom_action"/>

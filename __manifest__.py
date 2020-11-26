@@ -24,6 +24,7 @@
 
     # always loaded
     'data': [
+        'security/certificate_planer_security.xml',
         'security/ir.model.access.csv',
         'views/part.xml',
         'views/bom.xml',
