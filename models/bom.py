@@ -9,7 +9,7 @@ class Bom(models.Model):
     
     # fields
     part_id = fields.Many2one("certificate_planer.part", required=True, string="Part")
-    part_ids = fields.Many2many("certificate_planer.part", string="Parts")
+    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts")
 
     # constraints
     def unlink(self):

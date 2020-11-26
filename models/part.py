@@ -11,7 +11,7 @@ class Part(models.Model):
     name = fields.Char(required=True, string="Title")
     description = fields.Char(required=True, string="Description")
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
-    bom_id = fields.Many2one("certificate_planer.bom", string="BoM",store=False, compute='_get_bom_id', )
+    bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_get_bom_id")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents")
 
     # constraints

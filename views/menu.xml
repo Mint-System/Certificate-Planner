@@ -113,7 +113,7 @@
   
     <menuitem name="Specifications"
       id="certificate_planer.specification_menu"
-      parent="certificate_planer.certificates_menu"
+      parent="certificate_planer.configuration_menu"
       action="certificate_planer.specification_action"/>
 
     <menuitem name="Documents"

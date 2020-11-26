@@ -43,6 +43,9 @@
               <field name="part_id"/>
               <field name="aircraft"/>
               <field name="specification_id"/>
+            </group>
+              <p class="oe_edit_only">Note: A Certificate is linked by Documents and Issues.</p>
+            <group>
               <field name="document_ids"/>
               <field name="issue_ids"/>
             </group>

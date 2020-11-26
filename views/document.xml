@@ -43,9 +43,11 @@
               <field name="description"/>
               <field name="type_id"/>
               <field name="current_revision_id" context="{'default_document_id': id}"/>
-              <field name="revision_ids" context="{'default_document_id': id}"/>
-              <field name="issue_id" readonly="1"/>
               <field name="certificate_id"/>
+            </group>
+              <p class="oe_edit_only">Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
+            <group>
+              <field name="revision_ids" context="{'default_document_id': id}"/>
               <field name="part_ids"/>
             </group>
           </sheet>

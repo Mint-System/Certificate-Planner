@@ -28,6 +28,7 @@ class Issue(models.Model):
             raise UserError(_('You cannot delete an Issue as long it is referenced by a Document Revision.'))
         return super(Issue, self).unlink()
 
+    # defaults
     def name_get(self):
         res = []
         for rec in self:

@@ -42,6 +42,9 @@
             <group>
               <field name="state_id"/>
               <field name="reason"/>
+            </group>
+              <p class="oe_edit_only">Note: A Document Revision must be linked with a Document and may be linked with an Issue.</p>
+            <group>
               <field name="issue_id"/>
             </group>
           </sheet>

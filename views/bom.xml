@@ -36,6 +36,9 @@
               </h1>
             </div>
             <group>
+              <p class="oe_edit_only">Note: A BoM must be linked with a Part and may contain mutliple child Parts.</p>
+            </group>
+            <group>
               <field name="part_ids"/>
             </group>
           </sheet>
