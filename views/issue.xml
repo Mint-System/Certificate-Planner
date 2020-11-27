@@ -50,7 +50,7 @@
             </group>
             <p class="oe_edit_only">Note: Adding a Document Revision will remove it from an already linked Issue</p>
             <group>
-              <field name="revision_ids" widget="many2many_tags"/>
+              <field name="revision_ids" widget="many2many" context="{'default_issue_id': id}"/>
             </group>
           </sheet>
         </form>

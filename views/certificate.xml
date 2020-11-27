@@ -46,8 +46,8 @@
             </group>
               <p class="oe_edit_only">Note: A Certificate is linked by Documents and Issues.</p>
             <group>
-              <field name="document_ids"/>
-              <field name="issue_ids"/>
+              <field name="document_ids" context="{'default_certificate_id': id}"/>
+              <field name="issue_ids" context="{'default_certificate_id': id}"/>
             </group>
           </sheet>
         </form>

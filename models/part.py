@@ -24,6 +24,13 @@ class Part(models.Model):
             raise UserError(_('You cannot delete a Part as long it is referenced by a parent BoM.'))
         return super(Part, self).unlink()
 
+    # defaults
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.description)))
+        return res
+
     # compute
     def _get_bom_id(self):
         self.bom_id=self.env['certificate_planer.bom'].search([('part_id','=',self.id)])
