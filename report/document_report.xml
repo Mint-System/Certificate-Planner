@@ -1,121 +1,168 @@
 <odoo>
 
-    <report 
-        id="document_report"
-        model="certificate_planer.document"
-        string="Document Report"
-        name="certificate_planer.document_report_view"
-        file="certificate_planer.document_report"
-        report_type="qweb-pdf"
-    />
+  <report id="document_report" model="certificate_planer.document" string="Document Report" name="certificate_planer.document_report_view" file="certificate_planer.document_report" report_type="qweb-pdf" />
 
-    <template id="document_report_view">
-        <t t-call="web.html_container">
+  <template id="document_report_view">
+    <t t-call="web.html_container">
 
-            <div class="header">
-                <h4 t-esc="type.name"/>
-            </div>
+      <div class="header">
+        <h4 t-esc="type.name"/>
+      </div>
 
-            <t t-call="web.internal_layout">
-                <div class="page">
+      <t t-call="web.internal_layout">
+        <div class="page">
 
-                    <h1 t-esc="type.name"/>
-                    <p>Print Date:</p>
+          <h1 t-esc="type.name"/>
+          <p>Print Date:</p>
 
-                    <table class="table">
-                        <tr>
-                            <td>Document No:</td>
-                            <td><h2 t-esc="document.name"/></td>
-                            <td>Revision:</td>
-                            <td><h2 t-esc="revision.state_id.name"/></td>
-                        </tr>
-                        <tr>
-                            <td>Subject:</td>
-                            <td><h2 t-esc="document.description"/></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Project Number:</td>
-                            <td><h2 t-esc="certificate.name"/></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Airfcraft Type:</td>
-                            <td><h2 t-esc="certificate.aircraft"/></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Requirements:</td>
-                            <td><h2 t-esc="certificate.specification_id.name"/></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
+          <table class="table">
+            <tr>
+              <td>Document No:</td>
+              <td>
+                <h2 t-esc="document.name"/>
+              </td>
+              <td>Revision:</td>
+              <td>
+                <h2 t-esc="revision.state_id.name"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Subject:</td>
+              <td>
+                <h2 t-esc="document.description"/>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Project Number:</td>
+              <td>
+                <h2 t-esc="certificate.name"/>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Airfcraft Type:</td>
+              <td>
+                <h2 t-esc="certificate.aircraft"/>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Requirements:</td>
+              <td>
+                <h2 t-esc="certificate.specification_id.name"/>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
 
-                    <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
+          <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
 
-                    <p style="page-break-before:always;" />
+          <p style="page-break-before:always;" />
 
-                    <h2>Log of Ammendments</h2>
+          <h2>Log of Ammendments</h2>
 
-                    <table class="table">
-                    <t t-foreach="issue_groups" t-as="group">
+          <t t-foreach="issue_groups" t-as="group">
 
-                        <tr>
-                            <td><strong><p t-field="group.name"/></strong></td>
+            <strong>
+              <h3 t-field="group.name"/>
+            </strong>
 
-                            <td>
-                            <t t-foreach="log[group.id]['issues']" t-as="issue">
-                                <p t-field="issue.name"/>
-                                <p>Authority Ref: <span t-field="issue.project_number"/><br/>
-                                Internal Project Ref: <span t-field="issue.authority_number"/></p>
+            <t t-foreach="log[group.id]['issues']" t-as="issue">
+              <p t-field="issue.name"/>
+              <p>Authority Ref: <span t-field="issue.project_number"/>
+              <br/>
+                                Internal Project Ref: <span t-field="issue.authority_number"/>
+            </p>
 
-                                <table class="table-striped" width="100%">
-                                <t t-foreach="issue.revision_ids" t-as="revision">
-                                    <tr>
-                                        <td><span t-field="revision.document_id.name"/></td>
-                                        <td><span t-field="revision.document_id.description"/></td>
-                                        <td><span t-field="revision.state_id"/></td>
-                                    </tr>
-                                </t>
-                                </table>
-                            </t>
-                            </td>
-                        </tr>
-                    </t>
-                    </table>
+            <table class="table-striped" width="100%">
 
-                    <p style="page-break-before:always;" />
+              <thead>
+                <tr>
+                  <th>Document</th>
+                  <th>Description</th>
+                  <th>Revision</th>
+                </tr>
+              </thead>
 
-                    <h2>Parts and Documents</h2>
+              <t t-foreach="issue.revision_ids" t-as="revision">
+                <tr>
+                  <td>
+                    <small t-field="revision.document_id.name"/>
+                  </td>
+                  <td>
+                    <small t-field="revision.document_id.description"/>
+                  </td>
+                  <td>
+                    <small t-field="revision.state_id"/>
+                  </td>
+                </tr>
+              </t>
+            </table>
 
-                    <p t-field="certificate.part_id.name"/>
+            <br/>
 
-                    <t t-foreach="certificate.part_id.document_ids" t-as="document">
-                        <span t-field="document.name"/><span t-field="document.current_revision_id.state_id"/><br/>
-                    </t>
+          </t>
 
-                    <br />
-                    <p>Child Parts:</p>
-
-                    <t t-set="i" t-value="1"/>
-
-                    <t t-foreach="certificate.part_id.bom_id.part_ids" t-as="part">
-                        <span t-esc="i"/>:
-                        <t t-set="i" t-value="i+1"/>
-                        <span t-field="part.name"/><br/>
-                    </t>
-
-                </div>
-            </t>
-
-            <div class="footer">
-                <h4 t-esc="revision.state_id.name"/>
-            </div>
         </t>
-    </template>
+
+        <p style="page-break-before:always;" />
+
+        <h2>Parts and Documents</h2>
+
+        <table class="table" width="100%">
+          <thead>
+            <tr>
+              <th>Part/Document</th>
+              <th>Description</th>
+              <th>Revision</th>
+            </tr>
+          </thead>
+          <t t-foreach="part_docs" t-as="rec">
+            <tr>
+              <t t-if="rec.get('part')">
+                <td colspan="3">
+                  <t t-if="rec.get('level')==0">
+                    <h3><span t-field="rec['part'].name"/> (<span t-field="rec['part'].description"/>)</h3>
+                  </t>
+                  <t t-if="rec.get('level')==1">
+                    <h4>└ ─ <span t-field="rec['part'].name"/> (<span t-field="rec['part'].description"/>)</h4>
+                  </t>
+                  <t t-if="rec.get('level')==2">
+                    <h5>└ ─ ─ <span t-field="rec['part'].name"/> (<span t-field="rec['part'].description"/>)</h5>
+                  </t>
+                  <t t-if="rec.get('level')==3">
+                    <h5>└ ─ ─ ─ <span t-field="rec['part'].name"/> (<span t-field="rec['part'].description"/>)</h5>
+                  </t>
+                </td>
+              </t>
+
+              <t t-if="rec.get('doc')">
+                <td style="padding: 0.2rem;">
+                  <small t-field="rec['doc'].name"/>
+                </td>
+                <td style="padding: 0.2rem;">
+                  <small t-field="rec['doc'].description"/>
+                </td>
+                <td style="padding: 0.2rem;">
+                  <small t-field="rec['doc'].current_revision_id.state_id"/>
+                </td>
+              </t>
+            </tr>
+          </t>
+        </table>
+
+      </div>
+    </t>
+
+    <div class="footer">
+      <h4 t-esc="revision.state_id.name"/>
+    </div>
+  </t>
+</template>
 
 </odoo>

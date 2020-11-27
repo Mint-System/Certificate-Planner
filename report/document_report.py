@@ -42,11 +42,83 @@ class DocumentReport(models.AbstractModel):
             issue_groups.append(issue_group)
 
             # create key in log
-            log[issue_group.id]={'documents': [], 'issues': [] }
+            log[issue_group.id]={'issues': [] }
 
             # get issues from domain filter
             issues=self.env['certificate_planer.issue'].search(issue_domain)
             log[issue_group.id]['issues']=issues
+
+        # parts and docs
+        part_docs=[]
+        
+        # process parts and docs
+        for part in certificate.part_id:
+            part_docs.append({
+                'type': 'part',
+                'part': part,
+                'level': 0
+            })
+
+            # append doc level 0
+            for doc in part.document_ids:
+                part_docs.append({
+                    'type:': 'doc',
+                    'doc': doc
+                })
+
+            # refetch part
+            part=self.env['certificate_planer.part'].browse(part.id)
+
+            # iterate child part level 0
+            for part in part.bom_id.part_ids:
+                part_docs.append({
+                    'type': 'part',
+                    'part': part,
+                    'level': 1
+                })
+
+                # append docs level 1
+                for doc in part.document_ids:
+                    part_docs.append({
+                        'type:': 'doc',
+                        'doc': doc
+                    })
+
+                # refetch part
+                part=self.env['certificate_planer.part'].browse(part.id)
+
+                # iterate child part level 1
+                for part in part.bom_id.part_ids:
+                    part_docs.append({
+                        'type': 'part',
+                        'part': part,
+                        'level': 2
+                    })
+
+                    # append docs level 2
+                    for doc in part.document_ids:
+                        part_docs.append({
+                            'type:': 'doc',
+                            'doc': doc
+                        })
+                    
+                    # refetch part
+                    part=self.env['certificate_planer.part'].browse(part.id)
+
+                    # iterate child part level 2
+                    for part in part.bom_id.part_ids:
+                        part_docs.append({
+                            'type': 'part',
+                            'part': part,
+                            'level': 3
+                        })
+
+                        # append docs level 3
+                        for doc in part.document_ids:
+                            part_docs.append({
+                                'type:': 'doc',
+                                'doc': doc
+                            })
 
         # return a custom rendering context
         return {
@@ -55,5 +127,6 @@ class DocumentReport(models.AbstractModel):
             'type': type,
             'revision': revision,
             'issue_groups': issue_groups,
-            'log': log
+            'log': log,
+            'part_docs': part_docs
         }   
