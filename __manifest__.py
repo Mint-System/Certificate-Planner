@@ -3,11 +3,11 @@
     'name': "Certificate Planer",
 
     'summary': """
-        Certificate Planer Summary
+        Approve and manage aircraft documents and certificates.
     """,
 
     'description': """
-        Certificate Planer Description
+        Approve and manage aircraft documents and certificates.
     """,
 
     'author': "Mint System GmbH",
@@ -17,7 +17,7 @@
     # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Operations',
-    'version': '0.1',
+    'version': '1.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],

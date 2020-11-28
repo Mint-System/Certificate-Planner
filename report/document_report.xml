@@ -1,25 +1,91 @@
 <odoo>
 
-  <report id="document_report" model="certificate_planer.document" string="Document Report" name="certificate_planer.document_report_view" file="certificate_planer.document_report" report_type="qweb-pdf" />
+  <record id="paperformat_certificate_planer" model="report.paperformat">
+      <field name="name">A4 Certificate Planer</field>
+      <field name="default" eval="True" />
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Portrait</field>
+      <field name="margin_top">40</field>
+      <field name="margin_bottom">20</field>
+      <field name="margin_left">7</field>
+      <field name="margin_right">7</field>
+      <field name="header_line" eval="False" />
+      <field name="header_spacing">30</field>
+      <field name="dpi">90</field>
+  </record>
+
+  <report id="document_report" 
+    model="certificate_planer.document" 
+    string="Document Report" 
+    name="certificate_planer.document_report_view" 
+    file="certificate_planer.document_report"
+    report_type="qweb-pdf"
+    paperformat="paperformat_certificate_planer"/>
+
+  <template id="custom_internal_layout">
+    <t t-if="not o" t-set="o" t-value="doc"/>
+
+    <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id"/>
+        </t>
+        <t t-elif="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-else="else">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+    </t>
+
+    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0"/>
+    </div>
+
+  </template>
 
   <template id="document_report_view">
+    <t t-foreach="docs" t-as="doc">
     <t t-call="web.html_container">
 
       <div class="header">
-        <h4 t-esc="type.name"/>
+        <div class="row">
+          <div class="col-4">
+            <span>Engineering</span>
+            <h4 t-esc="doc.type_id.name"/>
+          </div>
+          <div class="col-4 text-center">
+            <br />
+            <h4 t-esc="doc.name"/>
+          </div>
+          <div class="col-4 text-right">
+            <img src="/logo.png?company=1"/>
+          </div>
+        </div>
+        <hr/>
       </div>
 
-      <t t-call="web.internal_layout">
+      <t t-call="certificate_planer.custom_internal_layout">
         <div class="page">
 
-          <h1 t-esc="type.name"/>
-          <p>Print Date:</p>
+          <br />
+          <br />
+          <br />
+
+          <h1 t-esc="doc.type_id.name"/>
+          <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+
+          <br />
+          <br />
+          <br />
 
           <table class="table">
             <tr>
               <td>Document No:</td>
               <td>
-                <h2 t-esc="document.name"/>
+                <h2 t-esc="doc.name"/>
               </td>
               <td>Revision:</td>
               <td>
@@ -29,7 +95,7 @@
             <tr>
               <td>Subject:</td>
               <td>
-                <h2 t-esc="document.description"/>
+                <h2 t-esc="doc.description"/>
               </td>
               <td></td>
               <td></td>
@@ -37,7 +103,7 @@
             <tr>
               <td>Project Number:</td>
               <td>
-                <h2 t-esc="certificate.name"/>
+                <h2 t-esc="doc.certificate_id.name"/>
               </td>
               <td></td>
               <td></td>
@@ -45,7 +111,7 @@
             <tr>
               <td>Airfcraft Type:</td>
               <td>
-                <h2 t-esc="certificate.aircraft"/>
+                <h2 t-esc="doc.certificate_id.aircraft"/>
               </td>
               <td></td>
               <td></td>
@@ -53,12 +119,35 @@
             <tr>
               <td>Requirements:</td>
               <td>
-                <h2 t-esc="certificate.specification_id.name"/>
+                <h2 t-esc="doc.certificate_id.specification_id.name"/>
               </td>
               <td></td>
               <td></td>
             </tr>
           </table>
+
+          <br />
+          <br />
+          <br />
+
+          <table class="table">
+            <tr>
+              <td style="border-top: none; padding-bottom: 3rem;"><strong>Prepared:</strong></td>
+              <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
+            </tr>
+            <tr>
+              <td style="border-top: none;padding-bottom: 1rem;"><strong>Verified CVE:</strong></td>
+              <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
+            </tr>
+          </table>
+
+
+          <p>Approved under the authority of the Design Organisation<br/>
+          No: EASA.21J.359</p>
+
+          <br />
+          <br />
+          <br />
 
           <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
 
@@ -91,13 +180,13 @@
 
               <t t-foreach="issue.revision_ids" t-as="revision">
                 <tr>
-                  <td>
+                  <td style="padding: 0.2rem;">
                     <small t-field="revision.document_id.name"/>
                   </td>
-                  <td>
+                  <td style="padding: 0.2rem;">
                     <small t-field="revision.document_id.description"/>
                   </td>
-                  <td>
+                  <td style="padding: 0.2rem;">
                     <small t-field="revision.state_id"/>
                   </td>
                 </tr>
@@ -160,8 +249,25 @@
     </t>
 
     <div class="footer">
-      <h4 t-esc="revision.state_id.name"/>
+      <hr/>
+      <div class="row">
+        <div class="col-2">
+          <span>Revision: <span t-esc="revision.state_id.name" /></span>
+        </div>
+        <div class="col-8 text-center">
+          <span>Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen</span>
+        </div>
+        <div class="col-2 text-right">
+          <ul class="list-inline">
+            <li class="list-inline-item"><span class="page"/></li>
+            <li class="list-inline-item">/</li>
+            <li class="list-inline-item"><span class="topage"/></li>
+          </ul>
+        </div>
+      </div>
     </div>
+
+  </t>
   </t>
 </template>
 

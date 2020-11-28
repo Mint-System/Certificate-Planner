@@ -14,15 +14,12 @@ class DocumentReport(models.AbstractModel):
         # get the records selected for this rendering of the report
         documents = self.env[report.model].browse(docids)
 
-        # get most important records
+        # get first document
         document = documents[0]
-        certificate = document.certificate_id
-        type = document.type_id
-        revision = document.current_revision_id
 
         # get issues from certificate grouped by issue group
         issues_grouped = self.env['certificate_planer.issue'].read_group(
-            [('certificate_id', '=', certificate.id)],
+            [('certificate_id', '=', document.certificate_id.id)],
             fields=['id','name'],
             groupby=['group_id'])
 
@@ -52,7 +49,7 @@ class DocumentReport(models.AbstractModel):
         part_docs=[]
         
         # process parts and docs
-        for part in certificate.part_id:
+        for part in document.certificate_id.part_id:
             part_docs.append({
                 'type': 'part',
                 'part': part,
@@ -122,10 +119,8 @@ class DocumentReport(models.AbstractModel):
 
         # return a custom rendering context
         return {
-            'document': document,
-            'certificate': certificate,
-            'type': type,
-            'revision': revision,
+            'docs': documents,
+            'revision': document.current_revision_id,
             'issue_groups': issue_groups,
             'log': log,
             'part_docs': part_docs
