@@ -24,7 +24,7 @@
     report_type="qweb-pdf"
     paperformat="paperformat_certificate_planer"/>
 
-  <template id="custom_internal_layout">
+  <template id="internal_layout">
     <t t-if="not o" t-set="o" t-value="doc"/>
 
     <t t-if="not company">
@@ -61,13 +61,13 @@
             <h4 t-esc="doc.name"/>
           </div>
           <div class="col-4 text-right">
-            <img src="/logo.png?company=1"/>
+            <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 50px; max-width: 300px" alt="Logo"/>
           </div>
         </div>
         <hr/>
       </div>
 
-      <t t-call="certificate_planer.custom_internal_layout">
+      <t t-call="certificate_planer.internal_layout">
         <div class="page">
 
           <br />
