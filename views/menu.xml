@@ -76,17 +76,17 @@
 
     <!-- actions -->
 
-    <menuitem name="Document Revision State"
+    <menuitem name="Document Revision States"
       id="certificate_planer.document_revision_state_menu"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_revision_state_action"/>
 
-    <menuitem name="Document Type"
+    <menuitem name="Document Types"
       id="certificate_planer.document_type_menu"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_type_action"/>
 
-    <menuitem name="Issue Group"
+    <menuitem name="Issue Groups"
       id="certificate_planer.issue_group_menu"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.issue_group_action"/>
