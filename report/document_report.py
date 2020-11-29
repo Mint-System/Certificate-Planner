@@ -47,75 +47,37 @@ class DocumentReport(models.AbstractModel):
 
         # parts and docs
         part_docs=[]
-        
-        # process parts and docs
-        for part in document.certificate_id.part_id:
-            part_docs.append({
-                'type': 'part',
-                'part': part,
-                'level': 0
-            })
+        #doc_seen=[]
 
-            # append doc level 0
-            for doc in part.document_ids:
-                part_docs.append({
-                    'type:': 'doc',
-                    'doc': doc
-                })
+        # function to process
+        def append_part_docs(level,part_ids):
 
-            # refetch part
-            part=self.env['certificate_planer.part'].browse(part.id)
-
-            # iterate child part level 0
-            for part in part.bom_id.part_ids:
-                part_docs.append({
-                    'type': 'part',
-                    'part': part,
-                    'level': 1
-                })
-
-                # append docs level 1
-                for doc in part.document_ids:
-                    part_docs.append({
-                        'type:': 'doc',
-                        'doc': doc
-                    })
-
-                # refetch part
-                part=self.env['certificate_planer.part'].browse(part.id)
-
-                # iterate child part level 1
-                for part in part.bom_id.part_ids:
+            print(level)
+            # prevent loop
+            if (level < 5):
+                for part in part_ids:
                     part_docs.append({
                         'type': 'part',
                         'part': part,
-                        'level': 2
+                        'level': level
                     })
 
-                    # append docs level 2
                     for doc in part.document_ids:
-                        part_docs.append({
-                            'type:': 'doc',
-                            'doc': doc
-                        })
-                    
-                    # refetch part
-                    part=self.env['certificate_planer.part'].browse(part.id)
-
-                    # iterate child part level 2
-                    for part in part.bom_id.part_ids:
-                        part_docs.append({
-                            'type': 'part',
-                            'part': part,
-                            'level': 3
-                        })
-
-                        # append docs level 3
-                        for doc in part.document_ids:
+                        #if doc.id not in doc_seen:
                             part_docs.append({
                                 'type:': 'doc',
                                 'doc': doc
                             })
+                            #doc_seen.append(doc.id)
+                    
+                    # refetch part
+                    part=self.env['certificate_planer.part'].browse(part.id)
+
+                    # run this function for child part
+                    append_part_docs(level+1, part.bom_id.part_ids)
+        
+        # process parts and docs
+        append_part_docs(0, document.certificate_id.part_id)
 
         # return a custom rendering context
         return {
