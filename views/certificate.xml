@@ -8,7 +8,7 @@
         <search>
           <field name="name"/>
           <field name="aircraft"/>
-          <filter name="group_aircraft" string="By Aircraft" context="{'group_by': 'aircraft'}"/>
+          <filter name="group_aircraft" string="By Aircraft Type" context="{'group_by': 'aircraft'}"/>
         </search>
       </field>
     </record>

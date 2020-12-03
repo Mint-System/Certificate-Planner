@@ -6,20 +6,16 @@ from odoo.exceptions import UserError
 class Issue(models.Model):
     _name = 'certificate_planer.issue'
     _description = 'Certificate Planer Issue'
+    _rec_name = 'group_id'
 
     # fields
-    name = fields.Char(required=True, string="Title")
+    description = fields.Char(required=True, string="Description")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate")
     authority_number = fields.Char(string="Authority Number")
     project_number = fields.Char(string="Project Number")
     group_id = fields.Many2one("certificate_planer.issue_group", required=True, string="Group")
     revision_ids = fields.One2many("certificate_planer.document_revision", "issue_id", string="Document Revisions")
     document_ids = fields.One2many("certificate_planer.document", "issue_id", string="Documents")
-
-    # constraints
-    # _sql_constraints = [
-    #     ('name_unique', 'unique (name)', "Issue with this Title already exists."),
-    # ]
 
     def unlink(self):
         if len(self.document_ids) != 0:
@@ -32,5 +28,5 @@ class Issue(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name[0:50], rec.certificate_id.name)))
+            res.append((rec.id, _('%s (%s)') % (rec.group_id.name, rec.certificate_id.name)))
         return res

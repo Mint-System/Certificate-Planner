@@ -8,6 +8,7 @@
         <search>
           <field name="document_id"/>
           <field name="state_id"/>
+          <field name="reason"/>
           <filter name="group_state" string="By State" context="{'group_by': 'state_id'}"/>
         </search>
       </field>
@@ -20,6 +21,7 @@
         <tree>
           <field name="document_id"/>
           <field name="state_id"/>
+          <field name="reason"/>
         </tree>
       </field>
     </record>

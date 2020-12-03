@@ -5,7 +5,7 @@
       <field name="name">Document Revision State List</field>
       <field name="model">certificate_planer.document_revision_state</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree default_order="name">
           <field name="name"/>
         </tree>
       </field>
