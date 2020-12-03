@@ -162,7 +162,7 @@
               </strong>
 
               <t t-foreach="log[group.id]['issues']" t-as="issue">
-                <p t-field="issue.name"/>
+                <p t-field="issue.description"/>
                 <p>
                 Authority Ref: <span t-field="issue.authority_number"/>
                 <br/>

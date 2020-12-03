@@ -204,7 +204,7 @@
         <!-- Issues -->
 
         <record id="issue_mcr" model="certificate_planer.issue">
-          <field name="name">Initial Release</field>
+          <field name="description">Initial Release</field>
           <field name="certificate_id" ref="certificate_ddp" />
           <field name="authority_number">n/a</field>
           <field name="project_number">MCR-18-038</field>
