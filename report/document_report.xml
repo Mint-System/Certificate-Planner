@@ -16,7 +16,14 @@
     <field name="dpi">90</field>
   </record>
 
-  <report id="document_report" model="certificate_planer.document" string="Document Report" name="certificate_planer.document_report_view" file="certificate_planer.document_report" report_type="qweb-pdf" paperformat="paperformat_certificate_planer"/>
+  <report id="document_report"
+    model="certificate_planer.document"
+    string="Document Report"
+    name="certificate_planer.document_report_view"
+    file="certificate_planer.document_report"
+    report_type="qweb-pdf"
+    print_report_name="'%s' % (object.name)"
+    paperformat="paperformat_certificate_planer"/>
 
   <template id="internal_layout">
     <t t-if="not o" t-set="o" t-value="doc"/>
