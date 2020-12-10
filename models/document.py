@@ -24,3 +24,11 @@ class Document(models.Model):
         if len(self.revision_ids) != 0:
             raise UserError(_('You cannot delete a Document as long it is referenced by a Document Revision.'))
         return super(Document, self).unlink()
+    
+    def view_document_report(self):
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/report/html/certificate_planer.document_report_view/%(document_id)s' % {'document_id': self.id},
+        }

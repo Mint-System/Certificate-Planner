@@ -135,13 +135,13 @@
             <table class="table">
               <tr>
                 <td style="border-top: none; padding-bottom: 3rem;">
-                  <strong>Prepared:</strong>
+                  <span class="o_bold">Prepared:</span>
                 </td>
                 <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
               </tr>
               <tr>
                 <td style="border-top: none;padding-bottom: 1rem;">
-                  <strong>Verified CVE:</strong>
+                  <span class="o_bold">Verified CVE:</span>
                 </td>
                 <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
               </tr>
@@ -164,9 +164,8 @@
             <t t-foreach="issue_groups" t-as="group">
 
               <div style="page-break-inside: avoid;">
-              <strong>
-                <h3 t-field="group.name"/>
-              </strong>
+
+              <h3 class="o_bold" t-field="group.name"/>
 
               <t t-foreach="log[group.id]['issues']" t-as="issue">
                 <p t-field="issue.description"/>
@@ -181,7 +180,7 @@
                   <thead>
                     <tr>
                       <th>Document</th>
-                      <th>Description</th>
+                      <th>Title</th>
                       <th>Revision</th>
                     </tr>
                   </thead>
@@ -215,7 +214,7 @@
               <thead>
                 <tr>
                   <th>Part/Document</th>
-                  <th>Description</th>
+                  <th>Title</th>
                   <th>Revision</th>
                 </tr>
               </thead>
