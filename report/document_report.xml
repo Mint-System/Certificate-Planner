@@ -229,22 +229,22 @@
                         </h3>
                       </t>
                       <t t-if="rec.get('level')==1">
-                        <h4>└ ─ <span t-field="rec['part'].name"/>
+                        <h4> ─ <span t-field="rec['part'].name"/>
                           (<span t-field="rec['part'].description"/>)
                         </h4>
                       </t>
                       <t t-if="rec.get('level')==2">
-                        <h5>└ ─ ─ <span t-field="rec['part'].name"/>
+                        <h5> ─ ─ <span t-field="rec['part'].name"/>
                           (<span t-field="rec['part'].description"/>)
                         </h5>
                       </t>
                       <t t-if="rec.get('level')==3">
-                        <h5>└ ─ ─ ─ <span t-field="rec['part'].name"/>
+                        <h5> ─ ─ ─ <span t-field="rec['part'].name"/>
                           (<span t-field="rec['part'].description"/>)
                         </h5>
                       </t>
                       <t t-if="rec.get('level')==4">
-                        <h5>└ ─ ─ ─ ─ <span t-field="rec['part'].name"/>
+                        <h5> ─ ─ ─ ─ <span t-field="rec['part'].name"/>
                           (<span t-field="rec['part'].description"/>)
                         </h5>
                       </t>
