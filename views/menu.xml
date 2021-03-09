@@ -15,6 +15,12 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="certificate_planer.aircraft_type_action">
+      <field name="name">Aircraft Types</field>
+      <field name="res_model">certificate_planer.aircraft_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <record model="ir.actions.act_window" id="certificate_planer.document_action">
       <field name="name">Documents</field>
       <field name="res_model">certificate_planer.document</field>
@@ -76,6 +82,8 @@
 
     <!-- actions -->
 
+    <!-- Configuration actions -->
+
     <menuitem name="Document Revision States"
       id="certificate_planer.document_revision_state_menu"
       parent="certificate_planer.configuration_menu"
@@ -91,6 +99,18 @@
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.issue_group_action"/>
 
+    <menuitem name="Aircraft Types"
+      id="certificate_planer.aircraft_type_menu"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.aircraft_type_action"/>
+
+    <menuitem name="Specifications"
+      id="certificate_planer.specification_menu"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.specification_action"/>
+    
+    <!-- Parts actions -->
+
     <menuitem name="Parts"
       id="certificate_planer.part_menu"
       parent="certificate_planer.parts_menu"
@@ -100,6 +120,8 @@
       id="certificate_planer.bom_menu"
       parent="certificate_planer.parts_menu"
       action="certificate_planer.bom_action"/>
+
+    <!-- Certificates actions -->
 
     <menuitem name="Certificates"
       id="certificate_planer.certificate_menu"
@@ -111,10 +133,7 @@
       parent="certificate_planer.certificates_menu"
       action="certificate_planer.issue_action"/>
   
-    <menuitem name="Specifications"
-      id="certificate_planer.specification_menu"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.specification_action"/>
+    <!-- Documents actions -->
 
     <menuitem name="Documents"
       id="certificate_planer.document_menu"

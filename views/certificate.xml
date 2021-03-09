@@ -7,8 +7,8 @@
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
-          <field name="aircraft"/>
-          <filter name="group_aircraft" string="By Aircraft Type" context="{'group_by': 'aircraft'}"/>
+          <field name="aircraft_type_id"/>
+          <filter name="group_aircraft" string="By Aircraft Type" context="{'group_by': 'aircraft_type_id'}"/>
         </search>
       </field>
     </record>
@@ -19,7 +19,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="aircraft"/>
+          <field name="aircraft_type_id"/>
         </tree>
       </field>
     </record>
@@ -42,6 +42,7 @@
             <group>
               <field name="part_id"/>
               <field name="aircraft"/>
+              <field name="aircraft_type_id"/>
               <field name="specification_id"/>
             </group>
               <p class="oe_edit_only">Note: A Certificate is linked by Documents and Issues.</p>

@@ -13,11 +13,8 @@
     'author': "Mint System GmbH",
     'website': "https://www.mint-system.ch",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
     'category': 'Operations',
-    'version': '1.0.0',
+    'version': '13.0.1.0.1',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
@@ -31,6 +28,7 @@
         'views/specification.xml',
         'views/issue_group.xml',
         'views/certificate.xml',
+        'views/aircraft_type.xml',
         'views/issue.xml',
         'views/document.xml',
         'views/document_type.xml',

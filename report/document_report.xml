@@ -113,7 +113,7 @@
               <tr>
                 <td>Aircraft Type:</td>
                 <td>
-                  <h2 t-esc="doc.certificate_id.aircraft"/>
+                  <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
                 </td>
                 <td></td>
                 <td></td>

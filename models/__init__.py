@@ -2,6 +2,7 @@
 
 from . import bom
 from . import certificate
+from . import aircraft_type
 from . import document_revision_state
 from . import document_revision
 from . import document_type
