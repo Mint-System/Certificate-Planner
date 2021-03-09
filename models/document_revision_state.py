@@ -10,7 +10,8 @@ class DocumentRevisionState(models.Model):
     # fields
     name = fields.Char(required=True, string="Title")
     revision_ids = fields.One2many("certificate_planer.document_revision", "state_id", string="Document Revisions")
-
+    active = fields.Boolean(default=True)
+    
     # constraints
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Document Revision State with this Title already exists."),
