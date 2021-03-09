@@ -47,7 +47,13 @@
               <field name="document_ids"/>
               <field name="bom_ids"/>
             </group>
+            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
           </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
         </form>
       </field>
     </record>

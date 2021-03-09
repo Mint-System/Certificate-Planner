@@ -3,6 +3,7 @@
 from odoo import models, fields, api, _
 
 class Certificate(models.Model):
+    _inherit = 'mail.thread'
     _name = 'certificate_planer.certificate'
     _description = 'Certificate Planer Certificate'
 
@@ -10,8 +11,8 @@ class Certificate(models.Model):
     name = fields.Char(required=True, string="Title")
     part_id = fields.Many2one("certificate_planer.part", string="Part")
     aircraft = fields.Char(required=True, string="Aircraft Type (deprecated)", readonly=True)
-    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type")
-    specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification")
+    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", track_visibility="always")
+    specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification", track_visibility="always")
     document_ids = fields.One2many("certificate_planer.document", "certificate_id", string="Documents")
     issue_ids = fields.One2many("certificate_planer.issue", "certificate_id", string="Issues")
 
@@ -24,5 +25,5 @@ class Certificate(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name, rec.aircraft)))
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.aircraft_type_id.name)))
         return res
