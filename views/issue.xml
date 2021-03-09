@@ -7,7 +7,7 @@
       <field name="arch" type="xml">
         <search>
           <field name="group_id"/>
-          <field name="certificate_id"/>
+          <field name="description"/>
           <filter name="group_certificate" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
           <filter name="group_group" string="By Group" context="{'group_by': 'group_id'}"/>
         </search>
@@ -20,7 +20,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="group_id"/>
-          <field name="certificate_id"/>
+          <field name="description"/>
         </tree>
       </field>
     </record>
