@@ -9,6 +9,7 @@
           <field name="name"/>
           <field name="type_id"/>
           <field name="description"/>
+          <field name="current_revision_id"/>
           <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
         </search>
       </field>
@@ -22,6 +23,7 @@
           <field name="name"/>
           <field name="type_id"/>
           <field name="description"/>
+          <field name="current_revision_id"/>
         </tree>
       </field>
     </record>
