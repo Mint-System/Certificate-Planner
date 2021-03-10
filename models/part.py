@@ -14,6 +14,8 @@ class Part(models.Model):
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_get_bom_id")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents")
+    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_get_part_ids")
+
 
     # constraints
     _sql_constraints = [
@@ -34,4 +36,7 @@ class Part(models.Model):
 
     # compute
     def _get_bom_id(self):
-        self.bom_id=self.env['certificate_planer.bom'].search([('part_id','=',self.id)])
+        self.bom_id = self.env['certificate_planer.bom'].search([('part_id','=',self.id)])
+
+    def _get_part_ids(self):
+        self.part_ids = self.env['certificate_planer.bom'].search([('part_id','=',self.id)]).part_ids
