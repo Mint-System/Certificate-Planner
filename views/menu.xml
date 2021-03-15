@@ -71,7 +71,7 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Certificate Planer" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
+    <menuitem name="Certificate Planner" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
 
     <!-- menu categories -->
 

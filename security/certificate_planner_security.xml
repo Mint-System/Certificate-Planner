@@ -3,7 +3,7 @@
     <data>
 
         <record id="module_certificate_planer_category" model="ir.module.category">
-            <field name="name">Certificate Planer</field>
+            <field name="name">Certificate Planner</field>
         </record>
 
         <record id="group_certificate_planer_user" model="res.groups">

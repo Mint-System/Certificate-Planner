@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Certificate Planer",
+    'name': "Certificate Planner",
 
     'summary': """
         Approve and manage aircraft documents and certificates.
@@ -21,7 +21,7 @@
 
     # always loaded
     'data': [
-        'security/certificate_planer_security.xml',
+        'security/certificate_planner_security.xml',
         'security/ir.model.access.csv',
         'views/part.xml',
         'views/bom.xml',
