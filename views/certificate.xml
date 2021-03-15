@@ -6,7 +6,7 @@
       <field name="model">certificate_planer.certificate</field>
       <field name="arch" type="xml">
         <search>
-          <field name="name"/>
+          <field name="part_id"/>
           <field name="aircraft_type_id"/>
           <filter name="group_aircraft" string="By Aircraft Type" context="{'group_by': 'aircraft_type_id'}"/>
         </search>
@@ -18,7 +18,7 @@
       <field name="model">certificate_planer.certificate</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
+          <field name="part_id"/>
           <field name="aircraft_type_id"/>
         </tree>
       </field>
@@ -31,17 +31,8 @@
         <form string="Certificate Form">
           <sheet>
             <p>Certificate</p>
-            <div class="oe_title">
-              <div class="oe_edit_only">
-                <label for="name"/>
-              </div>
-              <h1>
-                <field name="name"/>
-              </h1>
-            </div>
             <group>
               <field name="part_id"/>
-              <field name="aircraft"/>
               <field name="aircraft_type_id"/>
               <field name="specification_id"/>
             </group>
