@@ -24,7 +24,9 @@ class Part(models.Model):
 
     def unlink(self):
         if len(self.bom_ids) != 0:
-            raise UserError(_('You cannot delete a Part as long it is referenced by a parent BoM.'))
+            raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a parent BoM.'))
+        if len(self.document_ids) != 0:
+            raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a document.'))
         return super(Part, self).unlink()
 
     # defaults
