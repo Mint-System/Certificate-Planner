@@ -11,3 +11,4 @@ from . import issue_group
 from . import issue
 from . import part
 from . import specification
+from . import document_part_report

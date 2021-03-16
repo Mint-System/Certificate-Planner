@@ -14,7 +14,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.1.0.1',
+    'version': '13.0.1.1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
@@ -36,6 +36,7 @@
         'views/document_revision_state.xml',
         'views/menu.xml',
         'report/document_report.xml',
+        'views/document_part_report.xml'
         #'demo/demo.xml'
     ],
 
