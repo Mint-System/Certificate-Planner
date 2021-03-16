@@ -29,5 +29,5 @@ class Issue(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.group_id.name, rec.certificate_id.name)))
+            res.append((rec.id, _('%s (%s)') % (rec.group_id.name, rec.certificate_id.part_id.name)))
         return res
