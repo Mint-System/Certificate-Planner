@@ -7,9 +7,11 @@ class Part(models.Model):
     _inherit = 'mail.thread'
     _name = 'certificate_planer.part'
     _description = 'Certificate Planer Part'
-
+    _order = 'sequence,name'
+    
     # fields
     name = fields.Char(required=True, string="Title")
+    sequence = fields.Integer(string="Sequence")
     description = fields.Char(required=True, string="Description")
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_get_bom_id")

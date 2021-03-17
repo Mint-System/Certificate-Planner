@@ -16,9 +16,10 @@
       <field name="name">Part List</field>
       <field name="model">certificate_planer.part</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree default_order="name">
           <field name="name"/>
           <field name="description"/>
+          <field name="sequence" optional="hide"/>
         </tree>
       </field>
     </record>
@@ -47,6 +48,7 @@
               <field name="document_ids"/>
               <field name="bom_ids"/>
               <field name="part_ids"/>
+              <field name="sequence"/>
             </group>
             <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
             Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
