@@ -6,6 +6,7 @@
       <field name="model">certificate_planer.document_revision_state</field>
       <field name="arch" type="xml">
         <search>
+          <field name="name"/>
           <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
         </search>
       </field>

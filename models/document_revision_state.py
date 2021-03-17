@@ -17,7 +17,18 @@ class DocumentRevisionState(models.Model):
         ('name_unique', 'unique (name)', "Document Revision State with this Title already exists."),
     ]
 
+    # defaults
     def unlink(self):
         if len(self.revision_ids) != 0:
             raise UserError(_('You cannot delete a Document Revision State as long it is referenced by a Document Revision.'))
         return super(DocumentRevisionState, self).unlink()
+    
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = args or []
+        if name:
+            records = self.search([('name', "like", name)] + args, limit=limit, order='name').name_get()
+        else:
+            records = self._name_search(name, args, operator, limit=limit)
+        
+        return records

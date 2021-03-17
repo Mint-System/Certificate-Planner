@@ -12,6 +12,7 @@ class DocumentPartReport(models.Model):
     document = fields.Many2one('certificate_planer.document')
     part = fields.Many2one('certificate_planer.part')
     
+    # defaults
     def init(self):
         self._cr.execute(""" 
             CREATE OR REPLACE VIEW certificate_planer_document_part_report AS ( 
