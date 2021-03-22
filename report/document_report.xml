@@ -16,7 +16,14 @@
     <field name="dpi">90</field>
   </record>
 
-  <report id="document_report" model="certificate_planer.document" string="Document Report" name="certificate_planer.document_report_view" file="certificate_planer.document_report" report_type="qweb-pdf" paperformat="paperformat_certificate_planer"/>
+  <report id="document_report"
+    model="certificate_planer.document"
+    string="Document Report"
+    name="certificate_planer.document_report_view"
+    file="certificate_planer.document_report"
+    report_type="qweb-pdf"
+    print_report_name="'%s' % (object.name)"
+    paperformat="paperformat_certificate_planer"/>
 
   <template id="internal_layout">
     <t t-if="not o" t-set="o" t-value="doc"/>
@@ -55,7 +62,6 @@
               <h4 t-esc="doc.name"/>
             </div>
             <div class="col-4 text-right">
-              <br />
               <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 40px; max-width: 300px" alt="Logo"/>
             </div>
           </div>
@@ -91,23 +97,23 @@
               <tr>
                 <td>Subject:</td>
                 <td>
-                  <h2 t-esc="doc.description"/>
+                  <h2 t-esc="doc.certificate_id.part_id.description"/>
                 </td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>Project Number:</td>
+                <td>Certificate:</td>
                 <td>
-                  <h2 t-esc="doc.certificate_id.name"/>
+                  <h2 t-esc="doc.certificate_id.part_id.name"/>
                 </td>
                 <td></td>
                 <td></td>
               </tr>
               <tr>
-                <td>Airfcraft Type:</td>
+                <td>Aircraft Type:</td>
                 <td>
-                  <h2 t-esc="doc.certificate_id.aircraft"/>
+                  <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
                 </td>
                 <td></td>
                 <td></td>
@@ -129,13 +135,13 @@
             <table class="table">
               <tr>
                 <td style="border-top: none; padding-bottom: 3rem;">
-                  <strong>Prepared:</strong>
+                  <span class="o_bold">Prepared:</span>
                 </td>
                 <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
               </tr>
               <tr>
                 <td style="border-top: none;padding-bottom: 1rem;">
-                  <strong>Verified CVE:</strong>
+                  <span class="o_bold">Verified CVE:</span>
                 </td>
                 <td style="border-top: none;">. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</td>
               </tr>
@@ -157,135 +163,135 @@
 
             <t t-foreach="issue_groups" t-as="group">
 
-              <strong>
-                <h3 t-field="group.name"/>
-              </strong>
+              <div style="page-break-inside: avoid;">
+
+              <h3 class="o_bold" t-field="group.name"/>
 
               <t t-foreach="log[group.id]['issues']" t-as="issue">
-                <p t-field="issue.name"/>
+                <p t-field="issue.description"/>
                 <p>
-                Authority Ref: <span t-field="issue.project_number"/>
+                Authority Ref: <span t-field="issue.authority_number"/>
                 <br/>
-                Internal Project Ref: <span t-field="issue.authority_number"/>
-              </p>
+                Internal Project Ref: <span t-field="issue.project_number"/>
+                </p>
 
-              <table class="table-striped" width="100%">
+                <table class="table-striped" width="100%">
 
-                <thead>
-                  <tr>
-                    <th>Document</th>
-                    <th>Description</th>
-                    <th>Revision</th>
-                  </tr>
-                </thead>
+                  <thead>
+                    <tr>
+                      <th>Document</th>
+                      <th>Title</th>
+                      <th>Revision</th>
+                    </tr>
+                  </thead>
 
-                <t t-foreach="issue.revision_ids" t-as="revision">
-                  <tr>
-                    <td style="padding: 0.2rem;">
-                      <small t-field="revision.document_id.name"/>
-                    </td>
-                    <td style="padding: 0.2rem;">
-                      <small t-field="revision.document_id.description"/>
-                    </td>
-                    <td style="padding: 0.2rem;">
-                      <small t-field="revision.state_id"/>
-                    </td>
-                  </tr>
-                </t>
-              </table>
+                  <t t-foreach="issue.revision_ids" t-as="revision">
+                    <tr>
+                      <td style="padding: 0.2rem;">
+                        <small t-field="revision.document_id.name"/>
+                      </td>
+                      <td style="padding: 0.2rem;">
+                        <small t-field="revision.document_id.description"/>
+                      </td>
+                      <td style="padding: 0.2rem;">
+                        <small t-field="revision.state_id"/>
+                      </td>
+                    </tr>
+                  </t>
+                </table>
 
-              <br/>
+                <br/>
+              </t>
+              </div>
 
             </t>
 
-          </t>
+            <p style="page-break-before:always;" />
 
-          <p style="page-break-before:always;" />
+            <h2>Parts and Documents</h2>
 
-          <h2>Parts and Documents</h2>
+            <table class="table" width="100%">
+              <thead>
+                <tr>
+                  <th>Part/Document</th>
+                  <th>Title</th>
+                  <th>Revision</th>
+                </tr>
+              </thead>
+              <t t-foreach="part_docs" t-as="rec">
+                <tr>
+                  <t t-if="rec.get('part')">
+                    <td colspan="3">
+                      <t t-if="rec.get('level')==0">
+                        <h3>
+                          <span t-field="rec['part'].name"/>
+                          (<span t-field="rec['part'].description"/>)
+                        </h3>
+                      </t>
+                      <t t-if="rec.get('level')==1">
+                        <h4> ─ <span t-field="rec['part'].name"/>
+                          (<span t-field="rec['part'].description"/>)
+                        </h4>
+                      </t>
+                      <t t-if="rec.get('level')==2">
+                        <h5> ─ ─ <span t-field="rec['part'].name"/>
+                          (<span t-field="rec['part'].description"/>)
+                        </h5>
+                      </t>
+                      <t t-if="rec.get('level')==3">
+                        <h5> ─ ─ ─ <span t-field="rec['part'].name"/>
+                          (<span t-field="rec['part'].description"/>)
+                        </h5>
+                      </t>
+                      <t t-if="rec.get('level')==4">
+                        <h5> ─ ─ ─ ─ <span t-field="rec['part'].name"/>
+                          (<span t-field="rec['part'].description"/>)
+                        </h5>
+                      </t>
+                    </td>
+                  </t>
 
-          <table class="table" width="100%">
-            <thead>
-              <tr>
-                <th>Part/Document</th>
-                <th>Description</th>
-                <th>Revision</th>
-              </tr>
-            </thead>
-            <t t-foreach="part_docs" t-as="rec">
-              <tr>
-                <t t-if="rec.get('part')">
-                  <td colspan="3">
-                    <t t-if="rec.get('level')==0">
-                      <h3>
-                        <span t-field="rec['part'].name"/>
-                        (<span t-field="rec['part'].description"/>)
-                      </h3>
-                    </t>
-                    <t t-if="rec.get('level')==1">
-                      <h4>└ ─ <span t-field="rec['part'].name"/>
-                        (<span t-field="rec['part'].description"/>)
-                      </h4>
-                    </t>
-                    <t t-if="rec.get('level')==2">
-                      <h5>└ ─ ─ <span t-field="rec['part'].name"/>
-                        (<span t-field="rec['part'].description"/>)
-                      </h5>
-                    </t>
-                    <t t-if="rec.get('level')==3">
-                      <h5>└ ─ ─ ─ <span t-field="rec['part'].name"/>
-                        (<span t-field="rec['part'].description"/>)
-                      </h5>
-                    </t>
-                    <t t-if="rec.get('level')==4">
-                      <h5>└ ─ ─ ─ ─ <span t-field="rec['part'].name"/>
-                        (<span t-field="rec['part'].description"/>)
-                      </h5>
-                    </t>
-                  </td>
-                </t>
+                  <t t-if="rec.get('doc')">
+                    <td style="padding: 0.2rem;">
+                      <small t-field="rec['doc'].name"/>
+                    </td>
+                    <td style="padding: 0.2rem;">
+                      <small t-field="rec['doc'].description"/>
+                    </td>
+                    <td style="padding: 0.2rem;">
+                      <small t-field="rec['doc'].current_revision_id.state_id"/>
+                    </td>
+                  </t>
+                </tr>
+              </t>
+            </table>
 
-                <t t-if="rec.get('doc')">
-                  <td style="padding: 0.2rem;">
-                    <small t-field="rec['doc'].name"/>
-                  </td>
-                  <td style="padding: 0.2rem;">
-                    <small t-field="rec['doc'].description"/>
-                  </td>
-                  <td style="padding: 0.2rem;">
-                    <small t-field="rec['doc'].current_revision_id.state_id"/>
-                  </td>
-                </t>
-              </tr>
-            </t>
-          </table>
+          </div>
+        </t>
 
+        <div class="footer">
+          <hr/>
+          <div class="row">
+            <div class="col-2">
+              <span>Revision: <span t-esc="revision.state_id.name" />
+              </span>
+            </div>
+            <div class="col-8 text-center">
+              <span>Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen</span>
+            </div>
+            <div class="col-2 text-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <span class="page"/>
+                </li>
+                <li class="list-inline-item">/</li>
+                <li class="list-inline-item">
+                  <span class="topage"/>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </t>
-
-      <div class="footer">
-        <hr/>
-        <div class="row">
-          <div class="col-2">
-            <span>Revision: <span t-esc="revision.state_id.name" />
-            </span>
-          </div>
-          <div class="col-8 text-center">
-            <span>Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen</span>
-          </div>
-          <div class="col-2 text-right">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <span class="page"/>
-              </li>
-              <li class="list-inline-item">/</li>
-              <li class="list-inline-item">
-                <span class="topage"/>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
     </t>
   </t>

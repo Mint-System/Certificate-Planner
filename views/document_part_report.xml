@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="certificate_planer.document_part_report_list">
+      <field name="name">Document Part Report</field>
+      <field name="model">certificate_planer.document_part_report</field>
+      <field name="arch" type="xml">
+        <tree string="Document Part Report" create="false"> 
+          <field name="document"/>
+          <field name="part"/>
+        </tree>
+      </field>
+    </record>
+
+  </data>
+</odoo>

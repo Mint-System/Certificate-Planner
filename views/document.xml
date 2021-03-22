@@ -8,6 +8,8 @@
         <search>
           <field name="name"/>
           <field name="type_id"/>
+          <field name="description"/>
+          <field name="current_revision_id"/>
           <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
         </search>
       </field>
@@ -20,6 +22,8 @@
         <tree>
           <field name="name"/>
           <field name="type_id"/>
+          <field name="description"/>
+          <field name="current_revision_id"/>
         </tree>
       </field>
     </record>
@@ -29,6 +33,9 @@
       <field name="model">certificate_planer.document</field>
       <field name="arch" type="xml">
         <form string="Document Form">
+          <header>
+            <button name="view_document_report" type="object" string="View Document Report" />
+          </header>
           <sheet>
             <p>Document</p>
             <div class="oe_title">
@@ -50,6 +57,8 @@
               <field name="revision_ids" context="{'default_document_id': id}"/>
               <field name="part_ids"/>
             </group>
+            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
           </sheet>
           <div class="oe_chatter">
             <field name="message_follower_ids" widget="mail_followers"/>

@@ -15,6 +15,12 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="certificate_planer.aircraft_type_action">
+      <field name="name">Aircraft Types</field>
+      <field name="res_model">certificate_planer.aircraft_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
     <record model="ir.actions.act_window" id="certificate_planer.document_action">
       <field name="name">Documents</field>
       <field name="res_model">certificate_planer.document</field>
@@ -57,24 +63,34 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-      <record model="ir.actions.act_window" id="certificate_planer.issue_action">
+    <record model="ir.actions.act_window" id="certificate_planer.issue_action">
       <field name="name">Issues</field>
       <field name="res_model">certificate_planer.issue</field>
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="certificate_planer.document_part_report_action">
+      <field name="name">Document Part Report</field>
+      <field name="res_model">certificate_planer.document_part_report</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" eval="False"/> 
+    </record>
+
     <!-- Top menu item -->
 
-    <menuitem name="Certificate Planer" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
+    <menuitem name="Certificate Planner" id="certificate_planer.menu_root" web_icon="certificate_planer,static/description/icon.png"/>
 
     <!-- menu categories -->
 
-    <menuitem name="Documents" id="certificate_planer.documents_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Certificates" id="certificate_planer.certificates_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Parts" id="certificate_planer.parts_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Configuration" id="certificate_planer.configuration_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Documents" sequence="0" id="certificate_planer.documents_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Certificates" sequence="1" id="certificate_planer.certificates_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Parts" sequence="2" id="certificate_planer.parts_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Reports" sequence="3" id="certificate_planer.report_menu" parent="certificate_planer.menu_root"/>
+    <menuitem name="Configuration" sequence="4" id="certificate_planer.configuration_menu" parent="certificate_planer.menu_root"/>
 
     <!-- actions -->
+
+    <!-- Configuration actions -->
 
     <menuitem name="Document Revision States"
       id="certificate_planer.document_revision_state_menu"
@@ -91,6 +107,18 @@
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.issue_group_action"/>
 
+    <menuitem name="Aircraft Types"
+      id="certificate_planer.aircraft_type_menu"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.aircraft_type_action"/>
+
+    <menuitem name="Specifications"
+      id="certificate_planer.specification_menu"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.specification_action"/>
+    
+    <!-- Parts actions -->
+
     <menuitem name="Parts"
       id="certificate_planer.part_menu"
       parent="certificate_planer.parts_menu"
@@ -100,6 +128,8 @@
       id="certificate_planer.bom_menu"
       parent="certificate_planer.parts_menu"
       action="certificate_planer.bom_action"/>
+
+    <!-- Certificates actions -->
 
     <menuitem name="Certificates"
       id="certificate_planer.certificate_menu"
@@ -111,10 +141,7 @@
       parent="certificate_planer.certificates_menu"
       action="certificate_planer.issue_action"/>
   
-    <menuitem name="Specifications"
-      id="certificate_planer.specification_menu"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.specification_action"/>
+    <!-- Documents actions -->
 
     <menuitem name="Documents"
       id="certificate_planer.document_menu"
@@ -125,6 +152,13 @@
       id="certificate_planer.document_revision_menu"
       parent="certificate_planer.documents_menu"
       action="certificate_planer.document_revision_action"/>
+
+    <!-- Reports actions -->
+
+    <menuitem name="Document Part Report"
+      id="certificate_planer.document_part_view_menu"
+      parent="certificate_planer.report_menu"
+      action="certificate_planer.document_part_report_action"/>
 
   </data>
 </odoo>

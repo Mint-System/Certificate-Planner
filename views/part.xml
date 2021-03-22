@@ -1,13 +1,25 @@
 <odoo>
   <data>
 
+    <record model="ir.ui.view" id="certificate_planer.part_search">
+      <field name="name">Part Search</field>
+      <field name="model">certificate_planer.part</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="description"/>
+        </search>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="certificate_planer.part_list">
       <field name="name">Part List</field>
       <field name="model">certificate_planer.part</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree default_order="name">
           <field name="name"/>
           <field name="description"/>
+          <field name="sequence" optional="hide"/>
         </tree>
       </field>
     </record>
@@ -35,8 +47,16 @@
             <group>
               <field name="document_ids"/>
               <field name="bom_ids"/>
+              <field name="part_ids"/>
+              <field name="sequence"/>
             </group>
+            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
           </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
         </form>
       </field>
     </record>

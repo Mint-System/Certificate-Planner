@@ -20,7 +20,7 @@ class DocumentReport(models.AbstractModel):
         # get issues from certificate grouped by issue group
         issues_grouped = self.env['certificate_planer.issue'].read_group(
             [('certificate_id', '=', document.certificate_id.id)],
-            fields=['id','name'],
+            fields=['id'],
             groupby=['group_id'])
 
         # dict log of ammendments
@@ -52,7 +52,6 @@ class DocumentReport(models.AbstractModel):
         # function to process
         def append_part_docs(level,part_ids):
 
-            print(level)
             # prevent loop
             if (level < 5):
                 for part in part_ids:

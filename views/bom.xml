@@ -39,8 +39,16 @@
               <p class="oe_edit_only">Note: A BoM must be linked with a Part and may contain mutliple child Parts.</p>
             </group>
             <group>
-              <field name="part_ids"/>
+              <!-- <field name="part_ids"/> -->
+              <field name="part_ids">
+                  <tree>
+                      <field name="sequence" widget="handle"/>
+                      <field name="name"/>
+                  </tree>
+              </field>
             </group>
+            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
           </sheet>
         </form>
       </field>
