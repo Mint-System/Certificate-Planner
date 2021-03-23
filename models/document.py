@@ -17,6 +17,7 @@ class Document(models.Model):
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
     revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]")
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
+    state_id = fields.Many2one(related='current_revision_id.state_id')
 
     def unlink(self):
         if len(self.part_ids) != 0:
