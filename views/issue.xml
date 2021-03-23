@@ -8,6 +8,7 @@
         <search>
           <field name="group_id"/>
           <field name="description"/>
+          <field name="certificate_id"/>
           <filter name="group_certificate" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
           <filter name="group_group" string="By Group" context="{'group_by': 'group_id'}"/>
         </search>
@@ -21,6 +22,7 @@
         <tree>
           <field name="group_id"/>
           <field name="description"/>
+          <field name="certificate_id"/>
         </tree>
       </field>
     </record>
