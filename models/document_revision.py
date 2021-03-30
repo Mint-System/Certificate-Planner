@@ -16,7 +16,6 @@ class DocumentRevision(models.Model):
     issue_id = fields.Many2one("certificate_planer.issue", string="Issue", track_visibility="always")
 
     # defaults
-    @api.model
     def name_get(self):
         res = []
         for rec in self:
