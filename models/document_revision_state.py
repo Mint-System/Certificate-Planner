@@ -23,6 +23,7 @@ class DocumentRevisionState(models.Model):
             raise UserError(_('You cannot delete a Document Revision State as long it is referenced by a Document Revision.'))
         return super(DocumentRevisionState, self).unlink()
 
+    @api.model
     def name_search(self, name, args=None, operator="ilike", limit=100):
         args = args or []
         domain = []

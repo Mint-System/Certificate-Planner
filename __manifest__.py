@@ -14,7 +14,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.1.2.2',
+    'version': '13.0.1.2.3',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
