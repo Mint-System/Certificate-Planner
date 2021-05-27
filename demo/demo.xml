@@ -25,23 +25,23 @@
 
     <record id="type_mdl" model="certificate_planer.document_type">
       <field name="name">Master Document List</field>
-      <field name="abbreviation">MDL</field>
+      <field name="identification">MDL</field>
     </record>
     <record id="type_dwl" model="certificate_planer.document_type">
       <field name="name">Master Drawing List</field>
-      <field name="abbreviation">DWL</field>
+      <field name="identification">DWL</field>
     </record>
     <record id="type_mcr" model="certificate_planer.document_type">
       <field name="name">Minor/Major Change Request</field>
-      <field name="abbreviation">MCR</field>
+      <field name="identification">MCR</field>
     </record>
     <record id="type_mis" model="certificate_planer.document_type">
       <field name="name">Miscellaneous Document</field>
-      <field name="abbreviation">MIS</field>
+      <field name="identification">MIS</field>
     </record>
     <record id="type_adwg" model="certificate_planer.document_type">
       <field name="name">Assembly Drawing</field>
-      <field name="abbreviation">ADWG</field>
+      <field name="identification">ADWG</field>
     </record>
 
     <!-- Document -->

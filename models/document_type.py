@@ -7,7 +7,7 @@ class DocumentType(models.Model):
     
     # fields
     name = fields.Char(required=True, string="Title")
-    abbreviation = fields.Char(required=True)
+    identification = fields.Char(required=True)
     document_ids = fields.One2many("certificate_planer.document", "type_id", string="Documents")
 
     # constraints
@@ -24,5 +24,5 @@ class DocumentType(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name, rec.abbreviation)))
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.identification)))
         return res
