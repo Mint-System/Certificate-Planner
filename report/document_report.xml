@@ -97,7 +97,7 @@
               <tr>
                 <td>Subject:</td>
                 <td>
-                  <h2 t-esc="doc.certificate_id.part_id.description"/>
+                  <h2 t-esc="doc.certificate_id.part_id.designation"/>
                 </td>
                 <td></td>
                 <td></td>
@@ -225,27 +225,27 @@
                       <t t-if="rec.get('level')==0">
                         <h3>
                           <span t-field="rec['part'].name"/>
-                          (<span t-field="rec['part'].description"/>)
+                          (<span t-field="rec['part'].designation"/>)
                         </h3>
                       </t>
                       <t t-if="rec.get('level')==1">
                         <h4> ─ <span t-field="rec['part'].name"/>
-                          (<span t-field="rec['part'].description"/>)
+                          (<span t-field="rec['part'].designation"/>)
                         </h4>
                       </t>
                       <t t-if="rec.get('level')==2">
                         <h5> ─ ─ <span t-field="rec['part'].name"/>
-                          (<span t-field="rec['part'].description"/>)
+                          (<span t-field="rec['part'].designation"/>)
                         </h5>
                       </t>
                       <t t-if="rec.get('level')==3">
                         <h5> ─ ─ ─ <span t-field="rec['part'].name"/>
-                          (<span t-field="rec['part'].description"/>)
+                          (<span t-field="rec['part'].designation"/>)
                         </h5>
                       </t>
                       <t t-if="rec.get('level')==4">
                         <h5> ─ ─ ─ ─ <span t-field="rec['part'].name"/>
-                          (<span t-field="rec['part'].description"/>)
+                          (<span t-field="rec['part'].designation"/>)
                         </h5>
                       </t>
                     </td>

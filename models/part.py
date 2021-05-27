@@ -10,7 +10,7 @@ class Part(models.Model):
     # fields
     name = fields.Char(required=True, string="Title")
     sequence = fields.Integer()
-    description = fields.Char(required=True)
+    designation = fields.Char(required=True)
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_compute_get_bom_id")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents")
@@ -33,7 +33,7 @@ class Part(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name, rec.description)))
+            res.append((rec.id, _('%s (%s)') % (rec.name, rec.designation)))
         return res
 
     # compute

@@ -6,7 +6,7 @@
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
-          <field name="description"/>
+          <field name="designation"/>
         </search>
       </field>
     </record>
@@ -17,7 +17,7 @@
       <field name="arch" type="xml">
         <tree default_order="name">
           <field name="name"/>
-          <field name="description"/>
+          <field name="designation"/>
           <field name="sequence" optional="hide"/>
         </tree>
       </field>
@@ -39,7 +39,7 @@
               </h1>
             </div>
             <group>
-              <field name="description"/>
+              <field name="designation"/>
               <field name="bom_id"/>
             </group>
             <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
