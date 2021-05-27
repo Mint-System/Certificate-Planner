@@ -1,7 +1,7 @@
 <odoo>
   <data>
 
-    <record model="ir.ui.view" id="certificate_planer.issue_group_list">
+    <record model="ir.ui.view" id="issue_group_list">
       <field name="name">Issue Group List</field>
       <field name="model">certificate_planer.issue_group</field>
       <field name="arch" type="xml">
@@ -11,7 +11,7 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="certificate_planer.issue_group_form">
+    <record model="ir.ui.view" id="issue_group_form">
       <field name="name">Issue Group Form</field>
       <field name="model">certificate_planer.issue_group</field>
       <field name="arch" type="xml">

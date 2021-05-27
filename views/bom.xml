@@ -1,7 +1,7 @@
 <odoo>
   <data>
 
-    <record model="ir.ui.view" id="certificate_planer.bom_search">
+    <record model="ir.ui.view" id="bom_search">
       <field name="name">BoM Search</field>
       <field name="model">certificate_planer.bom</field>
       <field name="arch" type="xml">
@@ -11,7 +11,7 @@
       </field>
     </record>
   
-    <record model="ir.ui.view" id="certificate_planer.bom_list">
+    <record model="ir.ui.view" id="bom_list">
       <field name="name">BoM List</field>
       <field name="model">certificate_planer.bom</field>
       <field name="arch" type="xml">
@@ -21,7 +21,7 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="certificate_planer.bom_form">
+    <record model="ir.ui.view" id="bom_form">
       <field name="name">BoM Form</field>
       <field name="model">certificate_planer.bom</field>
       <field name="arch" type="xml">
