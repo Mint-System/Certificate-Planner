@@ -34,10 +34,10 @@
             <group>
               <field name="name"/>
             </group>
-            </sheet>
-          </form>
-        </field>
-      </record>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
-    </data>
-  </odoo>
+  </data>
+</odoo>

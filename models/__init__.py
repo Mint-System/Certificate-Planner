@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from . import bom
 from . import certificate
 from . import aircraft_type
