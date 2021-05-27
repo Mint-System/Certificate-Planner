@@ -8,7 +8,7 @@ class Part(models.Model):
     _order = 'sequence,name'
     
     # fields
-    name = fields.Char(required=True, string="Title")
+    name = fields.Char(required=True, string="Partnumber")
     sequence = fields.Integer()
     designation = fields.Char(required=True)
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
@@ -19,7 +19,7 @@ class Part(models.Model):
 
     # constraints
     _sql_constraints = [
-        ('name_unique', 'unique (name)', "Part with this Title already exists."),
+        ('name_unique', 'unique (name)', "Part with this Partnumber already exists."),
     ]
 
     def unlink(self):
