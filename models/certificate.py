@@ -7,7 +7,6 @@ class Certificate(models.Model):
     _rec_name = 'part_id'
     
     # fields
-    # name = fields.Char(required=True, string="Title")
     part_id = fields.Many2one("certificate_planer.part", required=True, string="Part")
     aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", track_visibility="always")
     specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification", track_visibility="always")
