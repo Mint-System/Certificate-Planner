@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="specification_list">
       <field name="name">Specification List</field>
@@ -26,5 +25,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

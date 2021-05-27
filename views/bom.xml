@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="bom_search">
       <field name="name">BoM Search</field>
@@ -54,5 +53,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

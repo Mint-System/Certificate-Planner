@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="certificate_search">
       <field name="name">Certificate Search</field>
@@ -52,5 +51,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="issue_group_list">
       <field name="name">Issue Group List</field>
@@ -26,5 +25,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

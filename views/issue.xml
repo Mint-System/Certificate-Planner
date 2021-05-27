@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="issue_search">
       <field name="name">Issue Search</field>
@@ -63,5 +62,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

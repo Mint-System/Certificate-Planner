@@ -5,15 +5,12 @@
         Approve and manage aircraft documents and certificates.
     """,
 
-    'description': """
-        Approve and manage aircraft documents and certificates.
-    """,
-
-    'author': "Mint System GmbH",
+    'author': 'Mint System GmbH, Odoo Community Association (OCA)',
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
     'version': '13.0.1.2.3',
+    'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],

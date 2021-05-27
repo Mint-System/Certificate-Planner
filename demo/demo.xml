@@ -1,224 +1,222 @@
 <odoo>
-    <data>
 
-        <!-- Document Revision State -->
+    <!-- Document Revision State -->
 
-        <record id="state_a" model="certificate_planer.document_revision_state">
-          <field name="name">A</field>
-        </record>
-        <record id="state_c" model="certificate_planer.document_revision_state">
-          <field name="name">cancelled</field>
-        </record>
-        <record id="state_z" model="certificate_planer.document_revision_state">
-          <field name="name">Z</field>
-        </record>
-       <record id="state_nc" model="certificate_planer.document_revision_state">
-          <field name="name">n/c</field>
-        </record>
-        <record id="state_b" model="certificate_planer.document_revision_state">
-          <field name="name">B</field>
-        </record>
-        <record id="state_b" model="certificate_planer.document_revision_state">
-          <field name="name">C</field>
-        </record>
+    <record id="state_a" model="certificate_planer.document_revision_state">
+      <field name="name">A</field>
+    </record>
+    <record id="state_c" model="certificate_planer.document_revision_state">
+      <field name="name">cancelled</field>
+    </record>
+    <record id="state_z" model="certificate_planer.document_revision_state">
+      <field name="name">Z</field>
+    </record>
+    <record id="state_nc" model="certificate_planer.document_revision_state">
+      <field name="name">n/c</field>
+    </record>
+    <record id="state_b" model="certificate_planer.document_revision_state">
+      <field name="name">B</field>
+    </record>
+    <record id="state_b" model="certificate_planer.document_revision_state">
+      <field name="name">C</field>
+    </record>
 
-        <!-- Document Type -->
+    <!-- Document Type -->
 
-        <record id="type_mdl" model="certificate_planer.document_type">
-          <field name="name">Master Document List</field>
-          <field name="abbreviation">MDL</field>
-        </record>
-        <record id="type_dwl" model="certificate_planer.document_type">
-          <field name="name">Master Drawing List</field>
-          <field name="abbreviation">DWL</field>
-        </record>
-        <record id="type_mcr" model="certificate_planer.document_type">
-          <field name="name">Minor/Major Change Request</field>
-          <field name="abbreviation">MCR</field>
-        </record>
-        <record id="type_mis" model="certificate_planer.document_type">
-          <field name="name">Miscellaneous Document</field>
-          <field name="abbreviation">MIS</field>
-        </record>
-        <record id="type_adwg" model="certificate_planer.document_type">
-          <field name="name">Assembly Drawing</field>
-          <field name="abbreviation">ADWG</field>
-        </record>
+    <record id="type_mdl" model="certificate_planer.document_type">
+      <field name="name">Master Document List</field>
+      <field name="abbreviation">MDL</field>
+    </record>
+    <record id="type_dwl" model="certificate_planer.document_type">
+      <field name="name">Master Drawing List</field>
+      <field name="abbreviation">DWL</field>
+    </record>
+    <record id="type_mcr" model="certificate_planer.document_type">
+      <field name="name">Minor/Major Change Request</field>
+      <field name="abbreviation">MCR</field>
+    </record>
+    <record id="type_mis" model="certificate_planer.document_type">
+      <field name="name">Miscellaneous Document</field>
+      <field name="abbreviation">MIS</field>
+    </record>
+    <record id="type_adwg" model="certificate_planer.document_type">
+      <field name="name">Assembly Drawing</field>
+      <field name="abbreviation">ADWG</field>
+    </record>
 
-        <!-- Document -->
+    <!-- Document -->
 
-        <record id="document_mdl_19" model="certificate_planer.document">
-          <field name="name">MDL-19-002</field>
-          <field name="description">Master Document List</field>
-          <field name="type_id" ref="type_mdl" />
-        </record>
-        <record id="document_dwl_14" model="certificate_planer.document">
-          <field name="name">DWL-14-029</field>
-          <field name="description">Master Drawing List</field>
-          <field name="type_id" ref="type_dwl" />
-        </record>
-        <record id="document_mcr_18" model="certificate_planer.document">
-          <field name="name">MCR-18-038</field>
-          <field name="description">Minor/Major Change Request</field>
-          <field name="type_id" ref="type_mcr" />
-        </record>
-        <record id="document_cid_18" model="certificate_planer.document">
-          <field name="name">CID-18-001</field>
-          <field name="description">Configuration Index Document</field>
-          <field name="type_id" ref="type_mis" />
-        </record>
-        <record id="document_330" model="certificate_planer.document">
-          <field name="name">330-0264230</field>
-          <field name="description">PTU MRTT</field>
-          <field name="type_id" ref="type_adwg" />
-        </record>
+    <record id="document_mdl_19" model="certificate_planer.document">
+      <field name="name">MDL-19-002</field>
+      <field name="description">Master Document List</field>
+      <field name="type_id" ref="type_mdl" />
+    </record>
+    <record id="document_dwl_14" model="certificate_planer.document">
+      <field name="name">DWL-14-029</field>
+      <field name="description">Master Drawing List</field>
+      <field name="type_id" ref="type_dwl" />
+    </record>
+    <record id="document_mcr_18" model="certificate_planer.document">
+      <field name="name">MCR-18-038</field>
+      <field name="description">Minor/Major Change Request</field>
+      <field name="type_id" ref="type_mcr" />
+    </record>
+    <record id="document_cid_18" model="certificate_planer.document">
+      <field name="name">CID-18-001</field>
+      <field name="description">Configuration Index Document</field>
+      <field name="type_id" ref="type_mis" />
+    </record>
+    <record id="document_330" model="certificate_planer.document">
+      <field name="name">330-0264230</field>
+      <field name="description">PTU MRTT</field>
+      <field name="type_id" ref="type_adwg" />
+    </record>
 
-        <!-- Document Revision -->
+    <!-- Document Revision -->
 
-        <record id="revision_mdl_19" model="certificate_planer.document_revision">
-          <field name="reason">Latest Release</field>
-          <field name="document_id" ref="document_mdl_19" />
-          <field name="state_id" ref="state_a" />
-        </record>
-        <record id="revision_dwl_14" model="certificate_planer.document_revision">
-          <field name="reason">Latest Release</field>
-          <field name="document_id" ref="document_dwl_14" />
-          <field name="state_id" ref="state_c" />
-        </record>
-        <record id="revision_mcr_18" model="certificate_planer.document_revision">
-          <field name="reason">Latest Release</field>
-          <field name="document_id" ref="document_mcr_18" />
-          <field name="state_id" ref="state_nc" />
-        </record>
-        <record id="revision_cid_18" model="certificate_planer.document_revision">
-          <field name="reason">Latest Release</field>
-          <field name="document_id" ref="document_cid_18" />
-          <field name="state_id" ref="state_b" />
-        </record>
-        <record id="revision_330" model="certificate_planer.document_revision">
-          <field name="reason">Latest Release</field>
-          <field name="document_id" ref="document_330" />
-          <field name="state_id" ref="state_c" />
-        </record>
+    <record id="revision_mdl_19" model="certificate_planer.document_revision">
+      <field name="reason">Latest Release</field>
+      <field name="document_id" ref="document_mdl_19" />
+      <field name="state_id" ref="state_a" />
+    </record>
+    <record id="revision_dwl_14" model="certificate_planer.document_revision">
+      <field name="reason">Latest Release</field>
+      <field name="document_id" ref="document_dwl_14" />
+      <field name="state_id" ref="state_c" />
+    </record>
+    <record id="revision_mcr_18" model="certificate_planer.document_revision">
+      <field name="reason">Latest Release</field>
+      <field name="document_id" ref="document_mcr_18" />
+      <field name="state_id" ref="state_nc" />
+    </record>
+    <record id="revision_cid_18" model="certificate_planer.document_revision">
+      <field name="reason">Latest Release</field>
+      <field name="document_id" ref="document_cid_18" />
+      <field name="state_id" ref="state_b" />
+    </record>
+    <record id="revision_330" model="certificate_planer.document_revision">
+      <field name="reason">Latest Release</field>
+      <field name="document_id" ref="document_330" />
+      <field name="state_id" ref="state_c" />
+    </record>
 
-        <!-- Link Document Revision -->
+    <!-- Link Document Revision -->
 
-        <record id="document_mdl_19" model="certificate_planer.document">
-          <field name="current_revision_id" ref="revision_mdl_19" />
-        </record>
-        <record id="document_dwl_14" model="certificate_planer.document">
-          <field name="current_revision_id" ref="revision_dwl_14" />
-        </record>
-        <record id="document_mcr_18" model="certificate_planer.document">
-          <field name="current_revision_id" ref="revision_mcr_18" />
-        </record>
-        <record id="document_cid_18" model="certificate_planer.document">
-          <field name="current_revision_id" ref="revision_cid_18" />
-        </record>
-        <record id="document_330" model="certificate_planer.document">
-          <field name="current_revision_id" ref="revision_330" />
-        </record>
+    <record id="document_mdl_19" model="certificate_planer.document">
+      <field name="current_revision_id" ref="revision_mdl_19" />
+    </record>
+    <record id="document_dwl_14" model="certificate_planer.document">
+      <field name="current_revision_id" ref="revision_dwl_14" />
+    </record>
+    <record id="document_mcr_18" model="certificate_planer.document">
+      <field name="current_revision_id" ref="revision_mcr_18" />
+    </record>
+    <record id="document_cid_18" model="certificate_planer.document">
+      <field name="current_revision_id" ref="revision_cid_18" />
+    </record>
+    <record id="document_330" model="certificate_planer.document">
+      <field name="current_revision_id" ref="revision_330" />
+    </record>
 
-        <!-- Part -->
+    <!-- Part -->
 
-        <record id="part_ddp" model="certificate_planer.part">
-          <field name="name">DDP-18-001</field>
-          <field name="description">PTU MRTT</field>
-        </record>
-        <record id="part_ems" model="certificate_planer.part">
-          <field name="name">145-0045739-501</field>
-          <field name="description">EMS Equipment</field>
-        </record>
-        <record id="part_arsena" model="certificate_planer.part">
-          <field name="name">009185-501</field>
-          <field name="description">Asena CC retainer Assy</field>
-        </record>
-        <record id="part_ptu" model="certificate_planer.part">
-          <field name="name">330-0264230-501</field>
-          <field name="description">PTU MRTT</field>
-        </record>
-        <record id="part_ptu_007" model="certificate_planer.part">
-          <field name="name">007-0264232-501</field>
-          <field name="description">PTU</field>
-        </record>
+    <record id="part_ddp" model="certificate_planer.part">
+      <field name="name">DDP-18-001</field>
+      <field name="description">PTU MRTT</field>
+    </record>
+    <record id="part_ems" model="certificate_planer.part">
+      <field name="name">145-0045739-501</field>
+      <field name="description">EMS Equipment</field>
+    </record>
+    <record id="part_arsena" model="certificate_planer.part">
+      <field name="name">009185-501</field>
+      <field name="description">Asena CC retainer Assy</field>
+    </record>
+    <record id="part_ptu" model="certificate_planer.part">
+      <field name="name">330-0264230-501</field>
+      <field name="description">PTU MRTT</field>
+    </record>
+    <record id="part_ptu_007" model="certificate_planer.part">
+      <field name="name">007-0264232-501</field>
+      <field name="description">PTU</field>
+    </record>
 
-        <!-- Link Part -->
+    <!-- Link Part -->
 
-        <record id="part_ddp" model="certificate_planer.part">
-          <field name="document_ids" eval="[(4, ref('document_mdl_19'))]"/>
-        </record>
-        <record id="part_ddp" model="certificate_planer.part">
-          <field name="document_ids" eval="[(4, ref('document_cid_18'))]"/>
-        </record>
-        <record id="part_ptu" model="certificate_planer.part">
-          <field name="document_ids" eval="[(4, ref('document_330'))]"/>
-        </record>
+    <record id="part_ddp" model="certificate_planer.part">
+      <field name="document_ids" eval="[(4, ref('document_mdl_19'))]"/>
+    </record>
+    <record id="part_ddp" model="certificate_planer.part">
+      <field name="document_ids" eval="[(4, ref('document_cid_18'))]"/>
+    </record>
+    <record id="part_ptu" model="certificate_planer.part">
+      <field name="document_ids" eval="[(4, ref('document_330'))]"/>
+    </record>
 
-        <!-- BoM -->
+    <!-- BoM -->
 
-        <record id="bom_ddp" model="certificate_planer.bom">
-          <field name="part_id" ref="part_ddp" />
-          <field name="part_ids" eval="[(4, ref('part_ptu'))]"/>
-        </record>
-        <record id="bom_ptu" model="certificate_planer.bom">
-          <field name="part_id" ref="part_ptu" />
-          <field name="part_ids" eval="[(4, ref('part_ptu_007'))]"/>
-        </record>
+    <record id="bom_ddp" model="certificate_planer.bom">
+      <field name="part_id" ref="part_ddp" />
+      <field name="part_ids" eval="[(4, ref('part_ptu'))]"/>
+    </record>
+    <record id="bom_ptu" model="certificate_planer.bom">
+      <field name="part_id" ref="part_ptu" />
+      <field name="part_ids" eval="[(4, ref('part_ptu_007'))]"/>
+    </record>
 
-        <!-- Specification -->
+    <!-- Specification -->
 
-        <record id="specification_jar" model="certificate_planer.specification">
-          <field name="name">JAR-25</field>
-        </record>
-        <record id="specification_cs" model="certificate_planer.specification">
-          <field name="name">CS-29</field>
-        </record>
+    <record id="specification_jar" model="certificate_planer.specification">
+      <field name="name">JAR-25</field>
+    </record>
+    <record id="specification_cs" model="certificate_planer.specification">
+      <field name="name">CS-29</field>
+    </record>
 
-        <!-- Issue Group -->
+    <!-- Issue Group -->
 
-        <record id="group_00" model="certificate_planer.issue_group">
-          <field name="name">Issue 0-0</field>
-        </record>
-        <record id="group_10" model="certificate_planer.issue_group">
-          <field name="name">Issue 1-0</field>
-        </record>
-        <record id="group_11" model="certificate_planer.issue_group">
-          <field name="name">Issue 1-1</field>
-        </record>
+    <record id="group_00" model="certificate_planer.issue_group">
+      <field name="name">Issue 0-0</field>
+    </record>
+    <record id="group_10" model="certificate_planer.issue_group">
+      <field name="name">Issue 1-0</field>
+    </record>
+    <record id="group_11" model="certificate_planer.issue_group">
+      <field name="name">Issue 1-1</field>
+    </record>
 
-        <!-- Certificate -->
+    <!-- Certificate -->
 
-        <record id="certificate_ddp" model="certificate_planer.certificate">
-          <field name="name">DDP-18-001</field>
-          <field name="aircraft">A330 MRTT</field>
-          <field name="specification_id" ref="specification_jar" />
-          <field name="part_id" ref="part_ddp" />
-        </record>
+    <record id="certificate_ddp" model="certificate_planer.certificate">
+      <field name="name">DDP-18-001</field>
+      <field name="aircraft">A330 MRTT</field>
+      <field name="specification_id" ref="specification_jar" />
+      <field name="part_id" ref="part_ddp" />
+    </record>
 
-        <!-- Link Certificate -->
+    <!-- Link Certificate -->
 
-        <record id="document_mdl_19" model="certificate_planer.document">
-          <field name="certificate_id" ref="certificate_ddp" />
-        </record>
-  
-        <!-- Issues -->
+    <record id="document_mdl_19" model="certificate_planer.document">
+      <field name="certificate_id" ref="certificate_ddp" />
+    </record>
 
-        <record id="issue_mcr" model="certificate_planer.issue">
-          <field name="description">Initial Release</field>
-          <field name="certificate_id" ref="certificate_ddp" />
-          <field name="authority_number">n/a</field>
-          <field name="project_number">MCR-18-038</field>
-          <field name="group_id" ref="group_00" />
-        </record>
+    <!-- Issues -->
 
-        <!-- Link Issues -->
+    <record id="issue_mcr" model="certificate_planer.issue">
+      <field name="description">Initial Release</field>
+      <field name="certificate_id" ref="certificate_ddp" />
+      <field name="authority_number">n/a</field>
+      <field name="project_number">MCR-18-038</field>
+      <field name="group_id" ref="group_00" />
+    </record>
 
-        <record id="document_mcr_18" model="certificate_planer.document">
-          <field name="issue_id" ref="issue_mcr" />
-        </record>
-        <record id="revision_mcr_18" model="certificate_planer.document_revision">
-          <field name="issue_id" ref="issue_mcr" />
-        </record>
+    <!-- Link Issues -->
 
-    </data>
-</odoo>
+    <record id="document_mcr_18" model="certificate_planer.document">
+      <field name="issue_id" ref="issue_mcr" />
+    </record>
+    <record id="revision_mcr_18" model="certificate_planer.document_revision">
+      <field name="issue_id" ref="issue_mcr" />
+    </record>
+
+  </odoo>

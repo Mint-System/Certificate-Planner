@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="document_revision_state_search">
       <field name="name">Document Revision State Search</field>
@@ -39,5 +38,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

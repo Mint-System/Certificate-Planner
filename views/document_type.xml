@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <record model="ir.ui.view" id="document_type_list">
       <field name="name">Document Type List</field>
@@ -35,5 +34,4 @@
       </field>
     </record>
 
-  </data>
 </odoo>

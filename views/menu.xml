@@ -1,5 +1,4 @@
 <odoo>
-  <data>
 
     <!-- actions opening views on models -->
 
@@ -160,5 +159,4 @@
       parent="certificate_planer.report_menu"
       action="certificate_planer.document_part_report_action"/>
 
-  </data>
 </odoo>
