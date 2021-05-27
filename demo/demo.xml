@@ -48,27 +48,27 @@
 
     <record id="document_mdl_19" model="certificate_planer.document">
       <field name="name">MDL-19-002</field>
-      <field name="description">Master Document List</field>
+      <field name="title">Master Document List</field>
       <field name="type_id" ref="type_mdl" />
     </record>
     <record id="document_dwl_14" model="certificate_planer.document">
       <field name="name">DWL-14-029</field>
-      <field name="description">Master Drawing List</field>
+      <field name="title">Master Drawing List</field>
       <field name="type_id" ref="type_dwl" />
     </record>
     <record id="document_mcr_18" model="certificate_planer.document">
       <field name="name">MCR-18-038</field>
-      <field name="description">Minor/Major Change Request</field>
+      <field name="title">Minor/Major Change Request</field>
       <field name="type_id" ref="type_mcr" />
     </record>
     <record id="document_cid_18" model="certificate_planer.document">
       <field name="name">CID-18-001</field>
-      <field name="description">Configuration Index Document</field>
+      <field name="title">Configuration Index Document</field>
       <field name="type_id" ref="type_mis" />
     </record>
     <record id="document_330" model="certificate_planer.document">
       <field name="name">330-0264230</field>
-      <field name="description">PTU MRTT</field>
+      <field name="title">PTU MRTT</field>
       <field name="type_id" ref="type_adwg" />
     </record>
 
@@ -122,23 +122,23 @@
 
     <record id="part_ddp" model="certificate_planer.part">
       <field name="name">DDP-18-001</field>
-      <field name="description">PTU MRTT</field>
+      <field name="designation">PTU MRTT</field>
     </record>
     <record id="part_ems" model="certificate_planer.part">
       <field name="name">145-0045739-501</field>
-      <field name="description">EMS Equipment</field>
+      <field name="designation">EMS Equipment</field>
     </record>
     <record id="part_arsena" model="certificate_planer.part">
       <field name="name">009185-501</field>
-      <field name="description">Asena CC retainer Assy</field>
+      <field name="designation">Asena CC retainer Assy</field>
     </record>
     <record id="part_ptu" model="certificate_planer.part">
       <field name="name">330-0264230-501</field>
-      <field name="description">PTU MRTT</field>
+      <field name="designation">PTU MRTT</field>
     </record>
     <record id="part_ptu_007" model="certificate_planer.part">
       <field name="name">007-0264232-501</field>
-      <field name="description">PTU</field>
+      <field name="designation">PTU</field>
     </record>
 
     <!-- Link Part -->

@@ -191,7 +191,7 @@
                         <small t-field="revision.document_id.name"/>
                       </td>
                       <td style="padding: 0.2rem;">
-                        <small t-field="revision.document_id.description"/>
+                        <small t-field="revision.document_id.title"/>
                       </td>
                       <td style="padding: 0.2rem;">
                         <small t-field="revision.state_id"/>
@@ -256,7 +256,7 @@
                       <small t-field="rec['doc'].name"/>
                     </td>
                     <td style="padding: 0.2rem;">
-                      <small t-field="rec['doc'].description"/>
+                      <small t-field="rec['doc'].title"/>
                     </td>
                     <td style="padding: 0.2rem;">
                       <small t-field="rec['doc'].current_revision_id.state_id"/>
