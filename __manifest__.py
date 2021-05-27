@@ -9,7 +9,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.1.2.3',
+    'version': '13.0.1.3.0',
     'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
