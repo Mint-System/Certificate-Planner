@@ -9,6 +9,7 @@ class Document(models.Model):
     # fields
     name = fields.Char(required=True, string="Document ID")
     title = fields.Char(required=True)
+    description = fields.Char(help="Document ID Assignment")
     current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", track_visibility="always")
     issue_id = fields.Many2one("certificate_planer.issue", string="Issue", track_visibility="always")
     type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", track_visibility="always")

@@ -9,6 +9,7 @@ class DocumentType(models.Model):
     # fields
     name = fields.Char(required=True, string="Title")
     identification = fields.Char(required=True)
+    description = fields.Char(help="Document ID Assignment")
     document_ids = fields.One2many("certificate_planer.document", "type_id", string="Documents")
 
     # constraints

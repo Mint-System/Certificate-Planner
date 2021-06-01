@@ -6,9 +6,10 @@
       <field name="arch" type="xml">
         <search>
           <field name="name"/>
-          <field name="type_id"/>
           <field name="title"/>
           <field name="state_id"/>
+          <field name="type_id"/>
+          <field name="description"/>
           <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
         </search>
       </field>
@@ -20,9 +21,10 @@
       <field name="arch" type="xml">
         <tree limit="200">
           <field name="name"/>
-          <field name="type_id"/>
           <field name="title"/>
           <field name="state_id"/>
+          <field name="type_id"/>
+          <field name="description"/>
         </tree>
       </field>
     </record>
@@ -48,6 +50,7 @@
             <group>
               <field name="title"/>
               <field name="type_id"/>
+              <field name="description"/>
               <field name="current_revision_id" context="{'default_document_id': id}"/>
               <field name="certificate_id"/>
             </group>
