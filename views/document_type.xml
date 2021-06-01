@@ -1,5 +1,17 @@
 <odoo>
 
+    <record model="ir.ui.view" id="document_type_search">
+      <field name="name">Document Type Search</field>
+      <field name="model">certificate_planer.document_type</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="identification"/>
+          <field name="name"/>
+        </search>
+      </field>
+    </record>
+
+
     <record model="ir.ui.view" id="document_type_list">
       <field name="name">Document Type List</field>
       <field name="model">certificate_planer.document_type</field>
