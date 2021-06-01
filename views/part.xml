@@ -41,6 +41,7 @@
             <group>
               <field name="designation"/>
               <field name="bom_id"/>
+              <field name="certificate_id"/>
             </group>
             <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
             <group>
