@@ -17,6 +17,11 @@ class Document(models.Model):
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
     state_id = fields.Many2one(related='current_revision_id.state_id')
 
+    # constraints
+    _sql_constraints = [
+        ('name_unique', 'unique (name)', "Document with this Document ID already exists."),
+    ]
+
     def unlink(self):
         if len(self.part_ids) != 0:
             raise UserError(_('You cannot delete a Document as long it is referenced by a Part.'))
