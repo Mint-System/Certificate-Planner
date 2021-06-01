@@ -4,7 +4,8 @@ from odoo.exceptions import UserError
 class DocumentType(models.Model):
     _name = 'certificate_planer.document_type'
     _description = 'Certificate Planer Document Type'
-    
+    _rec_name = 'identification'
+
     # fields
     name = fields.Char(required=True, string="Title")
     identification = fields.Char(required=True)
@@ -21,8 +22,8 @@ class DocumentType(models.Model):
         return super(DocumentType, self).unlink()
 
     # defaults
-    def name_get(self):
-        res = []
-        for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name, rec.identification)))
-        return res
+    # def name_get(self):
+    #     res = []
+    #     for rec in self:
+    #         res.append((rec.id, _('%s (%s)') % (rec.identification, rec.name)))
+    #     return res

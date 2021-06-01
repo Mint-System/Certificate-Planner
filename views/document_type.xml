@@ -5,8 +5,8 @@
       <field name="model">certificate_planer.document_type</field>
       <field name="arch" type="xml">
         <tree limit="200">
-          <field name="name"/>
           <field name="identification"/>
+          <field name="name"/>
         </tree>
       </field>
     </record>
@@ -23,11 +23,11 @@
                 <label for="name"/>
               </div>
               <h1>
-                <field name="name"/>
+                <field name="identification"/>
               </h1>
             </div>
             <group>
-              <field name="identification"/>
+              <field name="name"/>
             </group>
           </sheet>
         </form>
