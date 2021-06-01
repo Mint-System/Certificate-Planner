@@ -15,7 +15,7 @@
       <field name="name">Document Part Report List</field>
       <field name="model">certificate_planer.document_part_report</field>
       <field name="arch" type="xml">
-        <tree create="false"> 
+        <tree limit="200" create="false"> 
           <field name="document"/>
           <field name="part"/>
         </tree>

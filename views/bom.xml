@@ -14,7 +14,7 @@
       <field name="name">BoM List</field>
       <field name="model">certificate_planer.bom</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree limit="200">
           <field name="part_id"/>
         </tree>
       </field>
@@ -40,7 +40,7 @@
             <group>
               <!-- <field name="part_ids"/> -->
               <field name="part_ids">
-                  <tree>
+                  <tree limit="200">
                       <field name="sequence" widget="handle"/>
                       <field name="name"/>
                   </tree>

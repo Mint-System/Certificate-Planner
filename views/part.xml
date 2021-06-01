@@ -15,7 +15,7 @@
       <field name="name">Part List</field>
       <field name="model">certificate_planer.part</field>
       <field name="arch" type="xml">
-        <tree default_order="name">
+        <tree limit="200" default_order="name">
           <field name="name"/>
           <field name="designation"/>
           <field name="sequence" optional="hide"/>

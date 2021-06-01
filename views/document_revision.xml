@@ -17,7 +17,7 @@
       <field name="name">Document Revision List</field>
       <field name="model">certificate_planer.document_revision</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree limit="200">
           <field name="document_id"/>
           <field name="state_id"/>
           <field name="reason"/>
