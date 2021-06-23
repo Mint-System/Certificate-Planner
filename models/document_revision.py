@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class DocumentRevision(models.Model):
     _inherit = 'mail.thread'
@@ -13,6 +14,13 @@ class DocumentRevision(models.Model):
     issue_id = fields.Many2one("certificate_planer.issue", string="Issue", track_visibility="always")
 
     # defaults
+    def unlink(self):
+        is_current_revision = self.document_id.current_revision_id == self
+        if is_current_revision:
+            raise UserError(_('You cannot delete a Document Revision as long it is set as Current Revision.'))
+        return super(DocumentRevision, self).unlink()
+
+
     def name_get(self):
         res = []
         for rec in self:
