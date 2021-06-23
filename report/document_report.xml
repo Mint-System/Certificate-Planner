@@ -55,7 +55,7 @@
           <div class="row">
             <div class="col-4">
               <span>Engineering</span>
-              <h4 t-esc="doc.type_id.name"/>
+              <h4 t-esc="doc.type_id.designation"/>
             </div>
             <div class="col-4 text-center">
               <br />
@@ -75,7 +75,7 @@
             <br />
             <br />
 
-            <h1 t-esc="doc.type_id.name"/>
+            <h1 t-esc="doc.type_id.designation"/>
             <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
             </p>
 
