@@ -1,73 +1,87 @@
 <odoo>
 
-    <record model="ir.ui.view" id="document_search">
-      <field name="name">Document Search</field>
-      <field name="model">certificate_planer.document</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="name"/>
-          <field name="title"/>
-          <field name="state_id"/>
-          <field name="type_id"/>
-          <field name="description"/>
-          <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
-        </search>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_search">
+    <field name="name">Document Search</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="title"/>
+        <field string="Current Revision" name="state_id"/>
+        <field name="type_id"/>
+        <field name="description"/>
+        <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
+      </search>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="document_list">
-      <field name="name">Document List</field>
-      <field name="model">certificate_planer.document</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="name"/>
-          <field name="title"/>
-          <field name="state_id"/>
-          <field name="type_id"/>
-          <field name="description"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_list">
+    <field name="name">Document List</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="name"/>
+        <field name="title"/>
+        <field string="Current Revision" name="state_id"/>
+        <field name="type_id"/>
+        <field name="description"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="document_form">
-      <field name="name">Document Form</field>
-      <field name="model">certificate_planer.document</field>
-      <field name="arch" type="xml">
-        <form string="Document Form">
-          <header>
-            <button name="view_document_report" type="object" string="View Document Report" />
-          </header>
-          <sheet>
-            <p>Document</p>
-            <div class="oe_title">
-              <div class="oe_edit_only">
-                <label for="name"/>
+  <record model="ir.ui.view" id="document_form">
+    <field name="name">Document Form</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <form string="Document Form">
+        <header>
+          <button name="view_document_report" type="object" string="View Document Report" />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button name="view_document_revisions" type="object" icon="fa-files-o" class="oe_stat_button">
+              <div class="o_field_widget o_stat_info">
+                <span class="o_stat_value">
+                  <field name="revision_count" nolabel="1"/>
+                </span>
+                <span name="revision_count_label" class="o_stat_text">Revisions</span>
               </div>
-              <h1>
-                <field name="name"/>
-              </h1>
-            </div>
-            <group>
-              <field name="title"/>
-              <field name="type_id"/>
-              <field name="description"/>
-              <field name="current_revision_id" context="{'default_document_id': id}"/>
-              <field name="certificate_id"/>
-            </group>
-              <p class="oe_edit_only">Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
-            <group>
-              <field name="revision_ids" context="{'default_document_id': id}"/>
-              <field name="part_ids"/>
-            </group>
-            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
-            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
-          </sheet>
-          <div class="oe_chatter">
-            <field name="message_follower_ids" widget="mail_followers"/>
-            <field name="message_ids" widget="mail_thread"/>
+            </button>
           </div>
-        </form>
-      </field>
-    </record>
+          <p>Document</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="name"/>
+            </div>
+            <h1>
+              <field name="name"/>
+            </h1>
+          </div>
+          <group>
+            <field name="title"/>
+            <field name="type_id"/>
+            <field name="description"/>
+            <field name="current_revision_id" context="{'default_document_id': id}"/>
+            <field name="certificate_id"/>
+          </group>
+          <p class="oe_edit_only">Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
+          <group>
+            <field name="revision_ids" context="{'default_document_id': id}"/>
+            <field name="part_ids"/>
+          </group>
+          <p>Last edit by <field name="write_uid"/>
+ on <field name="write_date"/>
+.        <br/>
+            Created by <field name="create_uid"/>
+ on <field name="create_date"/>
+.</p>
+  </sheet>
+  <div class="oe_chatter">
+    <field name="message_follower_ids" widget="mail_followers"/>
+    <field name="message_ids" widget="mail_thread"/>
+  </div>
+</form>
+</field>
+</record>
 
 </odoo>

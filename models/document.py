@@ -16,13 +16,16 @@ class Document(models.Model):
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
     revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]")
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
+    # Filtering by current document revsision state requires a relation
     state_id = fields.Many2one(related='current_revision_id.state_id')
+    revision_count = fields.Integer(compute='compute_revision_count')
 
     # constraints
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Document with this Document ID already exists."),
     ]
 
+    # defaults
     def unlink(self):
         if len(self.part_ids) != 0:
             raise UserError(_('You cannot delete a Document as long it is referenced by a Part.'))
@@ -30,10 +33,26 @@ class Document(models.Model):
             raise UserError(_('You cannot delete a Document as long it is referenced by a Document Revision.'))
         return super(Document, self).unlink()
     
+    def compute_revision_count(self):
+        for record in self:
+            record.revision_count = self.env['certificate_planer.document_revision'].search_count([('document_id', '=', self.id)])
+
+    # actions
     def view_document_report(self):
         self.ensure_one()
         
         return {
             'type': 'ir.actions.act_url',
             'url': '/report/html/certificate_planer.document_report_view/%(document_id)s' % {'document_id': self.id},
+        }
+
+    def view_document_revisions(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Document Revisions',
+            'view_mode': 'tree',
+            'res_model': 'certificate_planer.document_revision',
+            'domain': [('document_id', '=', self.id)],
+            'context': "{'create': False}"
         }
