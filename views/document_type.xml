@@ -6,7 +6,7 @@
       <field name="arch" type="xml">
         <search>
           <field name="identification"/>
-          <field name="name"/>
+          <field name="designation"/>
         </search>
       </field>
     </record>
@@ -18,7 +18,7 @@
       <field name="arch" type="xml">
         <tree limit="200">
           <field name="identification"/>
-          <field name="name"/>
+          <field name="designation"/>
         </tree>
       </field>
     </record>
@@ -32,14 +32,14 @@
             <p>Document Type</p>
             <div class="oe_title">
               <div class="oe_edit_only">
-                <label for="name"/>
+                <label for="identification"/>
               </div>
               <h1>
                 <field name="identification"/>
               </h1>
             </div>
             <group>
-              <field name="name"/>
+              <field name="designation"/>
               <field name="description"/>
             </group>
           </sheet>
