@@ -18,7 +18,7 @@ class Document(models.Model):
     part_ids = fields.Many2many("certificate_planer.part", string="Parts")
     # Filtering by current document revsision state requires a relation
     state_id = fields.Many2one(related='current_revision_id.state_id')
-    revision_count = fields.Integer(compute='compute_revision_count')
+    revision_count = fields.Integer(compute='_compute_revision_count')
 
     # constraints
     _sql_constraints = [
@@ -33,7 +33,7 @@ class Document(models.Model):
             raise UserError(_('You cannot delete a Document as long it is referenced by a Document Revision.'))
         return super(Document, self).unlink()
     
-    def compute_revision_count(self):
+    def _compute_revision_count(self):
         for record in self:
             record.revision_count = self.env['certificate_planer.document_revision'].search_count([('document_id', '=', self.id)])
 
