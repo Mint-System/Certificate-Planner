@@ -46,7 +46,7 @@
             </group>
               <p class="oe_edit_only">Note: A Document Revision must be linked with a Document and may be linked with an Issue.</p>
             <group>
-              <field name="issue_id"/>
+              <field name="change_id"/>
             </group>
             <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
             Created by <field name="create_uid"/> on <field name="create_date"/>.</p>

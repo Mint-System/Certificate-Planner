@@ -7,7 +7,7 @@ class IssueGroup(models.Model):
     
     # fields
     name = fields.Char(required=True, string="Title")
-    issue_ids = fields.One2many("certificate_planer.issue", "group_id", string="Issues")
+    change_ids = fields.One2many("certificate_planer.change", "change_id", string="Changes")
 
     # constraints
     _sql_constraints = [
@@ -15,6 +15,6 @@ class IssueGroup(models.Model):
     ]
 
     def unlink(self):
-        if len(self.issue_ids) != 0:
+        if len(self.change_ids) != 0:
             raise UserError(_('You cannot delete an Issue Group as long it is referenced by an Issue.'))
         return super(IssueGroup, self).unlink()

@@ -9,7 +9,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.1.4.3',
+    'version': '13.0.2.0.0',
     'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
@@ -25,7 +25,7 @@
         'views/issue_group.xml',
         'views/certificate.xml',
         'views/aircraft_type.xml',
-        'views/issue.xml',
+        'views/change.xml',
         'views/document.xml',
         'views/document_type.xml',
         'views/document_revision.xml',
@@ -33,13 +33,7 @@
         'views/menu.xml',
         'report/document_report.xml',
         'views/document_part_report.xml'
-        #'demo/demo.xml'
     ],
-
-    # only loaded in demonstration mode
-    # 'demo': [
-    #     'demo/demo.xml',
-    # ],
 
     # module registry settings
     'installable': True,

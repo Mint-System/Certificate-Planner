@@ -17,11 +17,11 @@ class DocumentReport(models.AbstractModel):
         # get first document
         document = documents[0]
 
-        # get issues from certificate grouped by issue group
-        issues_grouped = self.env['certificate_planer.issue'].read_group(
+        # get changes from certificate grouped by issue group
+        issues_grouped = self.env['certificate_planer.change'].read_group(
             [('certificate_id', '=', document.certificate_id.id)],
             fields=['id'],
-            groupby=['group_id'])
+            groupby=['change_id'])
 
         # dict log of ammendments
         log={}
@@ -31,8 +31,8 @@ class DocumentReport(models.AbstractModel):
 
         # process issue group results
         for group in issues_grouped:
-            issue_group_id=group['group_id'][0]
-            issue_domain=group['__domain']
+            issue_group_id=group['change_id'][0]
+            change_domain=group['__domain']
     
             # get issue group
             issue_group=self.env['certificate_planer.issue_group'].browse(issue_group_id)
@@ -42,8 +42,8 @@ class DocumentReport(models.AbstractModel):
             log[issue_group.id]={'issues': [] }
 
             # get issues from domain filter
-            issues=self.env['certificate_planer.issue'].search(issue_domain)
-            log[issue_group.id]['issues']=issues
+            changes=self.env['certificate_planer.change'].search(change_domain)
+            log[issue_group.id]['changes']=changes
 
         # parts and docs
         part_docs=[]

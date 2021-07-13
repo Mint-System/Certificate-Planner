@@ -11,7 +11,7 @@ class Certificate(models.Model):
     aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", track_visibility="always")
     specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification", track_visibility="always")
     document_ids = fields.One2many("certificate_planer.document", "certificate_id", string="Documents")
-    issue_ids = fields.One2many("certificate_planer.issue", "certificate_id", string="Issues")
+    change_ids = fields.One2many("certificate_planer.change", "certificate_id", string="Changes")
 
     # constraints
     _sql_constraints = [

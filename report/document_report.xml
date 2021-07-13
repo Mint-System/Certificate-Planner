@@ -167,12 +167,12 @@
 
               <h3 class="o_bold" t-field="group.name"/>
 
-              <t t-foreach="log[group.id]['issues']" t-as="issue">
-                <p t-field="issue.description"/>
+              <t t-foreach="log[group.id]['changes']" t-as="change">
+                <p t-field="change.description"/>
                 <p>
-                Authority Ref: <span t-field="issue.authority_number"/>
+                Authority Ref: <span t-field="change.authority_number"/>
                 <br/>
-                Internal Project Ref: <span t-field="issue.project_number"/>
+                Internal Project Ref: <span t-field="change.project_number"/>
                 </p>
 
                 <table class="table-striped" width="100%">
@@ -185,7 +185,7 @@
                     </tr>
                   </thead>
 
-                  <t t-foreach="issue.revision_ids" t-as="revision">
+                  <t t-foreach="change.revision_ids" t-as="revision">
                     <tr>
                       <td style="padding: 0.2rem;">
                         <small t-field="revision.document_id.name"/>

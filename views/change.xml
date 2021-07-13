@@ -1,44 +1,44 @@
 <odoo>
 
-    <record model="ir.ui.view" id="issue_search">
-      <field name="name">Issue Search</field>
-      <field name="model">certificate_planer.issue</field>
+    <record model="ir.ui.view" id="change_search">
+      <field name="name">Change Search</field>
+      <field name="model">certificate_planer.change</field>
       <field name="arch" type="xml">
         <search>
-          <field name="group_id"/>
+          <field name="change_id"/>
           <field name="description"/>
           <field name="certificate_id"/>
           <filter name="group_certificate" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
-          <filter name="group_group" string="By Group" context="{'group_by': 'group_id'}"/>
+          <filter name="group_group" string="By Group" context="{'group_by': 'change_id'}"/>
         </search>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="issue_list">
-      <field name="name">Issue List</field>
-      <field name="model">certificate_planer.issue</field>
+    <record model="ir.ui.view" id="change_list">
+      <field name="name">Change List</field>
+      <field name="model">certificate_planer.change</field>
       <field name="arch" type="xml">
         <tree limit="200">
-          <field name="group_id"/>
+          <field name="change_id"/>
           <field name="description"/>
           <field name="certificate_id"/>
         </tree>
       </field>
     </record>
 
-    <record model="ir.ui.view" id="issue_form">
-      <field name="name">Issue Form</field>
-      <field name="model">certificate_planer.issue</field>
+    <record model="ir.ui.view" id="change_form">
+      <field name="name">Change Form</field>
+      <field name="model">certificate_planer.change</field>
       <field name="arch" type="xml">
-        <form string="Issue Form">
+        <form string="Change Form">
           <sheet>
-            <p>Issue</p>
+            <p>Change</p>
             <div class="oe_title">
               <div class="oe_edit_only">
-                <label for="group_id"/>
+                <label for="change_id"/>
               </div>
               <h1>
-                <field name="group_id"/>
+                <field name="change_id"/>
               </h1>
             </div>
             <group>
@@ -47,9 +47,9 @@
               <field name="authority_number"/>
               <field name="project_number"/>
             </group>
-            <p class="oe_edit_only">Note: Adding a Document Revision will remove it from an already linked Issue</p>
+            <p class="oe_edit_only">Note: Adding a Document Revision will remove it from an already linked Change</p>
             <group>
-              <field name="revision_ids" widget="many2many" context="{'default_issue_id': id}"/>
+              <field name="revision_ids" widget="many2many" context="{'default_change_id': id}"/>
             </group>
             <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
             Created by <field name="create_uid"/> on <field name="create_date"/>.</p>

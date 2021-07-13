@@ -62,9 +62,9 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="issue_action">
-      <field name="name">Issues</field>
-      <field name="res_model">certificate_planer.issue</field>
+    <record model="ir.actions.act_window" id="change_action">
+      <field name="name">Changes</field>
+      <field name="res_model">certificate_planer.change</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -135,10 +135,10 @@
       parent="certificate_planer.certificates_menu"
       action="certificate_planer.certificate_action"/>
 
-    <menuitem name="Issues"
-      id="issue_menu"
+    <menuitem name="Changes"
+      id="change_menu"
       parent="certificate_planer.certificates_menu"
-      action="certificate_planer.issue_action"/>
+      action="certificate_planer.change_action"/>
   
     <!-- Documents actions -->
 

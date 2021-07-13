@@ -11,7 +11,7 @@ class DocumentRevision(models.Model):
     reason = fields.Text(required=True)
     document_id = fields.Many2one("certificate_planer.document", string="Document", track_visibility="always")
     state_id = fields.Many2one("certificate_planer.document_revision_state", required=True, string="State", track_visibility="always")
-    issue_id = fields.Many2one("certificate_planer.issue", string="Issue", track_visibility="always")
+    change_id = fields.Many2one("certificate_planer.change", string="Change", track_visibility="always")
 
     # defaults
     def unlink(self):
