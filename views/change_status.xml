@@ -1,0 +1,46 @@
+<odoo>
+
+  <record model="ir.ui.view" id="change_status_search">
+    <field name="name">Change Status Search</field>
+    <field name="model">certificate_planer.change_status</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="designation"/>
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="change_status_list">
+    <field name="name">Change Status List</field>
+    <field name="model">certificate_planer.change_status</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="sequence" widget="handle"/>
+        <field name="designation"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="change_status_form">
+    <field name="name">Change Status Form</field>
+    <field name="model">certificate_planer.change_status</field>
+    <field name="arch" type="xml">
+      <form string="Change Status Form">
+        <sheet>
+          <p>Change Status</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="designation"/>
+            </div>
+            <h1>
+              <field name="designation"/>
+            </h1>
+          </div>
+          <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+          Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>

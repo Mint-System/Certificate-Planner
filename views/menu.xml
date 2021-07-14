@@ -2,6 +2,12 @@
 
     <!-- actions opening views on models -->
 
+    <record model="ir.actions.act_window" id="change_status_action">
+      <field name="name">Change Status</field>
+      <field name="res_model">certificate_planer.change_status</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
     <record model="ir.actions.act_window" id="document_revision_state_action">
       <field name="name">Document Revision States</field>
       <field name="res_model">certificate_planer.document_revision_state</field>
@@ -65,7 +71,7 @@
     <record model="ir.actions.act_window" id="change_action">
       <field name="name">Changes</field>
       <field name="res_model">certificate_planer.change</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="document_part_report_action">
@@ -93,29 +99,40 @@
 
     <menuitem name="Document Revision States"
       id="document_revision_state_menu"
+      sequence="1"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_revision_state_action"/>
 
     <menuitem name="Document Types"
       id="document_type_menu"
+      sequence="2"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_type_action"/>
 
     <menuitem name="Change IDs"
       id="change_id_menu"
+      sequence="3"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.change_id_action"/>
 
     <menuitem name="Aircraft Types"
       id="aircraft_type_menu"
+      sequence="4"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.aircraft_type_action"/>
 
     <menuitem name="Specifications"
       id="specification_menu"
+      sequence="5"
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.specification_action"/>
-    
+
+    <menuitem name="Change Status"
+      id="change_status_menu"
+      sequence="6"
+      parent="certificate_planer.configuration_menu"
+      action="certificate_planer.change_status_action"/>
+
     <!-- Parts actions -->
 
     <menuitem name="Parts"

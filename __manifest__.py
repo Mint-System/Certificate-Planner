@@ -32,7 +32,8 @@
         'views/document_revision_state.xml',
         'views/menu.xml',
         'report/document_report.xml',
-        'views/document_part_report.xml'
+        'views/document_part_report.xml',
+        'views/change_status.xml',
     ],
 
     # module registry settings

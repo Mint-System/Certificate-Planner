@@ -15,6 +15,7 @@ class Change(models.Model):
     change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", track_visibility="always")
     revision_ids = fields.One2many("certificate_planer.document_revision", "change_id", string="Document Revisions")
     document_ids = fields.One2many("certificate_planer.document", "change_id", string="Documents")
+    status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", ondelete='restrict')
 
     def unlink(self):
         if len(self.document_ids) != 0:
@@ -29,3 +30,8 @@ class Change(models.Model):
         for rec in self:
             res.append((rec.id, _('%s (%s)') % (rec.change_id_id.name, rec.certificate_id.part_id.name)))
         return res
+
+    # @api.model
+    # def _read_group_status_ids(self, statuses, domain, order):
+    #     statuse_ids = statuses._search([], order=order)
+    #     return statuses.browse(statuse_ids)
