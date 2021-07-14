@@ -2,7 +2,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class Part(models.Model):
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.part'
     _description = 'Certificate Planer Part'
     _order = 'sequence,name'

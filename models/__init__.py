@@ -5,7 +5,7 @@ from . import document_revision_state
 from . import document_revision
 from . import document_type
 from . import document
-from . import issue_group
+from . import change_id
 from . import change
 from . import part
 from . import specification

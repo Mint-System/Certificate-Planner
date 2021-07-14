@@ -161,18 +161,18 @@
 
             <h2>Log of Ammendments</h2>
 
-            <t t-foreach="issue_groups" t-as="group">
+            <t t-foreach="change_ids" t-as="change_id">
 
               <div style="page-break-inside: avoid;">
 
-              <h3 class="o_bold" t-field="group.name"/>
+              <h3 class="o_bold" t-field="change_id.name"/>
 
-              <t t-foreach="log[group.id]['changes']" t-as="change">
+              <t t-foreach="log[change_id.id]['changes']" t-as="change">
                 <p t-field="change.description"/>
                 <p>
-                Authority Ref: <span t-field="change.authority_number"/>
+                Authority Ref: <span t-field="change.authority_reference"/>
                 <br/>
-                Internal Project Ref: <span t-field="change.project_number"/>
+                Internal Project Ref: <span t-field="change.reference"/>
                 </p>
 
                 <table class="table-striped" width="100%">

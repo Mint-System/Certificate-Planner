@@ -9,7 +9,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.2.0.0',
+    'version': '13.0.2.1.0',
     'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
@@ -22,7 +22,7 @@
         'views/part.xml',
         'views/bom.xml',
         'views/specification.xml',
-        'views/issue_group.xml',
+        'views/change_id.xml',
         'views/certificate.xml',
         'views/aircraft_type.xml',
         'views/change.xml',

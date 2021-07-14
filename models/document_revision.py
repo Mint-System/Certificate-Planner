@@ -2,7 +2,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class DocumentRevision(models.Model):
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.document_revision'
     _description = 'Certificate Planer Document Revision'
     _rec_name = 'document_id'

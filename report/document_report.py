@@ -17,33 +17,33 @@ class DocumentReport(models.AbstractModel):
         # get first document
         document = documents[0]
 
-        # get changes from certificate grouped by issue group
-        issues_grouped = self.env['certificate_planer.change'].read_group(
+        # get changes from certificate grouped by change id
+        changes_grouped = self.env['certificate_planer.change'].read_group(
             [('certificate_id', '=', document.certificate_id.id)],
             fields=['id'],
-            groupby=['change_id'])
+            groupby=['change_id_id'])
 
         # dict log of ammendments
         log={}
 
-        # issue groups
-        issue_groups=[]
+        # change id
+        change_ids=[]
 
-        # process issue group results
-        for group in issues_grouped:
-            issue_group_id=group['change_id'][0]
+        # process change grouped records
+        for group in changes_grouped:
+            change_id_id=group['change_id_id'][0]
             change_domain=group['__domain']
     
-            # get issue group
-            issue_group=self.env['certificate_planer.issue_group'].browse(issue_group_id)
-            issue_groups.append(issue_group)
+            # get change group
+            change_id=self.env['certificate_planer.change_id'].browse(change_id_id)
+            change_ids.append(change_id)
 
             # create key in log
-            log[issue_group.id]={'issues': [] }
+            log[change_id.id]={'changes': [] }
 
-            # get issues from domain filter
+            # get changes from grouped domain filter
             changes=self.env['certificate_planer.change'].search(change_domain)
-            log[issue_group.id]['changes']=changes
+            log[change_id.id]['changes']=changes
 
         # parts and docs
         part_docs=[]
@@ -82,7 +82,7 @@ class DocumentReport(models.AbstractModel):
         return {
             'docs': documents,
             'revision': document.current_revision_id,
-            'issue_groups': issue_groups,
+            'change_ids': change_ids,
             'log': log,
             'part_docs': part_docs
         }   

@@ -50,9 +50,9 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="issue_group_action">
-      <field name="name">Issue Groups</field>
-      <field name="res_model">certificate_planer.issue_group</field>
+    <record model="ir.actions.act_window" id="change_id_action">
+      <field name="name">Change IDs</field>
+      <field name="res_model">certificate_planer.change_id</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -101,10 +101,10 @@
       parent="certificate_planer.configuration_menu"
       action="certificate_planer.document_type_action"/>
 
-    <menuitem name="Issue Groups"
-      id="issue_group_menu"
+    <menuitem name="Change IDs"
+      id="change_id_menu"
       parent="certificate_planer.configuration_menu"
-      action="certificate_planer.issue_group_action"/>
+      action="certificate_planer.change_id_action"/>
 
     <menuitem name="Aircraft Types"
       id="aircraft_type_menu"
