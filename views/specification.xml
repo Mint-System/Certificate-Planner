@@ -1,28 +1,28 @@
 <odoo>
 
-    <record model="ir.ui.view" id="specification_list">
-      <field name="name">Specification List</field>
-      <field name="model">certificate_planer.specification</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="specification_list">
+    <field name="name">Specification List</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="specification_form">
-      <field name="name">Specification Form</field>
-      <field name="model">certificate_planer.specification</field>
-      <field name="arch" type="xml">
-        <form string="Specification Form">
-          <sheet>
-            <p>Specification</p>
-            <group>
-              <field name="name"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="specification_form">
+    <field name="name">Specification Form</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <form string="Specification Form">
+        <sheet>
+          <p>Specification</p>
+          <group>
+            <field name="name"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

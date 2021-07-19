@@ -1,28 +1,28 @@
 <odoo>
 
-    <record model="ir.ui.view" id="change_id_list">
-      <field name="name">Change ID List</field>
-      <field name="model">certificate_planer.change_id</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="change_id_list">
+    <field name="name">Change ID List</field>
+    <field name="model">certificate_planer.change_id</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="change_id_form">
-      <field name="name">Change ID Form</field>
-      <field name="model">certificate_planer.change_id</field>
-      <field name="arch" type="xml">
-        <form string="Change ID Form">
-          <sheet>
-            <p>Change ID</p>
-            <group>
-              <field name="name"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="change_id_form">
+    <field name="name">Change ID Form</field>
+    <field name="model">certificate_planer.change_id</field>
+    <field name="arch" type="xml">
+      <form string="Change ID Form">
+        <sheet>
+          <p>Change ID</p>
+          <group>
+            <field name="name"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

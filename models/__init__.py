@@ -11,3 +11,6 @@ from . import part
 from . import specification
 from . import document_part_report
 from . import change_status
+from . import change_class
+from . import post_certification_item
+from . import post_certification_item_status

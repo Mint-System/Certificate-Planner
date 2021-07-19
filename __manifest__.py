@@ -9,7 +9,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.2.1.0',
+    'version': '13.0.2.2.0',
     'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
@@ -34,6 +34,9 @@
         'report/document_report.xml',
         'views/document_part_report.xml',
         'views/change_status.xml',
+        'views/change_class.xml',
+        'views/post_certification_item_status.xml',
+        'views/post_certification_item.xml',
     ],
 
     # module registry settings

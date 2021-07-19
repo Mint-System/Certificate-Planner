@@ -1,50 +1,50 @@
 <odoo>
 
-    <record model="ir.ui.view" id="document_type_search">
-      <field name="name">Document Type Search</field>
-      <field name="model">certificate_planer.document_type</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="identification"/>
-          <field name="designation"/>
-        </search>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_type_search">
+    <field name="name">Document Type Search</field>
+    <field name="model">certificate_planer.document_type</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="identification"/>
+        <field name="designation"/>
+      </search>
+    </field>
+  </record>
 
 
-    <record model="ir.ui.view" id="document_type_list">
-      <field name="name">Document Type List</field>
-      <field name="model">certificate_planer.document_type</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="identification"/>
-          <field name="designation"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_type_list">
+    <field name="name">Document Type List</field>
+    <field name="model">certificate_planer.document_type</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="identification"/>
+        <field name="designation"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="document_type_form">
-      <field name="name">Document Type Form</field>
-      <field name="model">certificate_planer.document_type</field>
-      <field name="arch" type="xml">
-        <form string="Document Type Form">
-          <sheet>
-            <p>Document Type</p>
-            <div class="oe_title">
-              <div class="oe_edit_only">
-                <label for="identification"/>
-              </div>
-              <h1>
-                <field name="identification"/>
-              </h1>
+  <record model="ir.ui.view" id="document_type_form">
+    <field name="name">Document Type Form</field>
+    <field name="model">certificate_planer.document_type</field>
+    <field name="arch" type="xml">
+      <form string="Document Type Form">
+        <sheet>
+          <p>Document Type</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="identification"/>
             </div>
-            <group>
-              <field name="designation"/>
-              <field name="description"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+            <h1>
+              <field name="identification"/>
+            </h1>
+          </div>
+          <group>
+            <field name="designation"/>
+            <field name="description"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

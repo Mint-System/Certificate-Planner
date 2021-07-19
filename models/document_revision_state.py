@@ -3,7 +3,7 @@ from odoo.exceptions import UserError
 
 class DocumentRevisionState(models.Model):
     _name = 'certificate_planer.document_revision_state'
-    _description = 'Certificate Planer Document Revision State'
+    _description = 'Certificate Planner Document Revision State'
     
     # fields
     name = fields.Char(required=True, string="Title")

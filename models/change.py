@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 class Change(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.change'
-    _description = 'Certificate Planer Change'
+    _description = 'Certificate Planner Change'
     _rec_name = 'change_id_id'
 
     # fields
@@ -15,7 +15,7 @@ class Change(models.Model):
     change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", track_visibility="always")
     revision_ids = fields.One2many("certificate_planer.document_revision", "change_id", string="Document Revisions")
     document_ids = fields.One2many("certificate_planer.document", "change_id", string="Documents")
-    status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", ondelete='restrict')
+    status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", ondelete='restrict', default=lambda self: self.env['certificate_planer.change_status'].search([]))
 
     def unlink(self):
         if len(self.document_ids) != 0:

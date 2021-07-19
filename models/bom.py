@@ -2,7 +2,7 @@ from odoo import models, fields, api
 
 class Bom(models.Model):
     _name = 'certificate_planer.bom'
-    _description = 'Certificate Planer BoM'
+    _description = 'Certificate Planner BoM'
     _rec_name = 'part_id'
     
     # fields

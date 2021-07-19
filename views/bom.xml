@@ -1,56 +1,56 @@
 <odoo>
 
-    <record model="ir.ui.view" id="bom_search">
-      <field name="name">BoM Search</field>
-      <field name="model">certificate_planer.bom</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="part_id"/>
-        </search>
-      </field>
-    </record>
-  
-    <record model="ir.ui.view" id="bom_list">
-      <field name="name">BoM List</field>
-      <field name="model">certificate_planer.bom</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="part_id"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="bom_search">
+    <field name="name">BoM Search</field>
+    <field name="model">certificate_planer.bom</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="part_id"/>
+      </search>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="bom_form">
-      <field name="name">BoM Form</field>
-      <field name="model">certificate_planer.bom</field>
-      <field name="arch" type="xml">
-        <form string="BoM Form">
-          <sheet>
-            <div class="oe_title">
-              <div class="oe_edit_only">
-                <label for="part_id"/>
-              </div>
-              <h1>
-                <field name="part_id"/>
-              </h1>
+  <record model="ir.ui.view" id="bom_list">
+    <field name="name">BoM List</field>
+    <field name="model">certificate_planer.bom</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="part_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="bom_form">
+    <field name="name">BoM Form</field>
+    <field name="model">certificate_planer.bom</field>
+    <field name="arch" type="xml">
+      <form string="BoM Form">
+        <sheet>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="part_id"/>
             </div>
-            <group>
-              <p class="oe_edit_only">Note: A BoM must be linked with a Part and may contain mutliple child Parts.</p>
-            </group>
-            <group>
-              <!-- <field name="part_ids"/> -->
-              <field name="part_ids">
-                  <tree limit="200">
-                      <field name="sequence" widget="handle"/>
-                      <field name="name"/>
-                  </tree>
-              </field>
-            </group>
-            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
-            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
-          </sheet>
-        </form>
-      </field>
-    </record>
+            <h1>
+              <field name="part_id"/>
+            </h1>
+          </div>
+          <group>
+            <p class="oe_edit_only">Note: A BoM must be linked with a Part and may contain mutliple child Parts.</p>
+          </group>
+          <group>
+            <!-- <field name="part_ids"/> -->
+            <field name="part_ids">
+                <tree limit="200">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+          </group>
+          <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+          Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

@@ -1,65 +1,65 @@
 <odoo>
 
-    <record model="ir.ui.view" id="part_search">
-      <field name="name">Part Search</field>
-      <field name="model">certificate_planer.part</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="name"/>
-          <field name="designation"/>
-        </search>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="part_search">
+    <field name="name">Part Search</field>
+    <field name="model">certificate_planer.part</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="designation"/>
+      </search>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="part_list">
-      <field name="name">Part List</field>
-      <field name="model">certificate_planer.part</field>
-      <field name="arch" type="xml">
-        <tree limit="200" default_order="name">
-          <field name="name"/>
-          <field name="designation"/>
-          <field name="sequence" optional="hide"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="part_list">
+    <field name="name">Part List</field>
+    <field name="model">certificate_planer.part</field>
+    <field name="arch" type="xml">
+      <tree limit="200" default_order="name">
+        <field name="name"/>
+        <field name="designation"/>
+        <field name="sequence" optional="hide"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="part_form">
-      <field name="name">Part Form</field>
-      <field name="model">certificate_planer.part</field>
-      <field name="arch" type="xml">
-        <form string="Part Form">
-          <sheet>
-            <p>Part</p>
-            <div class="oe_title">
-              <div class="oe_edit_only">
-                <label for="name"/>
-              </div>
-              <h1>
-                <field name="name"/>
-              </h1>
+  <record model="ir.ui.view" id="part_form">
+    <field name="name">Part Form</field>
+    <field name="model">certificate_planer.part</field>
+    <field name="arch" type="xml">
+      <form string="Part Form">
+        <sheet>
+          <p>Part</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="name"/>
             </div>
-            <group>
-              <field name="designation"/>
-              <field name="bom_id"/>
-              <field name="certificate_id"/>
-            </group>
-            <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
-            <group>
-              <field name="document_ids"/>
-              <field name="bom_ids"/>
-              <field name="part_ids"/>
-              <field name="sequence"/>
-            </group>
-            <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
-            Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
-          </sheet>
-          <div class="oe_chatter">
-            <field name="message_follower_ids" widget="mail_followers"/>
-            <field name="message_ids" widget="mail_thread"/>
-            <field name="activity_ids" widget="mail_activity"/>
+            <h1>
+              <field name="name"/>
+            </h1>
           </div>
-        </form>
-      </field>
-    </record>
+          <group>
+            <field name="designation"/>
+            <field name="bom_id"/>
+            <field name="certificate_id"/>
+          </group>
+          <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
+          <group>
+            <field name="document_ids"/>
+            <field name="bom_ids"/>
+            <field name="part_ids"/>
+            <field name="sequence"/>
+          </group>
+          <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
+          Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
+        </sheet>
+        <div class="oe_chatter">
+          <field name="message_follower_ids" widget="mail_followers"/>
+          <field name="message_ids" widget="mail_thread"/>
+          <field name="activity_ids" widget="mail_activity"/>
+        </div>
+      </form>
+    </field>
+  </record>
 
 </odoo>

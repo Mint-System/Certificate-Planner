@@ -1,41 +1,41 @@
 <odoo>
 
-    <record model="ir.ui.view" id="document_revision_state_search">
-      <field name="name">Document Revision State Search</field>
-      <field name="model">certificate_planer.document_revision_state</field>
-      <field name="arch" type="xml">
-        <search>
-          <field name="name"/>
-          <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-        </search>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_revision_state_search">
+    <field name="name">Document Revision State Search</field>
+    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+      </search>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="document_revision_state_list">
-      <field name="name">Document Revision State List</field>
-      <field name="model">certificate_planer.document_revision_state</field>
-      <field name="arch" type="xml">
-        <tree limit="200" default_order="name">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_revision_state_list">
+    <field name="name">Document Revision State List</field>
+    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="arch" type="xml">
+      <tree limit="200" default_order="name">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="document_revision_state_form">
-      <field name="name">Document Revision State Form</field>
-      <field name="model">certificate_planer.document_revision_state</field>
-      <field name="arch" type="xml">
-        <form string="Document Revision State Form">
-          <sheet>
-            <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
-            <field name="active" invisible="1"/>
-            <p>Document Revision State</p>
-            <group>
-              <field name="name"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="document_revision_state_form">
+    <field name="name">Document Revision State Form</field>
+    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="arch" type="xml">
+      <form string="Document Revision State Form">
+        <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
+          <p>Document Revision State</p>
+          <group>
+            <field name="name"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

@@ -3,7 +3,7 @@ from odoo.exceptions import UserError
 
 class DocumentType(models.Model):
     _name = 'certificate_planer.document_type'
-    _description = 'Certificate Planer Document Type'
+    _description = 'Certificate Planner Document Type'
     _rec_name = 'identification'
 
     # fields

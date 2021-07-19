@@ -3,7 +3,7 @@ from odoo.exceptions import UserError
 
 class Specification(models.Model):
     _name = 'certificate_planer.specification'
-    _description = 'Certificate Planer Specification'
+    _description = 'Certificate Planner Specification'
     
     # fields
     name = fields.Char(required=True, string="Title")

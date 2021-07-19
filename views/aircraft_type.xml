@@ -1,28 +1,28 @@
 <odoo>
 
-    <record model="ir.ui.view" id="aircraft_type_list">
-      <field name="name">Aircraft Type List</field>
-      <field name="model">certificate_planer.aircraft_type</field>
-      <field name="arch" type="xml">
-        <tree limit="200">
-          <field name="name"/>
-        </tree>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="aircraft_type_list">
+    <field name="name">Aircraft Type List</field>
+    <field name="model">certificate_planer.aircraft_type</field>
+    <field name="arch" type="xml">
+      <tree limit="200">
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
 
-    <record model="ir.ui.view" id="aircraft_type_form">
-      <field name="name">Aircraft Type Form</field>
-      <field name="model">certificate_planer.aircraft_type</field>
-      <field name="arch" type="xml">
-        <form string="Aircraft Type Form">
-          <sheet>
-            <p>Aircraft Type</p>
-            <group>
-              <field name="name"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
+  <record model="ir.ui.view" id="aircraft_type_form">
+    <field name="name">Aircraft Type Form</field>
+    <field name="model">certificate_planer.aircraft_type</field>
+    <field name="arch" type="xml">
+      <form string="Aircraft Type Form">
+        <sheet>
+          <p>Aircraft Type</p>
+          <group>
+            <field name="name"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 
 </odoo>

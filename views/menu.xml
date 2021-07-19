@@ -1,179 +1,214 @@
 <odoo>
 
-    <!-- actions opening views on models -->
+  <!-- actions opening views on models -->
 
-    <record model="ir.actions.act_window" id="change_status_action">
-      <field name="name">Change Status</field>
-      <field name="res_model">certificate_planer.change_status</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    
-    <record model="ir.actions.act_window" id="document_revision_state_action">
-      <field name="name">Document Revision States</field>
-      <field name="res_model">certificate_planer.document_revision_state</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="change_status_action">
+    <field name="name">Change Status</field>
+    <field name="res_model">certificate_planer.change_status</field>
+    <field name="view_mode">tree,form</field>
+  </record>
   
-    <record model="ir.actions.act_window" id="document_type_action">
-      <field name="name">Document Types</field>
-      <field name="res_model">certificate_planer.document_type</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="document_revision_state_action">
+    <field name="name">Document Revision States</field>
+    <field name="res_model">certificate_planer.document_revision_state</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="aircraft_type_action">
-      <field name="name">Aircraft Types</field>
-      <field name="res_model">certificate_planer.aircraft_type</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="document_type_action">
+    <field name="name">Document Types</field>
+    <field name="res_model">certificate_planer.document_type</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="document_action">
-      <field name="name">Documents</field>
-      <field name="res_model">certificate_planer.document</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="aircraft_type_action">
+    <field name="name">Aircraft Types</field>
+    <field name="res_model">certificate_planer.aircraft_type</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="document_revision_action">
-      <field name="name">Document Revisions</field>
-      <field name="res_model">certificate_planer.document_revision</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="document_action">
+    <field name="name">Documents</field>
+    <field name="res_model">certificate_planer.document</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="part_action">
-      <field name="name">Parts</field>
-      <field name="res_model">certificate_planer.part</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="document_revision_action">
+    <field name="name">Document Revisions</field>
+    <field name="res_model">certificate_planer.document_revision</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="bom_action">
-      <field name="name">BoMs</field>
-      <field name="res_model">certificate_planer.bom</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="part_action">
+    <field name="name">Parts</field>
+    <field name="res_model">certificate_planer.part</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="specification_action">
-      <field name="name">Specifications</field>
-      <field name="res_model">certificate_planer.specification</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="bom_action">
+    <field name="name">BoMs</field>
+    <field name="res_model">certificate_planer.bom</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="change_id_action">
-      <field name="name">Change IDs</field>
-      <field name="res_model">certificate_planer.change_id</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="specification_action">
+    <field name="name">Specifications</field>
+    <field name="res_model">certificate_planer.specification</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="certificate_action">
-      <field name="name">Certificates</field>
-      <field name="res_model">certificate_planer.certificate</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="change_id_action">
+    <field name="name">Change IDs</field>
+    <field name="res_model">certificate_planer.change_id</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="change_action">
-      <field name="name">Changes</field>
-      <field name="res_model">certificate_planer.change</field>
-      <field name="view_mode">kanban,tree,form</field>
-    </record>
+  <record model="ir.actions.act_window" id="change_class_action">
+    <field name="name">Change Classes</field>
+    <field name="res_model">certificate_planer.change_class</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <record model="ir.actions.act_window" id="document_part_report_action">
-      <field name="name">Document Part Report</field>
-      <field name="res_model">certificate_planer.document_part_report</field>
-      <field name="view_mode">tree,form</field>
-      <field name="view_id" eval="False"/> 
-    </record>
+  <record model="ir.actions.act_window" id="certificate_action">
+    <field name="name">Certificates</field>
+    <field name="res_model">certificate_planer.certificate</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <!-- Top menu item -->
+  <record model="ir.actions.act_window" id="change_action">
+    <field name="name">Changes</field>
+    <field name="res_model">certificate_planer.change</field>
+    <field name="view_mode">tree,kanban,form</field>
+  </record>
 
-    <menuitem name="Certificate Planner" id="menu_root" web_icon="certificate_planer,static/description/icon.png"/>
+  <record model="ir.actions.act_window" id="document_part_report_action">
+    <field name="name">Document Part Report</field>
+    <field name="res_model">certificate_planer.document_part_report</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" eval="False"/> 
+  </record>
 
-    <!-- menu categories -->
+  <record model="ir.actions.act_window" id="post_certification_item_action">
+    <field name="name">Post Certification Items</field>
+    <field name="res_model">certificate_planer.post_certification_item</field>
+    <field name="view_mode">tree,kanban,form</field>
+  </record>
 
-    <menuitem name="Documents" sequence="0" id="documents_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Certificates" sequence="1" id="certificates_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Parts" sequence="2" id="parts_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Reports" sequence="3" id="report_menu" parent="certificate_planer.menu_root"/>
-    <menuitem name="Configuration" sequence="4" id="configuration_menu" parent="certificate_planer.menu_root"/>
+  <record model="ir.actions.act_window" id="post_certification_item_status_action">
+    <field name="name">Post Certification Item Status</field>
+    <field name="res_model">certificate_planer.post_certification_item_status</field>
+    <field name="view_mode">tree,form</field>
+  </record>
 
-    <!-- actions -->
+  <!-- Top menu item -->
 
-    <!-- Configuration actions -->
+  <menuitem name="Certificate Planner" id="menu_root" web_icon="certificate_planer,static/description/icon.png"/>
 
-    <menuitem name="Document Revision States"
-      id="document_revision_state_menu"
-      sequence="1"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.document_revision_state_action"/>
+  <!-- menu categories -->
 
-    <menuitem name="Document Types"
-      id="document_type_menu"
-      sequence="2"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.document_type_action"/>
+  <menuitem name="Documents" sequence="0" id="documents_menu" parent="certificate_planer.menu_root"/>
+  <menuitem name="Certificates" sequence="1" id="certificates_menu" parent="certificate_planer.menu_root"/>
+  <menuitem name="Parts" sequence="2" id="parts_menu" parent="certificate_planer.menu_root"/>
+  <menuitem name="Reports" sequence="3" id="report_menu" parent="certificate_planer.menu_root"/>
+  <menuitem name="Configuration" sequence="4" id="configuration_menu" parent="certificate_planer.menu_root"/>
 
-    <menuitem name="Change IDs"
-      id="change_id_menu"
-      sequence="3"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.change_id_action"/>
+  <!-- actions -->
 
-    <menuitem name="Aircraft Types"
-      id="aircraft_type_menu"
-      sequence="4"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.aircraft_type_action"/>
+  <!-- Configuration actions -->
 
-    <menuitem name="Specifications"
-      id="specification_menu"
-      sequence="5"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.specification_action"/>
+  <menuitem name="Document Revision States"
+    id="document_revision_state_menu"
+    sequence="1"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.document_revision_state_action"/>
 
-    <menuitem name="Change Status"
-      id="change_status_menu"
-      sequence="6"
-      parent="certificate_planer.configuration_menu"
-      action="certificate_planer.change_status_action"/>
+  <menuitem name="Document Types"
+    id="document_type_menu"
+    sequence="2"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.document_type_action"/>
 
-    <!-- Parts actions -->
+  <menuitem name="Change IDs"
+    id="change_id_menu"
+    sequence="3"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.change_id_action"/>
 
-    <menuitem name="Parts"
-      id="part_menu"
-      parent="certificate_planer.parts_menu"
-      action="certificate_planer.part_action"/>
+  <menuitem name="Aircraft Types"
+    id="aircraft_type_menu"
+    sequence="4"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.aircraft_type_action"/>
 
-    <menuitem name="BoMs"
-      id="bom_menu"
-      parent="certificate_planer.parts_menu"
-      action="certificate_planer.bom_action"/>
+  <menuitem name="Specifications"
+    id="specification_menu"
+    sequence="5"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.specification_action"/>
 
-    <!-- Certificates actions -->
+  <menuitem name="Change Status"
+    id="change_status_menu"
+    sequence="6"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.change_status_action"/>
 
-    <menuitem name="Certificates"
-      id="certificate_menu"
-      parent="certificate_planer.certificates_menu"
-      action="certificate_planer.certificate_action"/>
+  <menuitem name="Change Classes"
+    id="change_class_menu"
+    sequence="7"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.change_class_action"/>
 
-    <menuitem name="Changes"
-      id="change_menu"
-      parent="certificate_planer.certificates_menu"
-      action="certificate_planer.change_action"/>
-  
-    <!-- Documents actions -->
+  <menuitem name="Post Certification Item Status"
+    id="post_certification_item_status_menu"
+    sequence="8"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.post_certification_item_status_action"/>
 
-    <menuitem name="Documents"
-      id="document_menu"
-      parent="certificate_planer.documents_menu"
-      action="certificate_planer.document_action"/>
+  <!-- Parts actions -->
 
-    <menuitem name="Revisions"
-      id="document_revision_menu"
-      parent="certificate_planer.documents_menu"
-      action="certificate_planer.document_revision_action"/>
+  <menuitem name="Parts"
+    id="part_menu"
+    parent="certificate_planer.parts_menu"
+    action="certificate_planer.part_action"/>
 
-    <!-- Reports actions -->
+  <menuitem name="BoMs"
+    id="bom_menu"
+    parent="certificate_planer.parts_menu"
+    action="certificate_planer.bom_action"/>
 
-    <menuitem name="Document Part Report"
-      id="document_part_view_menu"
-      parent="certificate_planer.report_menu"
-      action="certificate_planer.document_part_report_action"/>
+  <!-- Certificates actions -->
+
+  <menuitem name="Certificates"
+    id="certificate_menu"
+    parent="certificate_planer.certificates_menu"
+    action="certificate_planer.certificate_action"/>
+
+  <menuitem name="Changes"
+    id="change_menu"
+    parent="certificate_planer.certificates_menu"
+    action="certificate_planer.change_action"/>
+
+  <menuitem name="Post Certification Item"
+    id="post_certification_item_menu"
+    parent="certificate_planer.certificates_menu"
+    action="certificate_planer.post_certification_item_action"/>
+
+  <!-- Documents actions -->
+
+  <menuitem name="Documents"
+    id="document_menu"
+    parent="certificate_planer.documents_menu"
+    action="certificate_planer.document_action"/>
+
+  <menuitem name="Revisions"
+    id="document_revision_menu"
+    parent="certificate_planer.documents_menu"
+    action="certificate_planer.document_revision_action"/>
+
+  <!-- Reports actions -->
+
+  <menuitem name="Document Part Report"
+    id="document_part_view_menu"
+    parent="certificate_planer.report_menu"
+    action="certificate_planer.document_part_report_action"/>
 
 </odoo>

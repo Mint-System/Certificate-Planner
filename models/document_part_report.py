@@ -3,7 +3,7 @@ from odoo.exceptions import UserError
 
 class DocumentPartReport(models.Model):
     _name = 'certificate_planer.document_part_report'
-    _description = 'Certificate Planer Document Part Report'
+    _description = 'Certificate Planner Document Part Report'
     _auto = False # Disable the database table automatic creation
 
     # fields

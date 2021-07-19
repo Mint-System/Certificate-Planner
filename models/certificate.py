@@ -3,7 +3,7 @@ from odoo import models, fields, api, _
 class Certificate(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.certificate'
-    _description = 'Certificate Planer Certificate'
+    _description = 'Certificate Planner Certificate'
     _rec_name = 'part_id'
     
     # fields

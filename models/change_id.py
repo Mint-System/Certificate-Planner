@@ -1,9 +1,9 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-class IssueGroup(models.Model):
+class ChangeID(models.Model):
     _name = 'certificate_planer.change_id'
-    _description = 'Certificate Planer Change ID'
+    _description = 'Certificate Planner Change ID'
     
     # fields
     name = fields.Char(required=True, string="Title")
@@ -17,4 +17,4 @@ class IssueGroup(models.Model):
     def unlink(self):
         if len(self.change_ids) != 0:
             raise UserError(_('You cannot delete an Change ID as long it is referenced by a Change.'))
-        return super(IssueGroup, self).unlink()
+        return super(ChangeID, self).unlink()

@@ -4,7 +4,7 @@ _logger = logging.getLogger(__name__)
 
 class DocumentReport(models.AbstractModel):
     _name = 'report.certificate_planer.document_report_view'
-    _description = 'Certificate Planer Document Report'
+    _description = 'Certificate Planner Document Report'
 
     def _get_report_values(self, docids, data=None):
 
