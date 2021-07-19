@@ -20,24 +20,10 @@ class Change(models.Model):
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict")
 
     revision_ids = fields.One2many("certificate_planer.document_revision", "change_id", string="Document Revisions")
-    # document_ids = fields.One2many("certificate_planer.document", "change_id", string="Documents")
     item_ids = fields.One2many("certificate_planer.post_certification_item", "change_id", string="Post Certification Items")
-
-    # defaults
-    # def unlink(self):
-    #     if len(self.document_ids) != 0:
-    #         raise UserError(_('You cannot delete an Change as long it is referenced by a Document.'))
-    #     if len(self.revision_ids) != 0:
-    #         raise UserError(_('You cannot delete an Change as long it is referenced by a Document Revision.'))
-    #     return super(Change, self).unlink()
 
     def name_get(self):
         res = []
         for rec in self:
             res.append((rec.id, _('%s (%s)') % (rec.change_id_id.name, rec.certificate_id.part_id.name)))
         return res
-
-    # @api.model
-    # def _read_group_status_ids(self, statuses, domain, order):
-    #     statuse_ids = statuses._search([], order=order)
-    #     return statuses.browse(statuse_ids)

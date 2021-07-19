@@ -26,15 +26,8 @@ class Document(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Document with this Document ID already exists."),
     ]
-
-    # defaults
-    # def unlink(self):
-    #     if len(self.part_ids) != 0:
-    #         raise UserError(_('You cannot delete a Document as long it is referenced by a Part.'))
-    #     if len(self.revision_ids) != 0:
-    #         raise UserError(_('You cannot delete a Document as long it is referenced by a Document Revision.'))
-    #     return super(Document, self).unlink()
     
+    # compute
     def _compute_revision_count(self):
         for record in self:
             record.revision_count = self.env['certificate_planer.document_revision'].search_count([('document_id', '=', self.id)])

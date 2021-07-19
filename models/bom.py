@@ -7,7 +7,7 @@ class Bom(models.Model):
     
     # fields
     part_id = fields.Many2one("certificate_planer.part", string="Part")
-    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts")
+    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", ondelete="restrict")
 
     # constraints
     _sql_constraints = [
