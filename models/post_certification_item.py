@@ -7,10 +7,11 @@ class PostCertificationItem(models.Model):
     _rec_name = 'pci_id'
     
     # fields
-    pci_id = fields.Char(string="PCI ID", require=True)
+    pci_id = fields.Char(string="PCI ID", required=True)
     description = fields.Char(required=True)
-    change_id = fields.Many2one("certificate_planer.change", required=True, string="Change")
-    status_id = fields.Many2one("certificate_planer.post_certification_item_status", track_visibility="always", ondelete='restrict', default=lambda self: self.env['certificate_planer.post_certification_item_status'].search([]))
+
+    change_id = fields.Many2one("certificate_planer.change", required=True, string="Change", ondelete="restrict")
+    status_id = fields.Many2one("certificate_planer.post_certification_item_status", track_visibility="always", default=lambda self: self.env['certificate_planer.post_certification_item_status'].search([]), ondelete="restrict")
 
     # defaults
     def name_get(self):

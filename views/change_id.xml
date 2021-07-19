@@ -5,6 +5,7 @@
     <field name="model">certificate_planer.change_id</field>
     <field name="arch" type="xml">
       <tree limit="200">
+        <field name="sequence" widget="handle"/>
         <field name="name"/>
       </tree>
     </field>

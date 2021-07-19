@@ -11,26 +11,27 @@ class Part(models.Model):
     name = fields.Char(required=True, string="Partnumber")
     sequence = fields.Integer()
     designation = fields.Char(required=True)
-    bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs")
-    document_ids = fields.Many2many("certificate_planer.document", string="Documents")
-    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_compute_get_part_ids")
-    # Inverted fiels without One2many
+
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_compute_get_bom_id")
     certificate_id = fields.Many2one("certificate_planer.certificate", store=False, compute="_compute_get_certificate_id")
+
+    bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs", ondelete="restrict")
+    document_ids = fields.Many2many("certificate_planer.document", string="Documents", ondelete="restrict")
+    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_compute_get_part_ids")
 
     # constraints
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Part with this Partnumber already exists."),
     ]
 
-    def unlink(self):
-        if len(self.bom_ids) != 0:
-            raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a parent BoM.'))
-        if len(self.document_ids) != 0:
-            raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a document.'))
-        return super(Part, self).unlink()
-
     # defaults
+    # def unlink(self):
+    #     if len(self.bom_ids) != 0:
+    #         raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a parent BoM.'))
+    #     if len(self.document_ids) != 0:
+    #         raise UserError(_('You cannot delete a BoM/Part as long it is referenced by a document.'))
+    #     return super(Part, self).unlink()
+
     def name_get(self):
         res = []
         for rec in self:

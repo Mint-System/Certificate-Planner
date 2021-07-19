@@ -14,6 +14,7 @@ class Bom(models.Model):
         ('part_id_unique', 'unique (part_id)', "BoM with this Part already exists."),
     ]
 
+    # defaults
     def unlink(self):
         self.part_id.unlink()
         return super(Bom, self).unlink()

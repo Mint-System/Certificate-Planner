@@ -127,12 +127,6 @@
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.document_type_action"/>
 
-  <menuitem name="Change IDs"
-    id="change_id_menu"
-    sequence="3"
-    parent="certificate_planer.configuration_menu"
-    action="certificate_planer.change_id_action"/>
-
   <menuitem name="Aircraft Types"
     id="aircraft_type_menu"
     sequence="4"
@@ -145,21 +139,27 @@
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.specification_action"/>
 
+  <menuitem name="Change IDs"
+    id="change_id_menu"
+    sequence="8"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.change_id_action"/>
+
   <menuitem name="Change Status"
     id="change_status_menu"
-    sequence="6"
+    sequence="9"
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.change_status_action"/>
 
   <menuitem name="Change Classes"
     id="change_class_menu"
-    sequence="7"
+    sequence="10"
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.change_class_action"/>
 
   <menuitem name="Post Certification Item Status"
     id="post_certification_item_status_menu"
-    sequence="8"
+    sequence="11"
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.post_certification_item_status_action"/>
 

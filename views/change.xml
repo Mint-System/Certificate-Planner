@@ -71,13 +71,22 @@
           </div>
           <group>
             <field name="description"/>
+            <field name="class_id"/>
             <field name="certificate_id"/>
             <field name="authority_reference"/>
             <field name="reference"/>
           </group>
-          <p class="oe_edit_only">Note: Adding a Document Revision will remove it from an already linked Change</p>
+          <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>
-            <field name="revision_ids" widget="many2many" context="{'default_change_id_id': id}"/>
+            <field name="revision_ids" widget="many2many" context="{'default_change_id': id}"/>
+          </group>
+          <p class="oe_edit_only">Note: #FIXME</p>
+          <group>
+            <field name="part_ids" widget="many2many"/>
+          </group>
+          <p class="oe_edit_only">Note: Adding an existing Post Certification Item will remove it from a linked Change</p>
+          <group>
+            <field name="item_ids" widget="many2many" context="{'default_change_id': id}"/>
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
