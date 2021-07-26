@@ -20,10 +20,13 @@
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <tree limit="200">
+        <field name="certificate_id"/>
         <field name="change_id_id"/>
         <field name="description"/>
-        <field name="certificate_id"/>
-        <field name="status_id"/>
+        <field name="classification_id" optional="show"/>
+        <field name="reference" optional="show"/>
+        <field name="authority_reference" optional="show"/>
+        <field name="status_id" optional="show"/>
       </tree>
     </field>
   </record>
