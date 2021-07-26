@@ -17,6 +17,7 @@ class Part(models.Model):
 
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs", ondelete="restrict")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents", ondelete="restrict")
+    change_ids = fields.Many2many("certificate_planer.change", string="Changes", ondelete="restrict")
     part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_compute_get_part_ids")
 
     # constraints

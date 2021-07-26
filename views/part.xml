@@ -46,6 +46,7 @@
           <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
           <group>
             <field name="document_ids"/>
+            <field name="change_ids"/>
             <field name="bom_ids"/>
             <field name="part_ids"/>
             <field name="sequence"/>
