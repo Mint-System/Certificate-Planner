@@ -13,7 +13,7 @@ class Document(models.Model):
     revision_count = fields.Integer(compute='_compute_revision_count')
 
     current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", track_visibility="always")
-    change_id = fields.Many2one("certificate_planer.change", string="Change", track_visibility="always", ondelete="restrict")
+    change_id = fields.Many2one("certificate_planer.change", string="Change", readonly=True) # deprecated
     type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", track_visibility="always", ondelete="restrict")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
     state_id = fields.Many2one(related='current_revision_id.state_id')
