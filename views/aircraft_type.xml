@@ -1,5 +1,16 @@
 <odoo>
 
+  <record model="ir.ui.view" id="aircraft_type_search">
+    <field name="name">Aircraft Type Search</field>
+    <field name="model">certificate_planer.aircraft_type</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+      </search>
+    </field>
+  </record>
+
   <record model="ir.ui.view" id="aircraft_type_list">
     <field name="name">Aircraft Type List</field>
     <field name="model">certificate_planer.aircraft_type</field>
@@ -16,6 +27,8 @@
     <field name="arch" type="xml">
       <form string="Aircraft Type Form">
         <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
           <p>Aircraft Type</p>
           <group>
             <field name="name"/>

@@ -6,6 +6,7 @@ class Specification(models.Model):
     _description = 'Certificate Planner Specification'
     
     # fields
+    active = fields.Boolean(default=True)
     name = fields.Char(required=True, string="Title")
 
     # constraints

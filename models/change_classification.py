@@ -7,5 +7,6 @@ class ChangeClassification(models.Model):
     _rec_name = 'designation'
 
     # fields
+    active = fields.Boolean(default=True)
     designation = fields.Char()
     description = fields.Char()

@@ -8,5 +8,6 @@ class ChangeStatus(models.Model):
     _order = 'sequence'
 
     # fields
+    active = fields.Boolean(default=True)
     designation = fields.Char()
     sequence = fields.Integer()

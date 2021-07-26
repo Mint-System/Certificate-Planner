@@ -6,6 +6,7 @@
     <field name="arch" type="xml">
       <search>
         <field name="designation"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
       </search>
     </field>
   </record>
@@ -27,6 +28,8 @@
     <field name="arch" type="xml">
       <form string="Change Status Form">
         <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
           <p>Change Status</p>
           <div class="oe_title">
             <div class="oe_edit_only">

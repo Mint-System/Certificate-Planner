@@ -7,6 +7,7 @@ class ChangeID(models.Model):
     _order = 'sequence'
 
     # fields
+    active = fields.Boolean(default=True)
     name = fields.Char(required=True, string="Title")
     sequence = fields.Integer()
 

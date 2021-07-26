@@ -1,5 +1,16 @@
 <odoo>
 
+  <record model="ir.ui.view" id="specification_search">
+    <field name="name">Specification Search</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+      </search>
+    </field>
+  </record>
+
   <record model="ir.ui.view" id="specification_list">
     <field name="name">Specification List</field>
     <field name="model">certificate_planer.specification</field>
@@ -16,6 +27,9 @@
     <field name="arch" type="xml">
       <form string="Specification Form">
         <sheet>
+        
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
           <p>Specification</p>
           <group>
             <field name="name"/>

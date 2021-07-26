@@ -7,10 +7,10 @@
       <search>
         <field name="identification"/>
         <field name="designation"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
       </search>
     </field>
   </record>
-
 
   <record model="ir.ui.view" id="document_type_list">
     <field name="name">Document Type List</field>
@@ -29,6 +29,8 @@
     <field name="arch" type="xml">
       <form string="Document Type Form">
         <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
           <p>Document Type</p>
           <div class="oe_title">
             <div class="oe_edit_only">

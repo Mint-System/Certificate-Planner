@@ -6,6 +6,7 @@ class AircraftType(models.Model):
     _description = 'Certificate Planner Aircraft Type'
     
     # fields
+    active = fields.Boolean(default=True)
     name = fields.Char(required=True, string="Title")
 
     # constraints

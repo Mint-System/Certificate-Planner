@@ -1,5 +1,16 @@
 <odoo>
 
+  <record model="ir.ui.view" id="change_id_search">
+    <field name="name">Change ID Search</field>
+    <field name="model">certificate_planer.change_id</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+      </search>
+    </field>
+  </record>
+
   <record model="ir.ui.view" id="change_id_list">
     <field name="name">Change ID List</field>
     <field name="model">certificate_planer.change_id</field>
@@ -17,6 +28,8 @@
     <field name="arch" type="xml">
       <form string="Change ID Form">
         <sheet>
+          <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+          <field name="active" invisible="1"/>
           <p>Change ID</p>
           <group>
             <field name="name"/>

@@ -7,6 +7,7 @@ class DocumentType(models.Model):
     _rec_name = 'identification'
 
     # fields
+    active = fields.Boolean(default=True)
     designation = fields.Char(required=True)
     identification = fields.Char(required=True)
     description = fields.Char(help="Document ID Assignment")
