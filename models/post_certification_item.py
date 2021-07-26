@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class PostCertificationItem(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -10,10 +11,15 @@ class PostCertificationItem(models.Model):
     pci_id = fields.Char(string="PCI ID", required=True)
     description = fields.Char(required=True)
 
-    change_id = fields.Many2one("certificate_planer.change", required=True, string="Change", ondelete="restrict")
+    change_id = fields.Many2one("certificate_planer.change", string="Change", ondelete="restrict")
     status_id = fields.Many2one("certificate_planer.post_certification_item_status", track_visibility="always", default=lambda self: self.env['certificate_planer.post_certification_item_status'].search([]), ondelete="restrict")
 
     # defaults
+    def unlink(self):
+        if self.change_id:
+            raise UserError(_('You cannot delete a Post Certification Item that links to a Change.'))
+        return super(PostCertificationItem, self).unlink()
+
     def name_get(self):
         res = []
         for rec in self:
