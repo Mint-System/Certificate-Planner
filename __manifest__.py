@@ -13,7 +13,7 @@
     'license': 'AGPL-3',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'graphql_base'],
 
     # always loaded
     'data': [
