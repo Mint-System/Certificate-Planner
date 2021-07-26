@@ -14,7 +14,7 @@ class Change(models.Model):
     reference = fields.Char(string="Aerolite Reference")
 
     status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
-    class_id = fields.Many2one("certificate_planer.change_class", track_visibility="always", default=lambda self: self.env['certificate_planer.change_class'].search([]), ondelete="restrict")
+    classification_id = fields.Many2one("certificate_planer.change_classification", track_visibility="always", default=lambda self: self.env['certificate_planer.change_class'].search([]), ondelete="restrict")
     change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", track_visibility="always", ondelete="restrict")
     
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict")

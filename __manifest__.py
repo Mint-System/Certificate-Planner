@@ -34,7 +34,7 @@
         'report/document_report.xml',
         'views/document_part_report.xml',
         'views/change_status.xml',
-        'views/change_class.xml',
+        'views/change_classification.xml',
         'views/post_certification_item_status.xml',
         'views/post_certification_item.xml',
     ],

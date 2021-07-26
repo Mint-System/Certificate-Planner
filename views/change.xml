@@ -71,7 +71,7 @@
           </div>
           <group>
             <field name="description"/>
-            <field name="class_id"/>
+            <field name="classification_id"/>
             <field name="certificate_id"/>
             <field name="authority_reference"/>
             <field name="reference"/>

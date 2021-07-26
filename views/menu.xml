@@ -62,9 +62,9 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <record model="ir.actions.act_window" id="change_class_action">
-    <field name="name">Change Classes</field>
-    <field name="res_model">certificate_planer.change_class</field>
+  <record model="ir.actions.act_window" id="change_classification_action">
+    <field name="name">Change Classifications</field>
+    <field name="res_model">certificate_planer.change_classification</field>
     <field name="view_mode">tree,form</field>
   </record>
 
@@ -151,11 +151,11 @@
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.change_status_action"/>
 
-  <menuitem name="Change Classes"
-    id="change_class_menu"
+  <menuitem name="Change Classifications"
+    id="change_classification_menu"
     sequence="10"
     parent="certificate_planer.configuration_menu"
-    action="certificate_planer.change_class_action"/>
+    action="certificate_planer.change_classification_action"/>
 
   <menuitem name="Post Certification Item Status"
     id="post_certification_item_status_menu"
