@@ -11,6 +11,7 @@ class Part(models.Model):
     name = fields.Char(required=True, string="Partnumber")
     sequence = fields.Integer()
     designation = fields.Char(required=True)
+    part_count = fields.Integer(compute='_compute_part_count')
 
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_compute_get_bom_id")
     certificate_id = fields.Many2one("certificate_planer.certificate", store=False, compute="_compute_get_certificate_id")
@@ -19,6 +20,7 @@ class Part(models.Model):
     document_ids = fields.Many2many("certificate_planer.document", string="Documents", ondelete="restrict")
     change_ids = fields.Many2many("certificate_planer.change", string="Changes", ondelete="restrict")
     category_ids = fields.Many2many("certificate_planer.part_category", string="Categories", ondelete="restrict")
+    part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_compute_get_part_ids")
     part_ids = fields.Many2many("certificate_planer.part", string="Child Parts", store=False, compute="_compute_get_part_ids")
 
     # constraints
@@ -33,6 +35,10 @@ class Part(models.Model):
         return res
 
     # compute
+    def _compute_part_count(self):
+        for record in self:
+            record.part_count = len(self.part_ids)
+
     def _compute_get_bom_id(self):
         self.bom_id = self.env['certificate_planer.bom'].search([('part_id','=',self.id)])
 
@@ -41,3 +47,13 @@ class Part(models.Model):
 
     def _compute_get_certificate_id(self):
         self.certificate_id = self.env['certificate_planer.certificate'].search([('part_id','=',self.id)])
+
+    def view_part_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Child Parts",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.part",
+            "domain": [("id", "in", [t.id for t in self.part_ids])],
+        }

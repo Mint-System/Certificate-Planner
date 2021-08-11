@@ -29,6 +29,11 @@
     <field name="arch" type="xml">
       <form string="Part Form">
         <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-tasks">
+              <field string="Child Parts" name="part_count" widget="statinfo"/>
+            </button>
+          </div>
           <p>Part</p>
           <div class="oe_title">
             <div class="oe_edit_only">
