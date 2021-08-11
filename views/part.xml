@@ -30,8 +30,11 @@
       <form string="Part Form">
         <sheet>
           <div class="oe_button_box" name="button_box">
-            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-tasks">
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-bars">
               <field string="Child Parts" name="part_count" widget="statinfo"/>
+            </button>
+            <button name="view_prerequisite_ids" type="object" class="oe_stat_button" icon="fa-bars">
+              <field string="Prerequisites" name="prerequisite_count" widget="statinfo"/>
             </button>
           </div>
           <p>Part</p>
@@ -53,7 +56,7 @@
             <field name="document_ids"/>
             <field name="bom_ids"/>
             <field name="category_ids"/>
-            <field name="part_ids"/>
+            <!-- <field name="part_ids"/> -->
             <field name="change_ids"/>
             <field name="sequence"/>
           </group>
