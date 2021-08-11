@@ -37,7 +37,12 @@ class BomPrerequisiteRel(models.Model):
     _rec_name = 'parent_id'
 
     parent_id = fields.Many2one("certificate_planer.bom", string="Parent")
-    child_id = fields.Many2one("certificate_planer.part", string="Child")
+    child_id = fields.Many2one("certificate_planer.part", string="Prerequisite")
+
+    # constraints
+    _sql_constraints = [
+        ('parent_child_unique', 'unique (parent_id,child_id)', "Relation with this Parent and Child already exists."),
+    ]
 
     # fields
     sequence = fields.Integer()
