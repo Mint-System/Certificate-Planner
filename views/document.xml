@@ -39,13 +39,8 @@
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">
-            <button name="view_document_revisions" type="object" icon="fa-files-o" class="oe_stat_button">
-              <div class="o_field_widget o_stat_info">
-                <span class="o_stat_value">
-                  <field name="revision_count" nolabel="1"/>
-                </span>
-                <span name="revision_count_label" class="o_stat_text">Revisions</span>
-              </div>
+            <button name="view_document_revisions" type="object" class="oe_stat_button" icon="fa-files-o">
+              <field string="Revisions" name="revision_count" widget="statinfo"/>
             </button>
           </div>
           <p>Document</p>
