@@ -1,43 +1,44 @@
 <odoo>
 
-  <record model="ir.ui.view" id="change_status_search">
-    <field name="name">Change Status Search</field>
-    <field name="model">certificate_planer.change_status</field>
+  <record model="ir.ui.view" id="document_class_search">
+    <field name="name">Document Class Search</field>
+    <field name="model">certificate_planer.document_class</field>
     <field name="arch" type="xml">
       <search>
-        <field name="designation"/>
+        <field name="name"/>
+        <field name="description"/>
         <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
       </search>
     </field>
   </record>
 
-  <record model="ir.ui.view" id="change_status_list">
-    <field name="name">Change Status List</field>
-    <field name="model">certificate_planer.change_status</field>
+  <record model="ir.ui.view" id="document_class_list">
+    <field name="name">Document Class List</field>
+    <field name="model">certificate_planer.document_class</field>
     <field name="arch" type="xml">
       <tree limit="200">
         <field name="sequence" widget="handle"/>
-        <field name="designation"/>
+        <field name="name"/>
         <field name="description"/>
       </tree>
     </field>
   </record>
 
-  <record model="ir.ui.view" id="change_status_form">
-    <field name="name">Change Status Form</field>
-    <field name="model">certificate_planer.change_status</field>
+  <record model="ir.ui.view" id="document_class_form">
+    <field name="name">Document Class Form</field>
+    <field name="model">certificate_planer.document_class</field>
     <field name="arch" type="xml">
-      <form string="Change Status Form">
+      <form string="Document Class Form">
         <sheet>
           <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
           <field name="active" invisible="1"/>
-          <p>Change Status</p>
+          <p>Document Class</p>
           <div class="oe_title">
             <div class="oe_edit_only">
-              <label for="designation"/>
+              <label for="name"/>
             </div>
             <h1>
-              <field name="designation"/>
+              <field name="name"/>
             </h1>
           </div>
           <group>

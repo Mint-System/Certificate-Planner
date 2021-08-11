@@ -99,6 +99,18 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  <record model="ir.actions.act_window" id="document_class_action">
+    <field name="name">Document Classes</field>
+    <field name="res_model">certificate_planer.document_class</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record model="ir.actions.act_window" id="part_category_action">
+    <field name="name">Part Categories</field>
+    <field name="res_model">certificate_planer.part_category</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
   <!-- Top menu item -->
 
   <menuitem name="Certificate Planner" id="menu_root" web_icon="certificate_planer,static/description/icon.png"/>
@@ -126,6 +138,12 @@
     sequence="2"
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.document_type_action"/>
+
+  <menuitem name="Document Classes"
+    id="document_class_menu"
+    sequence="3"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.document_class_action"/>
 
   <menuitem name="Aircraft Types"
     id="aircraft_type_menu"
@@ -162,6 +180,12 @@
     sequence="11"
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.post_certification_item_status_action"/>
+
+  <menuitem name="Part Categories"
+    id="part_category_menu"
+    sequence="12"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.part_category_action"/>
 
   <!-- Parts actions -->
 

@@ -14,3 +14,5 @@ from . import document_part_report
 from . import change_status
 from . import post_certification_item
 from . import post_certification_item_status
+from . import document_class
+from . import part_category

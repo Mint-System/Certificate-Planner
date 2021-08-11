@@ -37,6 +37,9 @@
         'views/change_classification.xml',
         'views/post_certification_item_status.xml',
         'views/post_certification_item.xml',
+        'views/document_class.xml',
+        'views/part_category.xml',
+        'views/bom_prerequisite_rel.xml',
     ],
 
     # module registry settings

@@ -11,3 +11,4 @@ class ChangeStatus(models.Model):
     active = fields.Boolean(default=True)
     designation = fields.Char()
     sequence = fields.Integer()
+    description = fields.Char()

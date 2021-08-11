@@ -17,8 +17,10 @@
     <field name="model">certificate_planer.document_type</field>
     <field name="arch" type="xml">
       <tree limit="200">
+        <field name="sequence" widget="handle"/>
         <field name="identification"/>
         <field name="designation"/>
+        <field name="class_id"/>
       </tree>
     </field>
   </record>
@@ -42,6 +44,7 @@
           </div>
           <group>
             <field name="designation"/>
+            <field name="class_id"/>
             <field name="description"/>
           </group>
         </sheet>

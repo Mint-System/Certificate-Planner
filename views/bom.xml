@@ -40,11 +40,25 @@
           <group>
             <!-- <field name="part_ids"/> -->
             <field name="part_ids">
+              <tree limit="200">
+                  <field name="sequence" widget="handle"/>
+                  <field name="name"/>
+                  <field name="designation"/>
+              </tree>
+            </field>
+            <field name="prerequisite_ids" context="{'default_parent_id': id}">
+              <tree limit="200">
+                <field name="sequence" widget="handle"/>
+                <field name="child_id"/>
+              </tree>
+            </field>
+            <!-- <field name="prerequisite_ids">
                 <tree limit="200">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
+                    <field name="designation"/>
                 </tree>
-            </field>
+            </field> -->
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>

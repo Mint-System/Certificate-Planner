@@ -6,6 +6,7 @@
     <field name="arch" type="xml">
       <search>
         <field name="designation"/>
+        <field name="description"/>
         <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
       </search>
     </field>

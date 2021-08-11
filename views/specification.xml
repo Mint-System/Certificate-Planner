@@ -27,7 +27,6 @@
     <field name="arch" type="xml">
       <form string="Specification Form">
         <sheet>
-        
           <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
           <field name="active" invisible="1"/>
           <p>Specification</p>

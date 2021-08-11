@@ -83,7 +83,7 @@
           <group>
             <field name="revision_ids" widget="many2many" context="{'default_change_id': id}"/>
           </group>
-          <p class="oe_edit_only">Note: #FIXME</p>
+          <p class="oe_edit_only">Note: Change can linked with multiple Parts</p>
           <group>
             <field name="part_ids" widget="many2many"/>
           </group>
