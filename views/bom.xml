@@ -38,27 +38,22 @@
             <p class="oe_edit_only">Note: A BoM must be linked with a Part and may contain mutliple child Parts.</p>
           </group>
           <group>
-            <!-- <field name="part_ids"/> -->
-            <field name="part_ids">
-              <tree limit="200">
-                  <field name="sequence" widget="handle"/>
-                  <field name="name"/>
-                  <field name="designation"/>
-              </tree>
-            </field>
-            <field name="prerequisite_ids" context="{'default_parent_id': id}">
-              <tree limit="200">
+            <field name="part_ids" context="{'default_certificate_planer_bom_id': id}">
+              <tree limit="200" class="button_width" delete="0">
                 <field name="sequence" widget="handle"/>
-                <field name="child_id"/>
+                <field name="certificate_planer_part_id"/>
+                <field name="designation"/>
+                <button name="unlink" class="oe_edit_only oe_link" icon="fa-times" type="object" string="Remove"/>
               </tree>
             </field>
-            <!-- <field name="prerequisite_ids">
-                <tree limit="200">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                    <field name="designation"/>
-                </tree>
-            </field> -->
+            <field name="prerequisite_ids" context="{'default_certificate_planer_bom_id': id}">
+              <tree limit="200" class="button_width" delete="0">
+                <field name="sequence" widget="handle"/>
+                <field name="certificate_planer_part_id"/>
+                <field name="designation"/>
+                <button name="unlink" class="oe_edit_only oe_link" icon="fa-times" type="object" string="Remove"/>
+              </tree>
+            </field>
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>

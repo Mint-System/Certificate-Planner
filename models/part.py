@@ -7,11 +7,10 @@ class Part(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.part'
     _description = 'Certificate Planner Part'
-    _order = 'sequence,name'
+    _order = 'name'
     
     # fields
     name = fields.Char(required=True, string="Partnumber")
-    sequence = fields.Integer()
     designation = fields.Char(required=True)
     part_count = fields.Integer(compute='_compute_part_count')
     prerequisite_count = fields.Integer(compute='_compute_prerequisite_count')
@@ -19,13 +18,14 @@ class Part(models.Model):
     bom_id = fields.Many2one("certificate_planer.bom", string="BoM", store=False, compute="_compute_get_bom_id")
     certificate_id = fields.Many2one("certificate_planer.certificate", store=False, compute="_compute_get_certificate_id")
 
+    part_ids = fields.One2many(related='bom_id.part_ids', string="Child Parts")
+    prerequisite_ids = fields.One2many(related='bom_id.prerequisite_ids', string="Prerequisites")
+    
     bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs", ondelete="restrict")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents", ondelete="restrict")
     change_ids = fields.Many2many("certificate_planer.change", string="Changes", ondelete="restrict")
     category_ids = fields.Many2many("certificate_planer.part_category", string="Categories", ondelete="restrict")
-    part_ids = fields.Many2many(related='bom_id.part_ids', string="Child Parts")
-    prerequisite_ids = fields.One2many(related='bom_id.prerequisite_ids', string="Prerequisites")
-    
+
     # constraints
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Part with this Partnumber already exists."),

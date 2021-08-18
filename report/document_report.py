@@ -55,6 +55,7 @@ class DocumentReport(models.AbstractModel):
             # prevent loop
             if (level < 5):
                 for part in part_ids:
+
                     part_docs.append({
                         'type': 'part',
                         'part': part,
@@ -73,7 +74,7 @@ class DocumentReport(models.AbstractModel):
                     part=self.env['certificate_planer.part'].browse(part.id)
 
                     # run this function for child part
-                    append_part_docs(level+1, part.bom_id.part_ids)
+                    append_part_docs(level+1, part.bom_id.part_ids.certificate_planer_part_id)
         
         # process parts and docs
         append_part_docs(0, document.certificate_id.part_id)
