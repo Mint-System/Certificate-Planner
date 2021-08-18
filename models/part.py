@@ -59,7 +59,7 @@ class Part(models.Model):
             "name": "Child Parts",
             "view_mode": "tree,form",
             "res_model": "certificate_planer.part",
-            "domain": [("id", "in", [t.id for t in self.part_ids])],
+            "domain": [("id", "in", [t.certificate_planer_part_id.id for t in self.part_ids])],
             "context": "{'create': False}",
         }
 
@@ -70,6 +70,6 @@ class Part(models.Model):
             "name": "Prerequisites",
             "view_mode": "tree,form",
             "res_model": "certificate_planer.part",
-            "domain": [("id", "in", [t.child_id.id for t in self.prerequisite_ids])],
+            "domain": [("id", "in", [t.certificate_planer_part_id.id for t in self.prerequisite_ids])],
             "context": "{'create': False}",
         }
