@@ -10,6 +10,7 @@ class DocumentRevision(models.Model):
     # fields
     reason = fields.Text(required=True)
 
+    current_revision_id = fields.Many2one(related="document_id.current_revision_id", string="Current Revision")
     document_id = fields.Many2one("certificate_planer.document", string="Document", track_visibility="always", ondelete="restrict")
     state_id = fields.Many2one("certificate_planer.document_revision_state", required=True, string="State", track_visibility="always", ondelete="restrict")
     change_id = fields.Many2one("certificate_planer.change", string="Change", track_visibility="always", ondelete="restrict")
