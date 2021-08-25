@@ -21,7 +21,8 @@ class Part(models.Model):
     part_ids = fields.One2many(related='bom_id.part_ids', string="Child Parts")
     prerequisite_ids = fields.One2many(related='bom_id.prerequisite_ids', string="Prerequisites")
     
-    bom_ids = fields.Many2many("certificate_planer.bom", string="Parent BoMs", ondelete="restrict")
+    parent_bom_ids = fields.Many2many("certificate_planer.bom", relation="certificate_planer_bom_certificate_planer_part_rel", string="Parent BoMs", ondelete="restrict")
+    prequisite_bom_ids = fields.Many2many("certificate_planer.bom", relation="certificate_planer_bom_certificate_planer_prerequisite_rel", string="Prerequisite for", ondelete="restrict")
     document_ids = fields.Many2many("certificate_planer.document", string="Documents", ondelete="restrict")
     change_ids = fields.Many2many("certificate_planer.change", string="Changes", ondelete="restrict")
     category_ids = fields.Many2many("certificate_planer.part_category", string="Categories", ondelete="restrict")
