@@ -56,7 +56,7 @@
             <field name="title"/>
             <field name="type_id"/>
             <field name="description"/>
-            <field name="current_revision_id" context="{'default_document_id': id}"/>
+            <field name="current_revision_id" attrs="{'invisible':[('id', '=', False)]}" context="{'default_document_id': id}"/>
             <field name="certificate_id"/>
           </group>
           <p class="oe_edit_only">Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
