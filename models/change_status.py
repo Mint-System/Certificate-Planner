@@ -12,3 +12,4 @@ class ChangeStatus(models.Model):
     designation = fields.Char()
     sequence = fields.Integer()
     description = fields.Char()
+    show_on_report = fields.Boolean("Show on MDL2 report")
