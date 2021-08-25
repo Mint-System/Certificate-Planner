@@ -5,9 +5,10 @@
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <search>
-        <field name="change_id_id"/>
         <field name="description"/>
         <field name="certificate_id"/>
+        <field name="reference"/>
+        <field name="authority_reference"/>
         <filter name="group_certificate)id" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
         <filter name="group_change_id" string="By Change ID" context="{'group_by': 'change_id_id'}"/>
         <filter name="group_status_id" string="By Status" context="{'group_by': 'status_id'}"/>
@@ -63,6 +64,17 @@
           <field name="status_id" widget="statusbar" options="{'clickable': '1'}"/>
         </header>
         <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button name="view_revision_ids" type="object" class="oe_stat_button" icon="fa-bars">
+              <field string="Document Revisions" name="revision_count" widget="statinfo"/>
+            </button>
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-files-o">
+              <field string="Parts" name="part_count" widget="statinfo"/>
+            </button>
+            <button name="view_item_ids" type="object" class="oe_stat_button" icon="fa-bars">
+              <field string="Post Certification Items" name="item_count" widget="statinfo"/>
+            </button>
+          </div>
           <p>Change</p>
           <div class="oe_title">
             <div class="oe_edit_only">
@@ -81,7 +93,12 @@
           </group>
           <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>
-            <field name="revision_ids" widget="many2many" context="{'default_change_id': id}"/>
+            <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
+              <field name="document_id"/>
+              <field name="state_id"/>
+              <field name="reason"/>
+              <field name="current_revision_id"/>
+            </field>
           </group>
           <p class="oe_edit_only">Note: Change can linked with multiple Parts</p>
           <group>

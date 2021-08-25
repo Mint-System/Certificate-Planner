@@ -12,6 +12,9 @@ class Change(models.Model):
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
+    part_count = fields.Integer(compute='_compute_part_count')
+    revision_count = fields.Integer(compute='_compute_revision_count')
+    item_count = fields.Integer(compute='_compute_item_count')
 
     status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
     classification_id = fields.Many2one("certificate_planer.change_classification", track_visibility="always", ondelete="restrict")
@@ -27,3 +30,51 @@ class Change(models.Model):
         for rec in self:
             res.append((rec.id, _('%s (%s)') % (rec.change_id_id.name, rec.certificate_id.part_id.name)))
         return res
+
+    # compute
+    def _compute_part_count(self):
+        for record in self:
+            record.part_count = len(self.part_ids)
+    
+    # compute
+    def _compute_revision_count(self):
+        for record in self:
+            record.revision_count = len(self.revision_ids)
+
+    # compute
+    def _compute_item_count(self):
+        for record in self:
+            record.item_count = len(self.item_ids)
+
+    def view_part_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Parts",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.part",
+            "domain": [("id", "in", [t.id for t in self.part_ids])],
+            "context": "{'create': False}",
+        }
+
+    def view_revision_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Document Revisions",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.document_revision",
+            "domain": [("change_id", "=", self.id)],
+            "context": "{'create': False}",
+        }
+
+    def view_item_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Post Certification Items",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.post_certification_item",
+            "domain": [("change_id", "=", self.id)],
+            "context": "{'create': False}",
+        }
