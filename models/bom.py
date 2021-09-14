@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 
+
 class Bom(models.Model):
     _name = 'certificate_planer.bom'
     _description = 'Certificate Planner BoM'

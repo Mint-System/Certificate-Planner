@@ -85,5 +85,7 @@ class DocumentReport(models.AbstractModel):
             'revision': document.current_revision_id,
             'change_ids': change_ids,
             'log': log,
-            'part_docs': part_docs
+            'part_docs': part_docs,
+            'title_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.title_page_text'),
+            'footer_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.footer_text')
         }   

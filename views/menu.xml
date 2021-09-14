@@ -111,6 +111,15 @@
     <field name="view_mode">tree,form</field>
   </record>
 
+  <record id="settings_action" model="ir.actions.act_window">
+    <field name="name">Settings</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.config.settings</field>
+    <field name="view_mode">form</field>
+    <field name="target">inline</field>
+    <field name="context">{'module': 'certificate_planer'}</field>
+  </record>
+
   <!-- Top menu item -->
 
   <menuitem name="Certificate Planner" id="menu_root" web_icon="certificate_planer,static/description/icon.png"/>
@@ -126,6 +135,12 @@
   <!-- actions -->
 
   <!-- Configuration actions -->
+
+  <menuitem name="Settings"
+    id="settings_menu"
+    sequence="0"
+    parent="certificate_planer.configuration_menu"
+    action="certificate_planer.settings_action"/>
 
   <menuitem name="Document Revision States"
     id="document_revision_state_menu"

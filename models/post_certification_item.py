@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class PostCertificationItem(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.post_certification_item'

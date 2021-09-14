@@ -155,7 +155,7 @@
             <br />
             <br />
 
-            <p>This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.</p>
+            <p t-esc="title_page_text" />
 
             <p style="page-break-before:always;" />
 
@@ -277,7 +277,7 @@
               </span>
             </div>
             <div class="col-8 text-center">
-              <span>Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen</span>
+              <span t-esc="footer_text" />
             </div>
             <div class="col-2 text-right">
               <ul class="list-inline">

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">certificate_planer.res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Certificate Planner" string="Certificate Planner" data-key="certificate_planer">
+                    
+                    <h2>Demand Planner</h2>
+                    <div class="row mt16 o_settings_container" id="certificate_planer_setting_container">
+                        <div class="col-12 col-lg-12 o_setting_box" id="certificate_planer_text_block">
+                            
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Text blocks for MDL report.
+                                </div>
+                                <div class="content-group">
+
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="Title Page Text" for="title_page_text"/>
+                                        <field name="title_page_text" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="Footer Text" for="footer_text"/>
+                                        <field name="footer_text" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

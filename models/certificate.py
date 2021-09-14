@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 
+
 class Certificate(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'certificate_planer.certificate'

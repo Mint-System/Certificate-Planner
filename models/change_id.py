@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class ChangeID(models.Model):
     _name = 'certificate_planer.change_id'
     _description = 'Certificate Planner Change ID'

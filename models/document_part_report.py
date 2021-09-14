@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class DocumentPartReport(models.Model):
     _name = 'certificate_planer.document_part_report'
     _description = 'Certificate Planner Document Part Report'

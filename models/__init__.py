@@ -16,3 +16,4 @@ from . import post_certification_item
 from . import post_certification_item_status
 from . import document_class
 from . import part_category
+from . import res_config_settings

@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+
 class Specification(models.Model):
     _name = 'certificate_planer.specification'
     _description = 'Certificate Planner Specification'

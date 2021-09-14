@@ -42,6 +42,7 @@
         'views/bom_part_rel.xml',
         'views/bom_prerequisite_rel.xml',
         'views/assets.xml',
+        'views/res_config_settings.xml'
     ],
 
     # module registry settings
