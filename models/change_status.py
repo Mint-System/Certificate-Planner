@@ -13,3 +13,4 @@ class ChangeStatus(models.Model):
     sequence = fields.Integer()
     description = fields.Char()
     show_on_report = fields.Boolean("Show on MDL2 report")
+    is_legacy_change = fields.Boolean("Is legacy change")
