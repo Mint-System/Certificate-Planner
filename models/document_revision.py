@@ -6,6 +6,7 @@ class DocumentRevision(models.Model):
     _name = 'certificate_planer.document_revision'
     _description = 'Certificate Planner Document Revision'
     _rec_name = 'document_id'
+    _order = 'state_id'
 
     # fields
     reason = fields.Text(required=True)

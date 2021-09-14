@@ -11,4 +11,5 @@ class DocumentClass(models.Model):
     sequence = fields.Integer()
     name = fields.Char(required=True, string="Title")
     description = fields.Char(help="Document ID Assignment")
+    show_on_report = fields.Boolean("Show on MDL2 report")
     show_reason = fields.Boolean()
