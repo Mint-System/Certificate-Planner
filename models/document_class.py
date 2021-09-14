@@ -11,3 +11,4 @@ class DocumentClass(models.Model):
     sequence = fields.Integer()
     name = fields.Char(required=True, string="Title")
     description = fields.Char(help="Document ID Assignment")
+    show_reason = fields.Boolean()
