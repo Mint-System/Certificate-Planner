@@ -94,10 +94,12 @@
           <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>
             <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
-              <field name="document_id"/>
-              <field name="state_id"/>
-              <field name="reason"/>
-              <field name="current_revision_id"/>
+              <tree>
+                <field name="document_id"/>
+                <field name="state_id"/>
+                <field name="reason"/>
+                <field name="current_revision_id"/>
+              </tree>
             </field>
           </group>
           <p class="oe_edit_only">Note: Change can linked with multiple Parts</p>
