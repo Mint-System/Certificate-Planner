@@ -1,0 +1,204 @@
+<odoo>
+
+  <!-- Register report -->
+  <report id="mdl_report"
+    model="certificate_planer.document"
+    string="MDL Report"
+    name="certificate_planer.mdl_report"
+    file="certificate_planer.mdl_report"
+    report_type="qweb-pdf"
+    print_report_name="'%s' % (object.name)"
+    paperformat="paperformat_certificate_planer"/>
+
+  <!-- Custom layout definition -->
+  <template id="mdl_layout">
+    <t t-if="not o" t-set="o" t-value="doc"/>
+    <t t-if="not company">
+      <!-- Multicompany -->
+      <t t-if="company_id">
+        <t t-set="company" t-value="company_id"/>
+      </t>
+      <t t-elif="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id.sudo()"/>
+      </t>
+      <t t-else="else">
+        <t t-set="company" t-value="res_company"/>
+      </t>
+    </t>
+    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0"/>
+    </div>
+  </template>
+
+  <!-- MDL report definition -->
+  <template id="mdl_report">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+      
+        <!-- Header definition -->
+        <div class="header">
+          <div class="row">
+            <div class="col-4">
+              <span>Engineering</span>
+              <h4 t-esc="doc.type_id.designation"/>
+            </div>
+            <div class="col-4 text-center">
+              <br />
+              <h4 t-esc="doc.name"/>
+            </div>
+            <div class="col-4 text-right">
+              <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 40px; max-width: 300px" alt="Logo"/>
+            </div>
+          </div>
+          <hr/>
+        </div>
+
+        <!-- Page definition -->
+        <t t-call="certificate_planer.mdl_layout">
+          <div class="page">
+
+            <h1 t-esc="doc.type_id.designation"/>
+            <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+            </p>
+            <br />
+            <br />
+            <table class="table">
+              <tr>
+                <td>Document No:</td>
+                <td>
+                  <h2 t-field="doc.name"/>
+                </td>
+                <td>Revision:</td>
+                <td>
+                  <h2 t-field="current_revision.state_id"/>
+                </td>
+              </tr>
+              <tr>
+                <td>Subject:</td>
+                <td>
+                  <h2 t-field="doc.certificate_id.part_id.designation"/>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Certificate:</td>
+                <td>
+                  <h2 t-field="doc.certificate_id.part_id.name"/>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Aircraft Type:</td>
+                <td>
+                  <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Requirements:</td>
+                <td>
+                  <h2 t-esc="doc.certificate_id.specification_id.name"/>
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+            <br />
+            <style>
+              div.signature {
+                width: 400px;
+                height: 120px;
+                border: solid 1px black;
+              }
+              table.signature td {
+                border-top: none; 
+                vertical-align: bottom;
+              }
+            </style>
+            <table class="table signature">
+              <tr>
+                <td style="padding-bottom: 1rem;">
+                  <span class="o_bold">Prepared:</span>
+                </td>
+                <td>
+                  <div class="signature" />
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 1rem;">
+                  <span class="o_bold">Verified CVE:</span>
+                </td>
+                <td>
+                  <div class="signature" />
+                </td>
+              </tr>
+            </table>
+            <p>Approved under the authority of the Design Organisation<br/>
+            No: EASA.21J.359</p>
+            <br />
+            <p t-esc="title_page_text" />
+            <p style="page-break-before:always;" />
+
+            <h2>Record of Revision</h2>
+            <table class="table-striped" width="100%">
+              <thead>
+                <tr>
+                  <th>Revision</th>
+                  <th>Reason</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <t t-foreach="revisions" t-as="revision">
+                <tr>
+                  <td style="padding: 0.2rem;">
+                    <small t-field="revision.state_id"/>
+                  </td>
+                  <td style="padding: 0.2rem;">
+                    <small t-field="revision.reason"/>
+                  </td>
+                  <td style="padding: 0.2rem;">
+                    <small t-field="revision.change_id.change_id_id"/>
+                  </td>
+                </tr>
+              </t>
+            </table>
+            <p style="page-break-before:always;" />
+
+            <h2>Log of Ammendments</h2>
+
+          </div>
+        </t>
+
+        <!-- Footer definition -->
+        <div class="footer">
+          <hr/>
+          <div class="row">
+            <div class="col-2">
+              <span>Revision: <span t-esc="current_revision.state_id.name" />
+              </span>
+            </div>
+            <div class="col-8 text-center">
+              <span t-esc="footer_text" />
+            </div>
+            <div class="col-2 text-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <span class="page"/>
+                </li>
+                <li class="list-inline-item">/</li>
+                <li class="list-inline-item">
+                  <span class="topage"/>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </t>
+    </t>
+  </template>
+
+</odoo>

@@ -41,6 +41,14 @@ class Document(models.Model):
             'type': 'ir.actions.act_url',
             'url': '/report/html/certificate_planer.document_report_view/%(document_id)s' % {'document_id': self.id},
         }
+    
+    def view_mdl_report(self):
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/report/html/certificate_planer.mdl_report/%(document_id)s' % {'document_id': self.id},
+        }
 
     def view_document_revisions(self):
         self.ensure_one()

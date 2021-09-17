@@ -12,11 +12,10 @@
     'version': '13.0.3.2.0',
     'license': 'AGPL-3',
 
-    # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
 
-    # always loaded
     'data': [
+        'data/report_paperformat.xml',
         'security/certificate_planner_security.xml',
         'security/ir.model.access.csv',
         'views/part.xml',
@@ -42,10 +41,10 @@
         'views/bom_part_rel.xml',
         'views/bom_prerequisite_rel.xml',
         'views/assets.xml',
-        'views/res_config_settings.xml'
+        'views/res_config_settings.xml',
+        'report/mdl_report.xml',
     ],
 
-    # module registry settings
     'installable': True,
     'application': True,
 }
