@@ -18,7 +18,7 @@ class MDLReport(models.AbstractModel):
         document = documents[0]
 
         # Get revisions and filter by change > status > shown on report attribute
-        revisions = document.revision_ids.filtered(lambda r: r.change_id.status_id.show_on_report == True)
+        revisions = document.revision_ids.filtered(lambda r: r.change_id.status_id.show_on_report == True or not r.change_id)
 
         return {
             'docs': documents,

@@ -15,6 +15,21 @@
     </field>
   </record>
 
+  <record model="ir.ui.view" id="document_attachment">
+    <field name="name">Document Attachment</field>
+    <field name="model">ir.attachment</field>
+    <field name="arch" type="xml">
+      <tree>
+        <!-- <field name="datas" widget="download_link" filename="name" string="File"/> -->
+         <field name="name"/>
+        <field name="url" widget="url"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+        <field name="create_uid"/>
+        <field name="create_date"/>
+      </tree>
+    </field>
+  </record>
+
   <record model="ir.ui.view" id="document_list">
     <field name="name">Document List</field>
     <field name="model">certificate_planer.document</field>
@@ -43,6 +58,7 @@
             <button name="view_document_revisions" type="object" class="oe_stat_button" icon="fa-files-o">
               <field string="Revisions" name="revision_count" widget="statinfo"/>
             </button>
+            <button class="oe_stat_button" icon="fa-file-o" type="action" name="certificate_planer.document_attachment_action" string="Attachments"/>
           </div>
           <p>Document</p>
           <div class="oe_title">

@@ -111,13 +111,29 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <record id="settings_action" model="ir.actions.act_window">
+  <record model="ir.actions.act_window" id="settings_action">
     <field name="name">Settings</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">res.config.settings</field>
     <field name="view_mode">form</field>
     <field name="target">inline</field>
     <field name="context">{'module': 'certificate_planer'}</field>
+  </record>
+
+  <record model="ir.actions.act_window" id="document_attachment_action">
+    <field name="name">Document Attachment</field>
+    <field name="res_model">ir.attachment</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('res_id','=',active_id), ('res_model','=','certificate_planer.document')]</field>
+    <field name="context">{'default_type': 'url', 'default_res_id': active_id, 'default_res_model': 'certificate_planer.document'}</field>
+  </record>
+
+  <record model="ir.actions.act_window" id="attachment_action">
+    <field name="name">Attachments</field>
+    <field name="res_model">ir.attachment</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('res_model','=','certificate_planer.document')]</field>
+    <field name="context">{'create': False}</field>
   </record>
 
   <!-- Top menu item -->
@@ -242,6 +258,11 @@
     id="document_revision_menu"
     parent="certificate_planer.documents_menu"
     action="certificate_planer.document_revision_action"/>
+
+  <menuitem name="Attachments"
+    id="document_attachment_menu"
+    parent="certificate_planer.documents_menu"
+    action="certificate_planer.attachment_action"/>
 
   <!-- Reports actions -->
 
