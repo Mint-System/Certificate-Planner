@@ -50,8 +50,8 @@
     <field name="arch" type="xml">
       <form string="Document Form">
         <header>
-          <button name="view_document_report" type="object" string="View Document Report" />
-          <button name="view_mdl_report" type="object" string="View MDL Report" />
+          <button name="view_document_report" type="object" string="View MDL v1 Report" />
+          <button name="view_mdl_report" type="object" string="View MDL v2 Report" />
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">

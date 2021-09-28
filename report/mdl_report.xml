@@ -3,7 +3,7 @@
   <!-- Register report -->
   <report id="mdl_report"
     model="certificate_planer.document"
-    string="MDL Report"
+    string="MDL v2 Report"
     name="certificate_planer.mdl_report"
     file="certificate_planer.mdl_report"
     report_type="qweb-pdf"
