@@ -143,7 +143,7 @@
             <p style="page-break-before:always;" />
 
             <h2>Record of Revision</h2>
-            <table class="table-striped" width="100%">
+            <table class="table-striped table-sm" width="100%">
               <thead>
                 <tr>
                   <th>Revision</th>
@@ -154,13 +154,13 @@
               <t t-foreach="revisions" t-as="revision">
                 <tr>
                   <td style="padding: 0.2rem;">
-                    <small t-field="revision.state_id"/>
+                    <span t-field="revision.state_id"/>
                   </td>
                   <td style="padding: 0.2rem;">
-                    <small t-field="revision.reason"/>
+                    <span t-field="revision.reason"/>
                   </td>
                   <td style="padding: 0.2rem;">
-                    <small t-field="revision.change_id.change_id_id"/>
+                    <span t-field="revision.change_id.change_id_id"/>
                   </td>
                 </tr>
               </t>
@@ -168,6 +168,37 @@
             <p style="page-break-before:always;" />
 
             <h2>Log of Ammendments</h2>
+            <t t-foreach="changes" t-as="change">
+            <h3 t-field="change.change_id_id" />
+            <table class="table table-bordered table-sm">
+              <tr>
+                <td>
+                  <span t-field="change.classification_id.designation"/>
+                </td>
+                <td>
+                  Authority Reference
+                </td>
+                <td>
+                  <span t-field="change.authority_reference"/>
+                </td>
+                <td>
+                  Aerolite Reference
+                </td>
+                <td>
+                  <span t-field="change.reference"/>
+                </td>
+              </tr>
+            </table>
+            <t t-foreach="change_revisions[change.id]" t-as="document_class">
+              <span t-esc="document_class"/>
+              <t t-foreach="document_class_value" t-as="revision">
+                <span t-field="revision.document_id"/>
+              </t>
+              <br />
+            </t>
+            <br />
+            </t>
+            <p style="page-break-before:always;" />
 
           </div>
         </t>
