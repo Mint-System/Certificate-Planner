@@ -25,6 +25,8 @@ class MDLReport(models.AbstractModel):
         changes = document.certificate_id.change_ids
         # Filter changes with status show on report
         changes = changes.filtered(lambda r: r.status_id.show_on_report == True)
+        # Sort changes by change_id_id.sequence
+        changes = changes.sorted(key=lambda r: r.change_id_id.sequence)
 
         # Get documents by change
         change_revisions = {}
@@ -32,9 +34,30 @@ class MDLReport(models.AbstractModel):
             change_revisions[change.id] = {}
             # Group document revisions by document > document type > document class
             for key, items in itertools.groupby(change.revision_ids, lambda r: r.document_id.type_id.class_id.name):
-                change_revisions[change.id][key] = list(items)
+                items = list(items)
+                # Sort revisions by type_id.sequence and document_id.name
+                if items:
+                    items = sorted(items, key=lambda r: r.document_id.name)
+                    items = sorted(items, key=lambda r: r.document_id.type_id.sequence)
+                change_revisions[change.id][key] = {}
+                change_revisions[change.id][key]['items'] = items
+                change_revisions[change.id][key]['class'] = items[0].document_id.type_id.class_id or False
 
             _logger.info(change_revisions[change.id])
+
+        # Get all parts for certificate
+        # parts=[]
+        # def get_subparts(level, part_ids):
+        #     if (level < 5):
+        #         for part in part_ids:
+        #             parts.append({
+        #                 'part': part,
+        #                 'level': level
+        #             })
+        #             part=self.env['certificate_planer.part'].browse(part.id)
+        #             # Call function for subparts
+        #             get_subparts(level+1, part.bom_id.part_ids.certificate_planer_part_id)
+        # get_subparts(0, document.certificate_id.part_id)
 
         return {
             'docs': documents,
@@ -42,6 +65,7 @@ class MDLReport(models.AbstractModel):
             'revisions': revisions,
             'changes': changes,
             'change_revisions': change_revisions,
+            'parts'
             'title_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.title_page_text'),
             'footer_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.footer_text')
         }

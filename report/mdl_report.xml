@@ -63,48 +63,50 @@
             <br />
             <br />
             <table class="table">
-              <tr>
-                <td>Document No:</td>
-                <td>
-                  <h2 t-field="doc.name"/>
-                </td>
-                <td>Revision:</td>
-                <td>
-                  <h2 t-field="current_revision.state_id"/>
-                </td>
-              </tr>
-              <tr>
-                <td>Subject:</td>
-                <td>
-                  <h2 t-field="doc.certificate_id.part_id.designation"/>
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Certificate:</td>
-                <td>
-                  <h2 t-field="doc.certificate_id.part_id.name"/>
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Aircraft Type:</td>
-                <td>
-                  <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Requirements:</td>
-                <td>
-                  <h2 t-esc="doc.certificate_id.specification_id.name"/>
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Document No:</td>
+                  <td>
+                    <h2 t-field="doc.name"/>
+                  </td>
+                  <td>Revision:</td>
+                  <td>
+                    <h2 t-field="current_revision.state_id"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Subject:</td>
+                  <td>
+                    <h2 t-field="doc.certificate_id.part_id.designation"/>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Certificate:</td>
+                  <td>
+                    <h2 t-field="doc.certificate_id.part_id.name"/>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Aircraft Type:</td>
+                  <td>
+                    <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Requirements:</td>
+                  <td>
+                    <h2 t-esc="doc.certificate_id.specification_id.name"/>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
             </table>
             <br />
             <style>
@@ -119,22 +121,24 @@
               }
             </style>
             <table class="table signature">
-              <tr>
-                <td style="padding-bottom: 1rem;">
-                  <span class="o_bold">Prepared:</span>
-                </td>
-                <td>
-                  <div class="signature" />
-                </td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 1rem;">
-                  <span class="o_bold">Verified CVE:</span>
-                </td>
-                <td>
-                  <div class="signature" />
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td style="padding-bottom: 1rem;">
+                    <span class="o_bold">Prepared:</span>
+                  </td>
+                  <td>
+                    <div class="signature" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 1rem;">
+                    <span class="o_bold">Verified CVE:</span>
+                  </td>
+                  <td>
+                    <div class="signature" />
+                  </td>
+                </tr>
+              </tbody>
             </table>
             <p>Approved under the authority of the Design Organisation<br/>
             No: EASA.21J.359</p>
@@ -151,6 +155,7 @@
                   <th>Change</th>
                 </tr>
               </thead>
+              <tbody>
               <t t-foreach="revisions" t-as="revision">
                 <tr>
                   <td style="padding: 0.2rem;">
@@ -164,40 +169,127 @@
                   </td>
                 </tr>
               </t>
+              </tbody>
             </table>
             <p style="page-break-before:always;" />
 
             <h2>Log of Ammendments</h2>
             <t t-foreach="changes" t-as="change">
-            <h3 t-field="change.change_id_id" />
-            <table class="table table-bordered table-sm">
-              <tr>
-                <td>
-                  <span t-field="change.classification_id.designation"/>
-                </td>
-                <td>
-                  Authority Reference
-                </td>
-                <td>
-                  <span t-field="change.authority_reference"/>
-                </td>
-                <td>
-                  Aerolite Reference
-                </td>
-                <td>
-                  <span t-field="change.reference"/>
-                </td>
-              </tr>
-            </table>
-            <t t-foreach="change_revisions[change.id]" t-as="document_class">
-              <span t-esc="document_class"/>
-              <t t-foreach="document_class_value" t-as="revision">
-                <span t-field="revision.document_id"/>
+              <t t-set="is_legacy_change" t-value="change.status_id.is_legacy_change"/>
+              
+              <h3 t-field="change.change_id_id" />
+              <table class="table table-bordered table-sm">
+                <tbody>
+                  <tr>
+                    <td>
+                      <span t-field="change.classification_id.designation"/>
+                    </td>
+                    <td>
+                      Authority Reference
+                    </td>
+                    <td>
+                      <span t-field="change.authority_reference"/>
+                    </td>
+                    <td>
+                      Aerolite Reference
+                    </td>
+                    <td>
+                      <span t-field="change.reference"/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+ 
+              <t t-foreach="change_revisions[change.id]" t-as="class_key">
+                <t t-if="class_key_value['class']">
+                  <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
+                  <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
+                </t>
+                <t t-if="show_on_report">
+                  <table class="table-striped table-sm" width="100%">
+                    <thead>
+                      <tr>
+                        <th><span t-esc="class_key"/></th>
+                        <th>Title</th>
+                        <t t-if="show_reason"><th>Reason</th></t>
+                        <th>Rev</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <t t-foreach="class_key_value['items']" t-as="revision">
+                      <tr>
+                        <td>
+                          <span t-field="revision.document_id.name"/>
+                        </td>
+                        <td>
+                          <span t-field="revision.document_id.title"/>
+                        </td>
+                        <t t-if="show_reason"><td>
+                          <span t-field="revision.reason"/>
+                        </td></t>
+                        <td>
+                          <span t-field="revision.state_id"/>
+                        </td>
+                      </tr>
+                    </t>
+                    </tbody>
+                  </table>
+                  <br />
+                </t>
+              </t>
+
+              <t t-foreach="change_revisions[change.id]" t-as="class_key">
+                class_key:<span t-esc="class_key"/><br/>
+                is_legacy_change:<span t-esc="is_legacy_change"/><br/>
+                <t t-if="class_key_value['class']">
+                  <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
+                  <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
+                  show_reason:<span t-esc="show_reason"/><br/>
+                  show_on_report:<span t-esc="show_on_report"/><br/>
+                </t>
+                <t t-foreach="class_key_value['items']" t-as="revision">
+                  name:<span t-field="revision.document_id.name"/><br/>
+                  title:<span t-field="revision.document_id.title"/><br/>
+                  reason:<span t-field="revision.reason"/><br/>
+                  state:<span t-field="revision.state_id"/><br/>
+                </t>
+                <br />
               </t>
               <br />
+
+              <t t-if="change.part_ids or not is_legacy_change">
+                <table class="table-striped table-sm" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Partnumber</th>
+                      <th>Designation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <t t-if="change.part_ids">
+                    <t t-foreach="change.part_ids" t-as="part">
+                      <tr>
+                        <td>
+                          <span t-field="part.name"/>
+                        </td>
+                        <td>
+                          <span t-field="part.designation"/>
+                        </td>
+                      </tr>
+                    </t>
+                  </t>
+                  <t t-else="">
+                      <tr>
+                        <td colspan="2">NONE</td>
+                      </tr>
+                  </t>
+                  </tbody>
+                </table>
+                <br />
+              </t>
+              
             </t>
-            <br />
-            </t>
+
             <p style="page-break-before:always;" />
 
           </div>
