@@ -147,7 +147,7 @@
             <p style="page-break-before:always;" />
 
             <h2>Record of Revision</h2>
-            <table class="table-striped table-sm" width="100%">
+            <table class="table-striped table-bordered table-sm" width="100%">
               <thead>
                 <tr>
                   <th>Revision</th>
@@ -182,16 +182,16 @@
                 <tbody>
                   <tr>
                     <td>
-                      <span t-field="change.classification_id.designation"/>
+                      <strong t-field="change.classification_id.designation"/>
                     </td>
                     <td>
-                      Authority Reference
+                      <strong>Authority Reference</strong>
                     </td>
                     <td>
                       <span t-field="change.authority_reference"/>
                     </td>
                     <td>
-                      Aerolite Reference
+                      <strong>Aerolite Reference</strong>
                     </td>
                     <td>
                       <span t-field="change.reference"/>
@@ -205,31 +205,38 @@
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
                 </t>
-                <t t-if="show_on_report">
-                  <table class="table-striped table-sm" width="100%">
+                <t t-if="show_on_report and class_key_value['items'] or not is_legacy_change">
+                  <table class="table-striped table-bordered table-sm" width="100%">
                     <thead>
                       <tr>
-                        <th><span t-esc="class_key"/></th>
-                        <th>Title</th>
-                        <t t-if="show_reason"><th>Reason</th></t>
-                        <th>Rev</th>
+                        <th style="width: 300px;"><span t-esc="class_key"/></th>
+                        <th style="width: 300px;">Title</th>
+                        <t t-if="show_reason"><th style="width: 200px;" >Reason</th></t>
+                        <th style="width: 100px;">Rev</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <t t-foreach="class_key_value['items']" t-as="revision">
+                    <t t-if="class_key_value['items']">
+                      <t t-foreach="class_key_value['items']" t-as="revision">
+                        <tr>
+                          <td>
+                            <span t-field="revision.document_id.name"/>
+                          </td>
+                          <td>
+                            <span t-field="revision.document_id.title"/>
+                          </td>
+                          <t t-if="show_reason"><td>
+                            <span t-field="revision.reason"/>
+                          </td></t>
+                          <td>
+                            <span t-field="revision.state_id"/>
+                          </td>
+                        </tr>
+                      </t>
+                    </t>
+                    <t t-else="">
                       <tr>
-                        <td>
-                          <span t-field="revision.document_id.name"/>
-                        </td>
-                        <td>
-                          <span t-field="revision.document_id.title"/>
-                        </td>
-                        <t t-if="show_reason"><td>
-                          <span t-field="revision.reason"/>
-                        </td></t>
-                        <td>
-                          <span t-field="revision.state_id"/>
-                        </td>
+                        <td colspan="4">NONE</td>
                       </tr>
                     </t>
                     </tbody>
@@ -238,6 +245,8 @@
                 </t>
               </t>
 
+              <code t-if="request.session.debug">
+              <strong>DEBUG</strong><br/>
               <t t-foreach="change_revisions[change.id]" t-as="class_key">
                 class_key:<span t-esc="class_key"/><br/>
                 is_legacy_change:<span t-esc="is_legacy_change"/><br/>
@@ -255,10 +264,11 @@
                 </t>
                 <br />
               </t>
+              </code>
               <br />
 
               <t t-if="change.part_ids or not is_legacy_change">
-                <table class="table-striped table-sm" width="100%">
+                <table class="table-striped table-bordered table-sm" width="100%">
                   <thead>
                     <tr>
                       <th>Partnumber</th>

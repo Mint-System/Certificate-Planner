@@ -28,10 +28,15 @@ class MDLReport(models.AbstractModel):
         # Sort changes by change_id_id.sequence
         changes = changes.sorted(key=lambda r: r.change_id_id.sequence)
 
+        # Get all document classes
+        document_classes = {}
+        for document_class in self.env['certificate_planer.document_class'].search([]):
+            document_classes[document_class.name] = { 'items': {}, 'class': {}}
+
         # Get documents by change
         change_revisions = {}
         for change in changes:
-            change_revisions[change.id] = {}
+            change_revisions[change.id] = document_classes.copy()
             # Group document revisions by document > document type > document class
             for key, items in itertools.groupby(change.revision_ids, lambda r: r.document_id.type_id.class_id.name):
                 items = list(items)
@@ -39,6 +44,7 @@ class MDLReport(models.AbstractModel):
                 if items:
                     items = sorted(items, key=lambda r: r.document_id.name)
                     items = sorted(items, key=lambda r: r.document_id.type_id.sequence)
+                # Set change class key
                 change_revisions[change.id][key] = {}
                 change_revisions[change.id][key]['items'] = items
                 change_revisions[change.id][key]['class'] = items[0].document_id.type_id.class_id or False
