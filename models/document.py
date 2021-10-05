@@ -47,7 +47,7 @@ class Document(models.Model):
         
         return {
             'type': 'ir.actions.act_url',
-            'url': '/report/html/certificate_planer.mdl_report/%(document_id)s' % {'document_id': self.id},
+            'url': '/report/html/certificate_planer.mdl_report_view/%(document_id)s' % {'document_id': self.id},
         }
 
     def view_document_revisions(self):

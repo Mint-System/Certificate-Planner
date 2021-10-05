@@ -4,7 +4,7 @@
   <report id="mdl_report"
     model="certificate_planer.document"
     string="MDL v2 Report"
-    name="certificate_planer.mdl_report"
+    name="certificate_planer.mdl_report_view"
     file="certificate_planer.mdl_report"
     report_type="qweb-pdf"
     print_report_name="'%s' % (object.name)"
@@ -31,7 +31,7 @@
   </template>
 
   <!-- MDL report definition -->
-  <template id="mdl_report">
+  <template id="mdl_report_view">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
       
@@ -144,6 +144,7 @@
             No: EASA.21J.359</p>
             <br />
             <p t-esc="title_page_text" />
+
             <p style="page-break-before:always;" />
 
             <h2>Record of Revision</h2>
@@ -205,7 +206,7 @@
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
                 </t>
-                <t t-if="show_on_report and class_key_value['items'] or not is_legacy_change">
+                <t t-if="show_on_report and (class_key_value['items'] or not is_legacy_change)">
                   <table class="table-striped table-bordered table-sm" width="100%">
                     <thead>
                       <tr>
@@ -257,10 +258,10 @@
                   show_on_report:<span t-esc="show_on_report"/><br/>
                 </t>
                 <t t-foreach="class_key_value['items']" t-as="revision">
-                  name:<span t-field="revision.document_id.name"/><br/>
-                  title:<span t-field="revision.document_id.title"/><br/>
-                  reason:<span t-field="revision.reason"/><br/>
-                  state:<span t-field="revision.state_id"/><br/>
+                  - name:<span t-field="revision.document_id.name"/><br/>
+                  &#160;&#160;title:<span t-field="revision.document_id.title"/><br/>
+                  &#160;&#160;reason:<span t-field="revision.reason"/><br/>
+                  &#160;&#160;state:<span t-field="revision.state_id"/><br/>
                 </t>
                 <br />
               </t>
