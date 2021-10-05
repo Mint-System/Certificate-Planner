@@ -266,7 +266,6 @@
                 <br />
               </t>
               </code>
-              <br />
 
               <t t-if="change.part_ids or not is_legacy_change">
                 <table class="table-striped table-bordered table-sm" width="100%">
