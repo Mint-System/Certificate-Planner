@@ -147,7 +147,7 @@
 
             <p style="page-break-before:always;" />
 
-            <h2>Record of Revision</h2>
+            <h2>Record of Revisions</h2>
             <table class="table-striped table-bordered table-sm" width="100%">
               <thead>
                 <tr>
@@ -196,6 +196,11 @@
                     </td>
                     <td>
                       <span t-field="change.reference"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">
+                      <span t-field="change.description"/>
                     </td>
                   </tr>
                 </tbody>
