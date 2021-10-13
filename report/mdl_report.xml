@@ -62,22 +62,27 @@
             </p>
             <br />
             <br />
-            <table class="table">
+            <style>
+              table.title span {
+                font-size: 2rem;
+              }
+            </style>
+            <table class="table title">
               <tbody>
                 <tr>
                   <td>Document No:</td>
                   <td>
-                    <h2 t-field="doc.name"/>
+                    <span t-field="doc.name"/>
                   </td>
                   <td>Revision:</td>
                   <td>
-                    <h2 t-field="current_revision.state_id"/>
+                    <span t-field="current_revision.state_id"/>
                   </td>
                 </tr>
                 <tr>
                   <td>Subject:</td>
                   <td>
-                    <h2 t-field="doc.certificate_id.part_id.designation"/>
+                    <span t-field="doc.certificate_id.part_id.designation"/>
                   </td>
                   <td></td>
                   <td></td>
@@ -85,7 +90,7 @@
                 <tr>
                   <td>Certificate:</td>
                   <td>
-                    <h2 t-field="doc.certificate_id.part_id.name"/>
+                    <span t-field="doc.certificate_id.part_id.name"/>
                   </td>
                   <td></td>
                   <td></td>
@@ -93,7 +98,7 @@
                 <tr>
                   <td>Aircraft Type:</td>
                   <td>
-                    <h2 t-esc="doc.certificate_id.aircraft_type_id.name"/>
+                    <span t-esc="doc.certificate_id.aircraft_type_id.name"/>
                   </td>
                   <td></td>
                   <td></td>
@@ -101,7 +106,7 @@
                 <tr>
                   <td>Requirements:</td>
                   <td>
-                    <h2 t-esc="doc.certificate_id.specification_id.name"/>
+                    <span t-esc="doc.certificate_id.specification_id.name"/>
                   </td>
                   <td></td>
                   <td></td>
@@ -336,6 +341,46 @@
 
             <p style="page-break-before:always;" />
 
+            <h2>List of Documents</h2>
+            <t t-foreach="documents_by_class" t-as="document_class">
+              <h3 t-esc="document_class"/>
+              <style>
+                table td {
+                  vertical-align: top;
+                }
+              </style>
+              <table class="table-striped table-bordered table-sm" width="100%">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Title</th>
+                    <th>Current Revision</th>
+                    <th>Partnumber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <t t-foreach="document_class_value" t-as="item">
+                  <tr>
+                    <td>
+                      <span t-esc="item['doc'].name"/>
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].title"/>
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].current_revision_id.state_id.name"/>
+                    </td>
+                    <td>
+                      <t t-foreach="item['parts']" t-as="part">
+                        <span t-esc="part.name"/><br/>
+                      </t>
+                    </td>
+                  </tr>
+                </t>
+                </tbody>
+              </table>
+              <br/>
+            </t>
 
           </div>
         </t>
@@ -344,14 +389,14 @@
         <div class="footer">
           <hr/>
           <div class="row">
-            <div class="col-2">
-              <span>Revision: <span t-esc="current_revision.state_id.name" />
-              </span>
+            <div class="col-3">
+              <span>Revision: <span t-esc="current_revision.state_id.name" /></span><br/>
+              <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
             </div>
-            <div class="col-8 text-center">
+            <div class="col-6 text-center">
               <span t-esc="footer_text" />
             </div>
-            <div class="col-2 text-right">
+            <div class="col-3 text-right">
               <ul class="list-inline">
                 <li class="list-inline-item">
                   <span class="page"/>

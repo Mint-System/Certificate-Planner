@@ -21,6 +21,8 @@ class MDLReport(models.AbstractModel):
         # Get revisions and filter by change > status > shown on report attribute
         revisions = document.revision_ids.filtered(lambda r: r.change_id.status_id.show_on_report == True or not r.change_id)
 
+
+
         # Get changes from document > certificate
         changes = document.certificate_id.change_ids
         # Filter changes with status show on report
@@ -57,10 +59,11 @@ class MDLReport(models.AbstractModel):
                 change_revisions[change.id][key]['items'] = items
 
                 # _logger.info([change.change_id_id.name, key])
-                
 
             # _logger.info(change.change_id_id.name)
             # _logger.info(change_revisions[change.id])
+
+
 
         # Get all parts for certificate
         parts = []
@@ -101,6 +104,43 @@ class MDLReport(models.AbstractModel):
         get_subparts(0, document.certificate_id.part_id)
 
 
+
+        # Get all documents and parts
+        documents_and_parts = []
+        documents_seen = []
+        def get_documents_by_parts(part_ids):
+            # Process each part
+            for part in part_ids:
+                # Get linked documents and process if not seen
+                for document in part.document_ids:
+                    # Get linked unseen parts of each document
+                    parts = document.part_ids.filtered(lambda r: r.id in part_seen)
+                    # Append document if not seen
+                    if document.id not in documents_seen and document.type_id.class_id.show_on_report:
+                        documents_and_parts.append({
+                            'doc': document,
+                            'parts': parts
+                        })
+                        documents_seen.append(document.id)
+                # Run this function for subparts
+                get_documents_by_parts(part.bom_id.part_ids.certificate_planer_part_id)
+        get_documents_by_parts(document.certificate_id.part_id)
+        # Group by document classes
+        documents_by_class = {}
+        for key, items in itertools.groupby(documents_and_parts, lambda r: r['doc'].type_id.class_id.name):
+            new_items = list(items)
+            # A key might be added multiple times
+            if documents_by_class.get(key):
+                items = documents_by_class[key]
+                items = items + new_items
+            else:
+                items = new_items
+            items = sorted(items, key=lambda r: r['doc'].name)
+            items = sorted(items, key=lambda r: r['doc'].type_id.sequence)
+            documents_by_class[key] = items
+
+
+
         return {
             'docs': documents,
             'current_revision': document.current_revision_id,
@@ -108,6 +148,7 @@ class MDLReport(models.AbstractModel):
             'changes': changes,
             'change_revisions': change_revisions,
             'parts': parts,
+            'documents_by_class': documents_by_class,
             'title_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.title_page_text'),
             'footer_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.footer_text')
         }
