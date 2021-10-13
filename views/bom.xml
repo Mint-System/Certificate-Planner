@@ -24,7 +24,7 @@
     <field name="name">BoM Form</field>
     <field name="model">certificate_planer.bom</field>
     <field name="arch" type="xml">
-      <form string="BoM Form">
+      <form string="BoM Form" duplicate="false">
         <sheet>
           <div class="oe_title">
             <div class="oe_edit_only">

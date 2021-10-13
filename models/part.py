@@ -32,7 +32,14 @@ class Part(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Part with this Partnumber already exists."),
     ]
-
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+        default.update({
+                "name": _("%s (Copy)") % self.name,
+        })
+        return super().copy(default=default)
+    
     def name_get(self):
         res = []
         for rec in self:

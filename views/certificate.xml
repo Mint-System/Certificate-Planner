@@ -27,7 +27,7 @@
     <field name="name">Certificate Form</field>
     <field name="model">certificate_planer.certificate</field>
     <field name="arch" type="xml">
-      <form string="Certificate Form">
+      <form string="Certificate Form" duplicate="false">
         <sheet>
           <p>Certificate</p>
           <group>
