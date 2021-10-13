@@ -307,6 +307,36 @@
 
             <p style="page-break-before:always;" />
 
+            <h2>Product Structure</h2>
+            <table class="table-striped table-bordered table-sm" width="100%">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Partnumber</th>
+                  <th>Designation</th>
+                </tr>
+              </thead>
+              <tbody>
+              <t t-foreach="parts" t-as="item">
+                <tr>
+                  <td>
+                    <span t-esc="item['marker']"/>
+                  </td>
+                  <td>
+                    <h3 t-if="item['type'] == 'main'" t-esc="item['part'].name"/>
+                    <span t-if="item['type'] == 'sub'" t-esc="item['part'].name"/>
+                  </td>
+                  <td>
+                    <span t-esc="item['part'].designation"/>
+                  </td>
+                </tr>
+              </t>
+              </tbody>
+            </table>
+
+            <p style="page-break-before:always;" />
+
+
           </div>
         </t>
 

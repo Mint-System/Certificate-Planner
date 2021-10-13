@@ -63,18 +63,43 @@ class MDLReport(models.AbstractModel):
             # _logger.info(change_revisions[change.id])
 
         # Get all parts for certificate
-        # parts=[]
-        # def get_subparts(level, part_ids):
-        #     if (level < 5):
-        #         for part in part_ids:
-        #             parts.append({
-        #                 'part': part,
-        #                 'level': level
-        #             })
-        #             part=self.env['certificate_planer.part'].browse(part.id)
-        #             # Call function for subparts
-        #             get_subparts(level+1, part.bom_id.part_ids.certificate_planer_part_id)
-        # get_subparts(0, document.certificate_id.part_id)
+        parts = []
+        part_seen = []
+        def get_subparts(level, part):
+            # Get subpparts
+            subparts = []
+            for subpart in part.bom_id.part_ids.certificate_planer_part_id:
+                subpart = self.env['certificate_planer.part'].browse(subpart.id)
+                subparts.append(subpart)
+            # Sort subparts
+            subparts.sort(key=lambda r: r.name)
+
+            # Append as main part if it has subparts
+            if subparts:
+                parts.append({
+                    'part': part,
+                    'level': level,
+                    'marker': '-'*level,
+                    'type': 'main'
+                })
+            # If level is below five process subparts.
+            if (level < 5):
+                level += 1
+                for subpart in subparts:
+                    # Append as subpart if not already seen
+                    if subpart.id not in part_seen:
+                        parts.append({
+                            'part': subpart,
+                            'level': level,
+                            'marker': '-'*level,
+                            'type': 'sub'
+                        })
+                        part_seen.append(subpart.id)
+                # Call this function for each subpart
+                for subpart in subparts:
+                    get_subparts(level, subpart)
+        get_subparts(0, document.certificate_id.part_id)
+
 
         return {
             'docs': documents,
@@ -82,6 +107,7 @@ class MDLReport(models.AbstractModel):
             'revisions': revisions,
             'changes': changes,
             'change_revisions': change_revisions,
+            'parts': parts,
             'title_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.title_page_text'),
             'footer_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.footer_text')
         }
