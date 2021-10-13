@@ -49,7 +49,8 @@ class Part(models.Model):
             record.prerequisite_count = len(self.prerequisite_ids)
 
     def _compute_get_bom_id(self):
-        self.bom_id = self.env['certificate_planer.bom'].search([('part_id','=',self.id)])
+        for part in self:
+            part.bom_id = self.env['certificate_planer.bom'].search([('part_id', '=', part.id)])
 
     def _compute_get_certificate_id(self):
         self.certificate_id = self.env['certificate_planer.certificate'].search([('part_id','=',self.id)])

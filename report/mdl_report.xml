@@ -183,33 +183,35 @@
             <t t-foreach="changes" t-as="change">
               <t t-set="is_legacy_change" t-value="change.status_id.is_legacy_change"/>
               
-              <h3 t-field="change.change_id_id" />
-              <table class="table table-bordered table-sm">
-                <tbody>
-                  <tr>
-                    <td>
-                      <strong t-field="change.classification_id.designation"/>
-                    </td>
-                    <td>
-                      <strong>Authority Reference</strong>
-                    </td>
-                    <td>
-                      <span t-field="change.authority_reference"/>
-                    </td>
-                    <td>
-                      <strong>Aerolite Reference</strong>
-                    </td>
-                    <td>
-                      <span t-field="change.reference"/>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">
-                      <span t-field="change.description"/>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div style="page-break-inside: avoid;"> 
+                <h3 t-field="change.change_id_id" />
+                <table class="table table-bordered table-sm">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="o_bold" t-field="change.classification_id.designation"/>
+                      </td>
+                      <td>
+                        <span class="o_bold">Authority Reference</span>
+                      </td>
+                      <td>
+                        <span t-field="change.authority_reference"/>
+                      </td>
+                      <td>
+                        <span class="o_bold">Aerolite Reference</span>
+                      </td>
+                      <td>
+                        <span t-field="change.reference"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5">
+                        <span t-field="change.description"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
  
               <t t-foreach="change_revisions[change.id]" t-as="class_key">
                 <t t-if="class_key_value['class']">
@@ -223,7 +225,7 @@
                         <th style="width: 300px;"><span t-esc="class_key"/></th>
                         <th style="width: 300px;">Title</th>
                         <t t-if="show_reason"><th style="width: 200px;" >Reason</th></t>
-                        <th style="width: 100px;">Rev</th>
+                        <th style="width: 100px;">Revision</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -257,7 +259,7 @@
               </t>
 
               <code t-if="request.session.debug">
-              <strong>DEBUG</strong><br/>
+              <span class="o_bold">DEBUG</span><br/>
               <t t-foreach="change_revisions[change.id]" t-as="class_key">
                 class_key:<span t-esc="class_key"/><br/>
                 is_legacy_change:<span t-esc="is_legacy_change"/><br/>
@@ -328,7 +330,8 @@
                     <span t-esc="item['marker']"/>
                   </td>
                   <td>
-                    <h3 t-if="item['type'] == 'main'" t-esc="item['part'].name"/>
+                    <h3 t-if="(item['type'] == 'main') and (2 > item['level'])" t-esc="item['part'].name"/>
+                    <span style="font-size: 1.75rem;" t-if="(item['type'] == 'main') and (item['level'] > 1)" t-esc="item['part'].name"/>
                     <span t-if="item['type'] == 'sub'" t-esc="item['part'].name"/>
                   </td>
                   <td>
@@ -352,10 +355,10 @@
               <table class="table-striped table-bordered table-sm" width="100%">
                 <thead>
                   <tr>
-                    <th>Document</th>
-                    <th>Title</th>
-                    <th>Current Revision</th>
-                    <th>Partnumber</th>
+                    <th style="width: 200px;">Document</th>
+                    <th style="width: 400px;">Title</th>
+                    <th style="width: 100px;">Revision</th>
+                    <th style="width: 200px;">Partnumber</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -370,7 +373,7 @@
                     <td>
                       <span t-esc="item['doc'].current_revision_id.state_id.name"/>
                     </td>
-                    <td>
+                    <td style="page-break-inside: avoid;">
                       <t t-foreach="item['parts']" t-as="part">
                         <span t-esc="part.name"/><br/>
                       </t>

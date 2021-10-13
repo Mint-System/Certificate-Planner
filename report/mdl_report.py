@@ -58,16 +58,12 @@ class MDLReport(models.AbstractModel):
                 change_revisions[change.id][key]['class'] = items[0].document_id.type_id.class_id or False
                 change_revisions[change.id][key]['items'] = items
 
-                # _logger.info([change.change_id_id.name, key])
-
-            # _logger.info(change.change_id_id.name)
-            # _logger.info(change_revisions[change.id])
-
 
 
         # Get all parts for certificate
         parts = []
-        part_seen = []
+        subpart_seen = []
+        mainpart_seen = []
         def get_subparts(level, part):
             # Get subpparts
             subparts = []
@@ -78,36 +74,41 @@ class MDLReport(models.AbstractModel):
             subparts.sort(key=lambda r: r.name)
 
             # Append as main part if it has subparts
-            if subparts:
+            if subparts and part.id not in mainpart_seen:
                 parts.append({
                     'part': part,
                     'level': level,
                     'marker': '-'*level,
-                    'type': 'main'
+                    'type': 'main',
+                    'group': part
                 })
-            # If level is below five process subparts.
-            if (level < 5):
-                level += 1
-                for subpart in subparts:
-                    # Append as subpart if not already seen
-                    if subpart.id not in part_seen:
+                mainpart_seen.append(part.id)
+                # If level is below five process subparts.
+                if (level < 5):
+                    level += 1
+                    for subpart in subparts:
+                        # Append as subpart if not already seen
                         parts.append({
                             'part': subpart,
-                            'level': level,
+                            'level': level-1,
                             'marker': '-'*level,
-                            'type': 'sub'
+                            'type': 'sub',
+                            'group': part
                         })
-                        part_seen.append(subpart.id)
-                # Call this function for each subpart
-                for subpart in subparts:
-                    get_subparts(level, subpart)
+                        subpart_seen.append(subpart.id)
+                    # Call this function for each subpart
+                    for subpart in subparts:
+                        get_subparts(level, subpart)
         get_subparts(0, document.certificate_id.part_id)
-
+        # Sort parts
+        parts = sorted(parts, key=lambda r: r['group'].name)
+        parts = sorted(parts, key=lambda r: r['level'])
 
 
         # Get all documents and parts
         documents_and_parts = []
         documents_seen = []
+        part_seen = mainpart_seen + subpart_seen
         def get_documents_by_parts(part_ids):
             # Process each part
             for part in part_ids:
@@ -127,6 +128,9 @@ class MDLReport(models.AbstractModel):
         get_documents_by_parts(document.certificate_id.part_id)
         # Group by document classes
         documents_by_class = {}
+        for document_class in self.env['certificate_planer.document_class'].search([]):
+            if document_class.show_on_report:
+                documents_by_class[document_class.name] = {}
         for key, items in itertools.groupby(documents_and_parts, lambda r: r['doc'].type_id.class_id.name):
             new_items = list(items)
             # A key might be added multiple times
@@ -138,6 +142,8 @@ class MDLReport(models.AbstractModel):
             items = sorted(items, key=lambda r: r['doc'].name)
             items = sorted(items, key=lambda r: r['doc'].type_id.sequence)
             documents_by_class[key] = items
+        # Remove keys without docs
+        documents_by_class = dict(filter(lambda r: r[1], documents_by_class.items()))
 
 
 
