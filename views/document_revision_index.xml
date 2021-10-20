@@ -1,8 +1,8 @@
 <odoo>
 
-  <record model="ir.ui.view" id="document_revision_state_search">
+  <record model="ir.ui.view" id="document_revision_index_search">
     <field name="name">Document Revision State Search</field>
-    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="model">certificate_planer.document_revision_index</field>
     <field name="arch" type="xml">
       <search>
         <field name="name"/>
@@ -11,9 +11,9 @@
     </field>
   </record>
 
-  <record model="ir.ui.view" id="document_revision_state_list">
+  <record model="ir.ui.view" id="document_revision_index_list">
     <field name="name">Document Revision State List</field>
-    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="model">certificate_planer.document_revision_index</field>
     <field name="arch" type="xml">
       <tree limit="200">
         <field name="sequence" widget="handle"/>
@@ -22,9 +22,9 @@
     </field>
   </record>
 
-  <record model="ir.ui.view" id="document_revision_state_form">
+  <record model="ir.ui.view" id="document_revision_index_form">
     <field name="name">Document Revision State Form</field>
-    <field name="model">certificate_planer.document_revision_state</field>
+    <field name="model">certificate_planer.document_revision_index</field>
     <field name="arch" type="xml">
       <form string="Document Revision State Form" duplicate="false">
         <sheet>

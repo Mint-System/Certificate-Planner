@@ -7,7 +7,7 @@
       <search>
         <field name="name"/>
         <field name="title"/>
-        <field string="Current Revision" name="state_id"/>
+        <field string="Current Revision" name="index_id"/>
         <field name="type_id"/>
         <field name="description"/>
         <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}"/>
@@ -37,7 +37,7 @@
       <tree limit="200">
         <field name="name"/>
         <field name="title"/>
-        <field string="Current Revision" name="state_id"/>
+        <field string="Current Revision" name="index_id"/>
         <field name="type_id"/>
         <field name="description"/>
       </tree>

@@ -76,7 +76,7 @@
                   </td>
                   <td>Revision:</td>
                   <td>
-                    <span t-field="current_revision.state_id"/>
+                    <span t-field="current_revision.index_id"/>
                   </td>
                 </tr>
                 <tr>
@@ -165,7 +165,7 @@
               <t t-foreach="revisions" t-as="revision">
                 <tr>
                   <td style="padding: 0.2rem;">
-                    <span t-field="revision.state_id"/>
+                    <span t-field="revision.index_id"/>
                   </td>
                   <td style="padding: 0.2rem;">
                     <span t-field="revision.reason"/>
@@ -242,7 +242,7 @@
                             <span t-field="revision.reason"/>
                           </td></t>
                           <td>
-                            <span t-field="revision.state_id"/>
+                            <span t-field="revision.index_id"/>
                           </td>
                         </tr>
                       </t>
@@ -273,7 +273,7 @@
                   - name:<span t-field="revision.document_id.name"/><br/>
                   &#160;&#160;title:<span t-field="revision.document_id.title"/><br/>
                   &#160;&#160;reason:<span t-field="revision.reason"/><br/>
-                  &#160;&#160;state:<span t-field="revision.state_id"/><br/>
+                  &#160;&#160;state:<span t-field="revision.index_id"/><br/>
                 </t>
                 <br />
               </t>
@@ -371,7 +371,7 @@
                       <span t-esc="item['doc'].title"/>
                     </td>
                     <td>
-                      <span t-esc="item['doc'].current_revision_id.state_id.name"/>
+                      <span t-esc="item['doc'].current_revision_id.index_id.name"/>
                     </td>
                     <td style="page-break-inside: avoid;">
                       <t t-foreach="item['parts']" t-as="part">
@@ -393,7 +393,7 @@
           <hr/>
           <div class="row">
             <div class="col-3">
-              <span>Revision: <span t-esc="current_revision.state_id.name" /></span><br/>
+              <span>Revision: <span t-esc="current_revision.index_id.name" /></span><br/>
               <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
             </div>
             <div class="col-6 text-center">

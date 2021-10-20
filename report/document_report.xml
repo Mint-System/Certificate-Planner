@@ -75,7 +75,7 @@
                 </td>
                 <td>Revision:</td>
                 <td>
-                  <h2 t-esc="revision.state_id.name"/>
+                  <h2 t-esc="revision.index_id.name"/>
                 </td>
               </tr>
               <tr>
@@ -178,7 +178,7 @@
                         <small t-field="revision.document_id.title"/>
                       </td>
                       <td style="padding: 0.2rem;">
-                        <small t-field="revision.state_id"/>
+                        <small t-field="revision.index_id"/>
                       </td>
                     </tr>
                   </t>
@@ -243,7 +243,7 @@
                       <small t-field="rec['doc'].title"/>
                     </td>
                     <td style="padding: 0.2rem;">
-                      <small t-field="rec['doc'].current_revision_id.state_id"/>
+                      <small t-field="rec['doc'].current_revision_id.index_id"/>
                     </td>
                   </t>
                 </tr>
@@ -257,7 +257,7 @@
           <hr/>
           <div class="row">
             <div class="col-2">
-              <span>Revision: <span t-esc="revision.state_id.name" />
+              <span>Revision: <span t-esc="revision.index_id.name" />
               </span>
             </div>
             <div class="col-8 text-center">

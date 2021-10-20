@@ -17,7 +17,7 @@ class Document(models.Model):
     change_id = fields.Many2one("certificate_planer.change", string="Change", readonly=True) # deprecated
     type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", track_visibility="always", ondelete="restrict")
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
-    state_id = fields.Many2one(related='current_revision_id.state_id')
+    index_id = fields.Many2one(related='current_revision_id.index_id')
 
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict", read=['certificate_planer.group_certificate_planer_manager_document'])
 

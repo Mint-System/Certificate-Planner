@@ -8,9 +8,9 @@
     <field name="view_mode">tree,form</field>
   </record>
   
-  <record model="ir.actions.act_window" id="document_revision_state_action">
-    <field name="name">Document Revision States</field>
-    <field name="res_model">certificate_planer.document_revision_state</field>
+  <record model="ir.actions.act_window" id="document_revision_index_action">
+    <field name="name">Document Revision Index</field>
+    <field name="res_model">certificate_planer.document_revision_index</field>
     <field name="view_mode">tree,form</field>
   </record>
 
@@ -158,11 +158,11 @@
     parent="certificate_planer.configuration_menu"
     action="certificate_planer.settings_action"/>
 
-  <menuitem name="Document Revision States"
-    id="document_revision_state_menu"
+  <menuitem name="Document Revision Index"
+    id="document_revision_index_menu"
     sequence="1"
     parent="certificate_planer.configuration_menu"
-    action="certificate_planer.document_revision_state_action"/>
+    action="certificate_planer.document_revision_index_action"/>
 
   <menuitem name="Document Types"
     id="document_type_menu"

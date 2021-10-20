@@ -7,14 +7,14 @@ class DocumentRevision(models.Model):
     _name = 'certificate_planer.document_revision'
     _description = 'Certificate Planner Document Revision'
     _rec_name = 'document_id'
-    _order = 'state_id'
+    _order = 'index_id'
 
     # fields
     reason = fields.Text(required=True)
 
     current_revision_id = fields.Many2one(related="document_id.current_revision_id", string="Current Revision")
     document_id = fields.Many2one("certificate_planer.document", string="Document", track_visibility="always", ondelete="restrict")
-    state_id = fields.Many2one("certificate_planer.document_revision_state", required=True, string="State", track_visibility="always", ondelete="restrict")
+    index_id = fields.Many2one("certificate_planer.document_revision_index", required=True, string="Index", track_visibility="always", ondelete="restrict")
     change_id = fields.Many2one("certificate_planer.change", string="Change", track_visibility="always", ondelete="restrict")
 
     # defaults
@@ -27,5 +27,5 @@ class DocumentRevision(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            res.append((rec.id, _('%s') % (rec.state_id.name)))
+            res.append((rec.id, _('%s') % (rec.index_id.name)))
         return res

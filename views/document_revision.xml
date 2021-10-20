@@ -6,9 +6,9 @@
     <field name="arch" type="xml">
       <search>
         <field name="document_id"/>
-        <field name="state_id"/>
+        <field name="index_id"/>
         <field name="reason"/>
-        <filter name="group_state" string="By State" context="{'group_by': 'state_id'}"/>
+        <filter name="group_state" string="By State" context="{'group_by': 'index_id'}"/>
       </search>
     </field>
   </record>
@@ -19,7 +19,7 @@
     <field name="arch" type="xml">
       <tree limit="200">
         <field name="document_id"/>
-        <field name="state_id"/>
+        <field name="index_id"/>
         <field name="reason"/>
         <field name="change_id"/>
       </tree>
@@ -42,7 +42,7 @@
             </h1>
           </div>
           <group>
-            <field name="state_id"/>
+            <field name="index_id"/>
             <field name="reason"/>
           </group>
             <p class="oe_edit_only">Note: A Document Revision must be linked with a Document and may be linked with an Issue.</p>
