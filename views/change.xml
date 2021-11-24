@@ -96,6 +96,8 @@
             <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
               <tree>
                 <field name="document_id"/>
+                <field name="title"/>
+                <field name="type_id"/>
                 <field name="index_id"/>
                 <field name="reason"/>
                 <field name="current_revision_id"/>
