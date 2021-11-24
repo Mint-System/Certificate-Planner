@@ -9,7 +9,7 @@
     'website': "https://www.mint-system.ch",
 
     'category': 'Operations',
-    'version': '13.0.3.5.1',
+    'version': '13.0.3.6.0',
     'license': 'AGPL-3',
 
     'depends': ['base', 'mail'],
