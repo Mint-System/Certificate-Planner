@@ -323,6 +323,12 @@
                 </tr>
               </thead>
               <tbody>
+              <style>
+                h3 {
+                  margin-bottom: 0;
+                  line-height: 1.5;
+                }
+              </style>
               <t t-foreach="parts" t-as="item">
                 <tr>
                   <td>
@@ -330,11 +336,15 @@
                   </td>
                   <td>
                     <h3 t-if="(item['type'] == 'main') and (2 > item['level'])" t-esc="item['part'].name"/>
-                    <span style="font-size: 1.75rem;" t-if="(item['type'] == 'main') and (item['level'] > 1)" t-esc="item['part'].name"/>
+                    <span style="font-size: 1.5rem;" t-if="(item['type'] == 'main') and (item['level'] == 2)" t-esc="item['part'].name"/>
+                    <span style="font-size: 1.25rem;" t-if="(item['type'] == 'main') and (item['level'] > 2)" t-esc="item['part'].name"/>
                     <span t-if="item['type'] == 'sub'" t-esc="item['part'].name"/>
                   </td>
                   <td>
-                    <span t-esc="item['part'].designation"/>
+                    <span style="font-size: 1.75rem;" t-if="(item['type'] == 'main') and (2 > item['level'])" t-esc="item['part'].designation"/>
+                    <span style="font-size: 1.5rem;" t-if="(item['type'] == 'main') and (item['level'] == 2)" t-esc="item['part'].designation"/>
+                    <span style="font-size: 1.25rem;" t-if="(item['type'] == 'main') and (item['level'] > 2)" t-esc="item['part'].designation"/>  
+                    <span t-if="item['type'] == 'sub'" t-esc="item['part'].designation"/>
                   </td>
                 </tr>
               </t>
