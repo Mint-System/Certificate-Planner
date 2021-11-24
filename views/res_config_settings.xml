@@ -29,6 +29,11 @@
                                         <field name="footer_text" class="oe_inline" style="width: 70% !important;"/>
                                     </div>
 
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="DO Statement Text" for="design_organisation_statement_text"/>
+                                        <field name="design_organisation_statement_text" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
                                 </div>
                             </div>
 

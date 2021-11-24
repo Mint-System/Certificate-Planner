@@ -5,7 +5,10 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     title_page_text = fields.Char(config_parameter='certificate_planer.title_page_text',
-        default="This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.")
-    
+                                  default="This document contains confidential information and is proprietary to Aerolite AG. It may not be disclosed, reproduced or utilised in any way, in whole or in part, without the written consent of Aerolite AG.")
+
     footer_text = fields.Char(config_parameter='certificate_planer.footer_text',
-        default="Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen")
+                              default="Copyright by Aerolite AG, Aumühlestrasse 10, CH-6373 Ennetbürgen")
+
+    design_organisation_statement_text = fields.Char(config_parameter='certificate_planer.design_organisation_statement_text',
+                                                     default="Approved under the authority of the Design Organisation No: EASA.21J.359")

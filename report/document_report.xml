@@ -132,8 +132,7 @@
             </table>
 
 
-            <p>Approved under the authority of the Design Organisation<br/>
-            No: EASA.21J.359</p>
+            <p t-esc="design_organisation_statement_text" />
 
             <br />
             <br />
