@@ -17,11 +17,23 @@
     <field name="name">Post Certification Item List</field>
     <field name="model">certificate_planer.post_certification_item</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="pci_id"/>
         <field name="description"/>
         <field name="status_id"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="post_certification_item_delete_rule" model="ir.ui.view">
+    <field name="name">post_certification_item_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="inherit_id" ref="post_certification_item_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 

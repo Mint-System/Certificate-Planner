@@ -14,12 +14,24 @@
     <field name="name">BoM List</field>
     <field name="model">certificate_planer.bom</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="part_id"/>
       </tree>
     </field>
   </record>
 
+  <record id="bom_delete_rule" model="ir.ui.view">
+      <field name="name">bom_delete_rule</field>
+      <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+      <field name="model">certificate_planer.bom</field>
+      <field name="inherit_id" ref="bom_list"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position='attributes'>
+          <attribute name='delete'>true</attribute>
+        </xpath>
+      </field>
+  </record>
+  
   <record model="ir.ui.view" id="bom_form">
     <field name="name">BoM Form</field>
     <field name="model">certificate_planer.bom</field>
@@ -39,7 +51,7 @@
           </group>
           <group>
             <field name="part_ids" context="{'default_certificate_planer_bom_id': id}">
-              <tree limit="200" class="button_width" delete="0">
+              <tree limit="200" class="button_width" delete="false">
                 <field name="sequence" widget="handle"/>
                 <field name="certificate_planer_part_id"/>
                 <field name="designation"/>
@@ -47,7 +59,7 @@
               </tree>
             </field>
             <field name="prerequisite_ids" context="{'default_certificate_planer_bom_id': id}">
-              <tree limit="200" class="button_width" delete="0">
+              <tree limit="200" class="button_width" delete="false">
                 <field name="sequence" widget="handle"/>
                 <field name="certificate_planer_part_id"/>
                 <field name="designation"/>

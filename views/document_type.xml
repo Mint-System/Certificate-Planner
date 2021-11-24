@@ -16,12 +16,24 @@
     <field name="name">Document Type List</field>
     <field name="model">certificate_planer.document_type</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="sequence" widget="handle"/>
         <field name="identification"/>
         <field name="designation"/>
         <field name="class_id"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="document_type_delete_rule" model="ir.ui.view">
+    <field name="name">document_type_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.document_type</field>
+    <field name="inherit_id" ref="document_type_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 

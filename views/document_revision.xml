@@ -17,13 +17,25 @@
     <field name="name">Document Revision List</field>
     <field name="model">certificate_planer.document_revision</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="document_id"/>
         <field name="index_id"/>
         <field name="reason"/>
         <field name="change_id"/>
         <field name="change_status_id"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="document_revision_delete_rule" model="ir.ui.view">
+    <field name="name">document_revision_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.document_revision</field>
+    <field name="inherit_id" ref="document_revision_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 

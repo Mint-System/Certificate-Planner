@@ -16,10 +16,22 @@
     <field name="name">Part Category List</field>
     <field name="model">certificate_planer.part_category</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="name"/>
         <field name="description"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="part_category_delete_rule" model="ir.ui.view">
+    <field name="name">part_category_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.part_category</field>
+    <field name="inherit_id" ref="part_category_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 

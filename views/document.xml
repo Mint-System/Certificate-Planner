@@ -34,7 +34,7 @@
     <field name="name">Document List</field>
     <field name="model">certificate_planer.document</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="name"/>
         <field name="title"/>
         <field string="Current Revision" name="index_id"/>
@@ -42,6 +42,18 @@
         <field name="description"/>
       </tree>
     </field>
+  </record>
+
+  <record id="document_list_delete_rule" model="ir.ui.view">
+      <field name="name">document_list_delete_rule</field>
+      <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+      <field name="model">certificate_planer.document</field>
+      <field name="inherit_id" ref="document_list"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position='attributes'>
+          <attribute name='delete'>true</attribute>
+        </xpath>
+      </field>
   </record>
 
   <record model="ir.ui.view" id="document_form">

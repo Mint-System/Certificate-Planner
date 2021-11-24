@@ -16,13 +16,25 @@
     <field name="name">Document Class List</field>
     <field name="model">certificate_planer.document_class</field>
     <field name="arch" type="xml">
-      <tree limit="200" multi_edit="1">
+      <tree limit="200" multi_edit="1" delete="false">
         <field name="sequence" widget="handle"/>
         <field name="name"/>
         <field name="description"/>
         <field name="show_on_report"/>
         <field name="show_reason"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="document_class_delete_rule" model="ir.ui.view">
+    <field name="name">document_class_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.document_class</field>
+    <field name="inherit_id" ref="document_class_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 

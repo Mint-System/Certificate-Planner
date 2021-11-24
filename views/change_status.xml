@@ -15,13 +15,25 @@
     <field name="name">Change Status List</field>
     <field name="model">certificate_planer.change_status</field>
     <field name="arch" type="xml">
-      <tree limit="200">
+      <tree limit="200" delete="false">
         <field name="sequence" widget="handle"/>
         <field name="designation"/>
         <field name="description"/>
         <field name="show_on_report"/>
         <field name="hide_legacy_class"/>
       </tree>
+    </field>
+  </record>
+
+  <record id="change_status_delete_rule" model="ir.ui.view">
+    <field name="name">change_status_delete_rule</field>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="model">certificate_planer.change_status</field>
+    <field name="inherit_id" ref="change_status_list"/>
+    <field name="arch" type="xml">
+      <xpath expr="//tree" position='attributes'>
+        <attribute name='delete'>true</attribute>
+      </xpath>
     </field>
   </record>
 
