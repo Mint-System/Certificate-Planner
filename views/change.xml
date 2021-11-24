@@ -94,7 +94,7 @@
           <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>
             <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
-              <tree>
+              <tree default_order="document_id">
                 <field name="document_id"/>
                 <field name="title"/>
                 <field name="type_id"/>
