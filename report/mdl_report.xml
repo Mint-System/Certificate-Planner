@@ -180,7 +180,7 @@
 
             <h2>Log of Ammendments</h2>
             <t t-foreach="changes" t-as="change">
-              <t t-set="is_legacy_change" t-value="change.status_id.is_legacy_change"/>
+              <t t-set="hide_legacy_class" t-value="change.status_id.hide_legacy_class"/>
               
               <div style="page-break-inside: avoid;"> 
                 <h3 t-field="change.change_id_id" />
@@ -217,7 +217,7 @@
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
                 </t>
-                <t t-if="show_on_report and (class_key_value['items'] or not is_legacy_change)">
+                <t t-if="show_on_report and (class_key_value['items'] or not hide_legacy_class)">
                   <table class="table-striped table-bordered table-sm" width="100%">
                     <thead>
                       <tr>
@@ -261,7 +261,7 @@
               <span class="o_bold">DEBUG</span><br/>
               <t t-foreach="change_revisions[change.id]" t-as="class_key">
                 class_key:<span t-esc="class_key"/><br/>
-                is_legacy_change:<span t-esc="is_legacy_change"/><br/>
+                hide_legacy_class:<span t-esc="hide_legacy_class"/><br/>
                 <t t-if="class_key_value['class']">
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
@@ -278,7 +278,7 @@
               </t>
               </code>
 
-              <t t-if="change.part_ids or not is_legacy_change">
+              <t t-if="change.part_ids or not hide_legacy_class">
                 <table class="table-striped table-bordered table-sm" width="100%">
                   <thead>
                     <tr>

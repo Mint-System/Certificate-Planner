@@ -1,0 +1,2 @@
+ALTER TABLE certificate_planer_change_status
+RENAME COLUMN is_legacy_change TO hide_legacy_class;
