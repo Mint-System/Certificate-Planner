@@ -334,7 +334,7 @@
                   <td>
                     <span t-esc="item['marker']"/>
                   </td>
-                  <td>
+                  <td style="white-space: nowrap;">
                     <h3 t-if="(item['type'] == 'main') and (2 > item['level'])" t-esc="item['part'].name"/>
                     <span style="font-size: 1.5rem;" t-if="(item['type'] == 'main') and (item['level'] == 2)" t-esc="item['part'].name"/>
                     <span style="font-size: 1.25rem;" t-if="(item['type'] == 'main') and (item['level'] > 2)" t-esc="item['part'].name"/>
