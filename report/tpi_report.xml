@@ -1,0 +1,95 @@
+<odoo>
+
+  <!-- Register report -->
+  <report id="tpi_report"
+    model="certificate_planer.document"
+    string="TPI Report"
+    name="certificate_planer.tpi_report_view"
+    file="certificate_planer.tpi_report"
+    report_type="qweb-pdf"
+    print_report_name="'%s' % (object.name)"
+    paperformat="paperformat_certificate_planer"/>
+
+  <!-- Custom layout definition -->
+  <template id="tpi_layout">
+    <t t-if="not o" t-set="o" t-value="doc"/>
+    <t t-if="not company">
+      <!-- Multicompany -->
+      <t t-if="company_id">
+        <t t-set="company" t-value="company_id"/>
+      </t>
+      <t t-elif="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id.sudo()"/>
+      </t>
+      <t t-else="else">
+        <t t-set="company" t-value="res_company"/>
+      </t>
+    </t>
+    <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-raw="0"/>
+    </div>
+  </template>
+
+  <!-- TPI report definition -->
+  <template id="tpi_report_view">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+      
+        <!-- Header definition -->
+        <div class="header">
+          <div class="row">
+            <div class="col-4">
+              <span>Engineering</span>
+              <h4 t-esc="doc.type_id.designation"/>
+            </div>
+            <div class="col-4 text-center">
+              <br />
+              <h4 t-esc="doc.name"/>
+            </div>
+            <div class="col-4 text-right">
+              <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 40px; max-width: 300px" alt="Logo"/>
+            </div>
+          </div>
+          <hr/>
+        </div>
+
+        <!-- Page definition -->
+        <t t-call="certificate_planer.tpi_layout">
+          <div class="page">
+
+            <h1 t-esc="doc.type_id.designation"/>
+            <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+
+          </div>
+        </t>
+
+        <!-- Footer definition -->
+        <div class="footer">
+          <hr/>
+          <div class="row">
+            <div class="col-3">
+              <span>Revision: <span t-esc="current_revision.index_id.name" /></span><br/>
+              <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+            </div>
+            <div class="col-6 text-center">
+              <span t-esc="footer_text" />
+            </div>
+            <div class="col-3 text-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <span class="page"/>
+                </li>
+                <li class="list-inline-item">/</li>
+                <li class="list-inline-item">
+                  <span class="topage"/>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </t>
+    </t>
+  </template>
+
+</odoo>
