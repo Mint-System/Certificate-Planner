@@ -64,6 +64,7 @@
         <header>
           <button name="view_document_report" type="object" string="View MDL v1 Report" />
           <button name="view_mdl_report" type="object" string="View MDL v2 Report" />
+          <button name="store_tpi_report" type="object" string="Generate MDL/TPI reports" class="oe_highlight"/>
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">
@@ -103,6 +104,19 @@
         </div>
       </form>
     </field>
+  </record>
+
+  <record id="document_message" model="ir.ui.view">
+      <field name="name">Document Message</field>
+      <field name="model">certificate_planer.document.message</field>
+      <field name="arch" type="xml">
+          <form>
+              <field name="message" readonly="True"/>
+              <footer>
+                  <button name="action_close" string="Ok" type="object" default_focus="1" class="oe_highlight"/>
+              </footer>
+          </form>
+      </field>
   </record>
 
 </odoo>

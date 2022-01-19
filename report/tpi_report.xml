@@ -3,12 +3,14 @@
   <!-- Register report -->
   <report id="tpi_report"
     model="certificate_planer.document"
-    string="TPI Report"
+    string="Technical Publication Index"
     name="certificate_planer.tpi_report_view"
     file="certificate_planer.tpi_report"
+    attachment="'TPI %s' % (object.name) + '.pdf'"
     report_type="qweb-pdf"
     print_report_name="'%s' % (object.name)"
-    paperformat="paperformat_certificate_planer"/>
+    paperformat="paperformat_certificate_planer"
+    menu="False"/>
 
   <!-- Custom layout definition -->
   <template id="tpi_layout">
@@ -59,6 +61,8 @@
 
             <h1 t-esc="doc.type_id.designation"/>
             <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+
+            <p t-esc="tpi_page_text" />
 
           </div>
         </t>

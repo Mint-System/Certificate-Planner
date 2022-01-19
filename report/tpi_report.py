@@ -20,10 +20,14 @@ class TPIReport(models.AbstractModel):
         # Get first document
         document = documents[0]
 
+        # Replace placholders
+        tpi_page_text = self.env['ir.config_parameter'].sudo().get_param('certificate_planer.tpi_page_text')
+        tpi_page_text = tpi_page_text.replace('DOCUMENT_NAME', document.name).replace('DOCUMENT_REVISION_TITLE', document.current_revision_id.index_id.name)
+
         return {
             'docs': documents,
             'current_revision': document.current_revision_id,
-            'tpi_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.tpi_page_text'),
+            'tpi_page_text': tpi_page_text,
             'title_page_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.title_page_text'),
             'footer_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.footer_text'),
             'design_organisation_statement_text': self.env['ir.config_parameter'].sudo().get_param('certificate_planer.design_organisation_statement_text')

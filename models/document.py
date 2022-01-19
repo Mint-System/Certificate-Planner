@@ -1,5 +1,8 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
+import base64
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class Document(models.Model):
@@ -58,6 +61,31 @@ class Document(models.Model):
             'url': '/report/html/certificate_planer.mdl_report_view/%(document_id)s' % {'document_id': self.id},
         }
 
+    def store_tpi_report(self):
+        self.ensure_one()
+
+        # Render report
+        pdf_content, content_type = self.env.ref('certificate_planer.tpi_report').render_qweb_pdf(self.id)
+        pdf_content, content_type = self.env.ref('certificate_planer.mdl_report').render_qweb_pdf(self.id)
+        # self.env['ir.attachment'].create({
+        #     'name': self.name + '.pdf',
+        #     'type': 'binary',
+        #     'datas': base64.encodebytes(pdf_content),
+        #     'res_model': self._name,
+        #     'res_id': self.id
+        # })
+
+        # Return message
+        message_id = self.env['certificate_planer.document.message'].create({'message': 'The reports have been generated. See attachments of this documents.'})
+        return {
+            'name': 'Message',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'certificate_planer.document.message',
+            'res_id': message_id.id,
+            'target': 'new'
+        }
+
     def view_document_revisions(self):
         self.ensure_one()
         return {
@@ -68,3 +96,12 @@ class Document(models.Model):
             'domain': [('document_id', '=', self.id)],
             'context': "{'create': False}"
         }
+
+class DocumentMessage(models.TransientModel):
+    _name = 'certificate_planer.document.message'
+    _description = "Show Message"
+
+    message = fields.Text(required=True)
+
+    def action_close(self):
+        return {'type': 'ir.actions.act_window_close'}
