@@ -13,4 +13,5 @@ class DocumentClass(models.Model):
     name = fields.Char(required=True, string="Title")
     description = fields.Char(help="Document ID Assignment")
     show_on_report = fields.Boolean("Show on MDL2 report")
+    show_on_tpi_report = fields.Boolean("Show on TPI report")
     show_reason = fields.Boolean()

@@ -12,7 +12,7 @@ class Document(models.Model):
     title = fields.Char(required=True)
     description = fields.Char(help="Document ID Assignment")
     revision_count = fields.Integer(compute='_compute_revision_count')
-
+    print_date = fields.Date()
     current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", track_visibility="always")
     change_id = fields.Many2one("certificate_planer.change", string="Change", readonly=True) # deprecated
     type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", track_visibility="always", ondelete="restrict")

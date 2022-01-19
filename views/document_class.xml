@@ -21,6 +21,7 @@
         <field name="name"/>
         <field name="description"/>
         <field name="show_on_report"/>
+        <field name="show_on_tpi_report"/>
         <field name="show_reason"/>
       </tree>
     </field>
@@ -58,6 +59,7 @@
           <group>
             <field name="description"/>
             <field name="show_on_report"/>
+            <field name="show_on_tpi_report"/>
             <field name="show_reason"/>
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
