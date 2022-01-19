@@ -27,6 +27,7 @@ class Document(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Document with this Document ID already exists."),
     ]
+    
     def copy(self, default=None):
         self.ensure_one()
         default = dict(default or {})
