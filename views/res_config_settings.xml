@@ -20,6 +20,11 @@
                                 <div class="content-group">
 
                                     <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="TPI Page Text" for="tpi_page_text"/>
+                                        <field name="tpi_page_text" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                    <div class="row mt16">
                                         <label class="col-lg-3 o_light_label" string="Title Page Text" for="title_page_text"/>
                                         <field name="title_page_text" class="oe_inline" style="width: 70% !important;"/>
                                     </div>
