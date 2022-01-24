@@ -40,11 +40,11 @@
         <!-- Header definition -->
         <div class="header">
           <div class="row">
-            <div class="col-4">
+            <div class="col-5">
               <span>Engineering</span>
-              <h4>Technical Pulbication Index</h4>
+              <h4>Technical Publication Index</h4>
             </div>
-            <div class="col-4 text-center">
+            <div class="col-3 text-center">
               <br />
               <h4 t-esc="doc.name"/>
             </div>
@@ -59,7 +59,7 @@
         <t t-call="certificate_planer.tpi_layout">
           <div class="page">
 
-            <h1 t-esc="doc.type_id.designation"/>
+            <h1>Technical Publication Index</h1>
             <p>Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"/></p>
 
             <p t-esc="tpi_page_text" />
