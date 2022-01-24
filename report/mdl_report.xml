@@ -59,8 +59,7 @@
           <div class="page">
 
             <h1 t-esc="doc.type_id.designation"/>
-            <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
-            </p>
+            <p>Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"/></p>
             <br />
             <br />
             <style>
@@ -404,7 +403,7 @@
           <div class="row">
             <div class="col-3">
               <span>Revision: <span t-esc="current_revision.index_id.name" /></span><br/>
-              <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+              <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"/>
             </div>
             <div class="col-6 text-center">
               <span t-esc="footer_text" />

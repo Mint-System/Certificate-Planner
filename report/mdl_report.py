@@ -2,6 +2,7 @@ import itertools
 from odoo import api, models, _
 import logging
 _logger = logging.getLogger(__name__)
+from datetime import datetime
 
 
 class MDLReport(models.AbstractModel):
@@ -19,6 +20,9 @@ class MDLReport(models.AbstractModel):
 
         # Get first document
         document = documents[0]
+
+        # Set last print date
+        document.print_date = datetime.now()
 
         # Get revisions and filter by change > status > shown on report attribute
         revisions = document.revision_ids.filtered(
@@ -155,6 +159,7 @@ class MDLReport(models.AbstractModel):
         return {
             'docs': documents,
             'current_revision': document.current_revision_id,
+            'print_date': document.print_date,
             'revisions': revisions,
             'changes': changes,
             'change_revisions': change_revisions,
