@@ -42,7 +42,7 @@
           <div class="row">
             <div class="col-4">
               <span>Engineering</span>
-              <h4 t-esc="doc.type_id.designation"/>
+              <h4>Technical Pulbication Index</h4>
             </div>
             <div class="col-4 text-center">
               <br />
@@ -60,9 +60,51 @@
           <div class="page">
 
             <h1 t-esc="doc.type_id.designation"/>
-            <p>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+            <p>Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"/></p>
 
             <p t-esc="tpi_page_text" />
+
+            <!-- START SECTION copy from mdl_report.xml -->
+            <t t-foreach="documents_by_class" t-as="document_class">
+              <h3 t-esc="document_class"/>
+              <style>
+                table td {
+                  vertical-align: top;
+                }
+              </style>
+              <table class="table-striped table-bordered table-sm" width="100%">
+                <thead>
+                  <tr>
+                    <th style="width: 200px;">Document</th>
+                    <th style="width: 400px;">Title</th>
+                    <th style="width: 100px;">Revision</th>
+                    <th style="width: 200px;">Partnumber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <t t-foreach="document_class_value" t-as="item">
+                  <tr>
+                    <td>
+                      <span t-esc="item['doc'].name"/>
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].title"/>
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].current_revision_id.index_id.name"/>
+                    </td>
+                    <td style="page-break-inside: avoid;">
+                      <t t-foreach="item['parts']" t-as="part">
+                        <span t-esc="part.name"/><br/>
+                      </t>
+                    </td>
+                  </tr>
+                </t>
+                </tbody>
+              </table>
+              <br/>
+            </t>
+            <!-- END SECTION copy from mdl_report.xml -->
 
           </div>
         </t>
@@ -73,7 +115,7 @@
           <div class="row">
             <div class="col-3">
               <span>Revision: <span t-esc="current_revision.index_id.name" /></span><br/>
-              <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+              <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"/>
             </div>
             <div class="col-6 text-center">
               <span t-esc="footer_text" />
