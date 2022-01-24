@@ -15,7 +15,7 @@
     <field name="name">Change Status List</field>
     <field name="model">certificate_planer.change_status</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="sequence" widget="handle"/>
         <field name="designation"/>
         <field name="description"/>

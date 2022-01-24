@@ -15,7 +15,7 @@
     <field name="name">Post Certification Item Status List</field>
     <field name="model">certificate_planer.post_certification_item_status</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="sequence" widget="handle"/>
         <field name="designation"/>
         <field name="description"/>

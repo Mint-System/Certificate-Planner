@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class Bom(models.Model):
@@ -26,8 +27,11 @@ class Bom(models.Model):
 
     # defaults
     def unlink(self):
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
         self.part_id.unlink()
         return super(Bom, self).unlink()
+
 
 class BomPartRel(models.Model):
     _name = "certificate_planer.bom_certificate_planer_part_rel"

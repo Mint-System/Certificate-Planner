@@ -19,6 +19,8 @@ class PostCertificationItem(models.Model):
     def unlink(self):
         if self.change_id:
             raise UserError(_('You cannot delete a Post Certification Item that links to a Change.'))
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
         return super(PostCertificationItem, self).unlink()
 
     def name_get(self):

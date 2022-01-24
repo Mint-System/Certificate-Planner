@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class Certificate(models.Model):
@@ -27,3 +28,8 @@ class Certificate(models.Model):
         for rec in self:
             res.append((rec.id, _('%s (%s)') % (rec.part_id.name, rec.aircraft_type_id.name)))
         return res
+
+    def unlink(self):
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
+        return super().unlink()

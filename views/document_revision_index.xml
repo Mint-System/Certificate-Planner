@@ -15,7 +15,7 @@
     <field name="name">Document Revision State List</field>
     <field name="model">certificate_planer.document_revision_index</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="sequence" widget="handle"/>
         <field name="name"/>
       </tree>

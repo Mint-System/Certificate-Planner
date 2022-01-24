@@ -15,7 +15,7 @@
     <field name="name">Specification List</field>
     <field name="model">certificate_planer.specification</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="name"/>
       </tree>
     </field>

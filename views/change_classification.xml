@@ -16,7 +16,7 @@
     <field name="name">Change Classification List</field>
     <field name="model">certificate_planer.change_classification</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="designation"/>
         <field name="description"/>
       </tree>

@@ -32,6 +32,11 @@ class Change(models.Model):
             res.append((rec.id, _('%s (%s)') % (rec.change_id_id.name, rec.certificate_id.part_id.name)))
         return res
 
+    def unlink(self):
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
+        return super().unlink()
+
     # compute
     def _compute_part_count(self):
         for record in self:

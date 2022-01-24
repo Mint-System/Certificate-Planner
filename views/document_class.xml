@@ -16,7 +16,7 @@
     <field name="name">Document Class List</field>
     <field name="model">certificate_planer.document_class</field>
     <field name="arch" type="xml">
-      <tree limit="200" multi_edit="1" delete="false">
+      <tree limit="200" multi_edit="1" delete="true">
         <field name="sequence" widget="handle"/>
         <field name="name"/>
         <field name="description"/>

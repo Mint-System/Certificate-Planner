@@ -16,7 +16,7 @@
     <field name="name">Document Type List</field>
     <field name="model">certificate_planer.document_type</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="sequence" widget="handle"/>
         <field name="identification"/>
         <field name="designation"/>

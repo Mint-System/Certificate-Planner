@@ -20,7 +20,7 @@
     <field name="name">Change List</field>
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="certificate_id"/>
         <field name="change_id_id"/>
         <field name="description"/>

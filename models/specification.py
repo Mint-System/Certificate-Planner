@@ -14,3 +14,8 @@ class Specification(models.Model):
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Specification with this Title already exists."),
     ]
+
+    def unlink(self):
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
+        return super().unlink()

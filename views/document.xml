@@ -34,7 +34,7 @@
     <field name="name">Document List</field>
     <field name="model">certificate_planer.document</field>
     <field name="arch" type="xml">
-      <tree limit="200" delete="false">
+      <tree limit="200" delete="true">
         <field name="name"/>
         <field name="title"/>
         <field string="Current Revision" name="index_id"/>

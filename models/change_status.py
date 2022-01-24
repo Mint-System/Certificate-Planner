@@ -15,3 +15,8 @@ class ChangeStatus(models.Model):
     description = fields.Char()
     show_on_report = fields.Boolean("Show on MDL2 report")
     hide_legacy_class = fields.Boolean()
+
+    def unlink(self):
+        if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
+            raise UserError(_('You cannot delete multiple documents.'))
+        return super().unlink()
