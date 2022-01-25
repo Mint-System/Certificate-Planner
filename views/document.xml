@@ -20,8 +20,8 @@
     <field name="model">ir.attachment</field>
     <field name="arch" type="xml">
       <tree>
-        <!-- <field name="datas" widget="download_link" filename="name" string="File"/> -->
-         <field name="name"/>
+        <field name="name"/>
+        <field name="datas" widget="binary" filename="name"/>
         <field name="url" widget="url"/>
         <field name="company_id" groups="base.group_multi_company"/>
         <field name="create_uid"/>
