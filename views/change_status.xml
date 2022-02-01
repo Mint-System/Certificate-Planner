@@ -21,6 +21,7 @@
         <field name="description"/>
         <field name="show_on_report"/>
         <field name="hide_legacy_class"/>
+        <field name="hide_partnumbers"/>
       </tree>
     </field>
   </record>
@@ -58,6 +59,15 @@
             <field name="description"/>
             <field name="show_on_report"/>
             <field name="hide_legacy_class"/>
+            <field name="hide_partnumbers"/>
+          </group>
+          <group>
+            <field name="class_ids">
+              <tree limit="200">
+                <field name="name"/>
+                <field name="description"/>
+              </tree>
+            </field>
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>

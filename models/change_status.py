@@ -15,6 +15,9 @@ class ChangeStatus(models.Model):
     description = fields.Char()
     show_on_report = fields.Boolean("Show on MDL2 report")
     hide_legacy_class = fields.Boolean()
+    hide_partnumbers = fields.Boolean("Hide Partnumbers")
+    
+    class_ids = fields.Many2many("certificate_planer.document_class", relation='certificate_planer_change_status_document_class_rel', string="Filter Document Classes")
 
     def unlink(self):
         if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:

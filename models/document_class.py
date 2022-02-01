@@ -16,6 +16,8 @@ class DocumentClass(models.Model):
     show_on_tpi_report = fields.Boolean("Show on TPI report")
     show_reason = fields.Boolean()
 
+    status_ids = fields.Many2many("certificate_planer.change_status", relation='certificate_planer_change_status_document_class_rel', string="Filter Change Status")
+
     def unlink(self):
         if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
             raise UserError(_('You cannot delete multiple documents.'))

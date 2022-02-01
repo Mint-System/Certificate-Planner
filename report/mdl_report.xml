@@ -181,7 +181,9 @@
             <h2>Log of Ammendments</h2>
             <t t-foreach="changes" t-as="change">
               <t t-set="hide_legacy_class" t-value="change.status_id.hide_legacy_class"/>
-              
+              <t t-set="hide_partnumbers" t-value="change.status_id.hide_partnumbers"/>
+              <t t-set="filter_document_class_names" t-value="change.status_id.class_ids.name or []"/>
+
               <div style="page-break-inside: avoid;"> 
                 <h3 t-field="change.change_id_id" />
                 <table class="table table-bordered table-sm">
@@ -216,8 +218,9 @@
                 <t t-if="class_key_value['class']">
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
+                  <t t-set="change_connected" t-value="class_key in filter_document_class_names"/>
                 </t>
-                <t t-if="show_on_report and (class_key_value['items'] or not hide_legacy_class)">
+                <t t-if="change_connected and show_on_report and (class_key_value['items'] or not hide_legacy_class)">
                   <table class="table-striped table-bordered table-sm" width="100%">
                     <thead>
                       <tr>
@@ -259,9 +262,12 @@
 
               <code t-if="request.session.debug">
               <span class="o_bold">DEBUG</span><br/>
+              filter_document_class_names:<span t-esc="filter_document_class_names"/><br/>
               <t t-foreach="change_revisions[change.id]" t-as="class_key">
                 class_key:<span t-esc="class_key"/><br/>
                 hide_legacy_class:<span t-esc="hide_legacy_class"/><br/>
+                hide_partnumbers:<span t-esc="hide_partnumbers"/><br/>
+                change_connected:<span t-esc="class_key in filter_document_class_names"/><br/>
                 <t t-if="class_key_value['class']">
                   <t t-set="show_reason" t-value="class_key_value['class'].show_reason"/>
                   <t t-set="show_on_report" t-value="class_key_value['class'].show_on_report"/>
@@ -278,7 +284,7 @@
               </t>
               </code>
 
-              <t t-if="change.part_ids or not hide_legacy_class">
+              <t t-if="not hide_partnumbers and (change.part_ids or not hide_legacy_class)">
                 <table class="table-striped table-bordered table-sm" width="100%">
                   <thead>
                     <tr>

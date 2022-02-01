@@ -62,6 +62,14 @@
             <field name="show_on_tpi_report"/>
             <field name="show_reason"/>
           </group>
+          <group>
+            <field name="status_ids">
+              <tree limit="200">
+                <field name="designation"/>
+                <field name="description"/>
+              </tree>
+            </field>
+          </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
         </sheet>
