@@ -76,7 +76,7 @@ class Document(models.Model):
 
         # Remove existing report attachments
         self.env['ir.attachment'].search([
-            ('name', 'in', [self.name + '.pdf', 'TPI ' + self.name + '.pdf']
+            ('name', 'in', [self.name + '.pdf', self.name.replace('MDL', 'TPI') + '.pdf']
         )]).unlink()
 
         # Render report
@@ -119,4 +119,7 @@ class DocumentMessage(models.TransientModel):
     message = fields.Text(required=True)
 
     def action_close(self):
-        return {'type': 'ir.actions.act_window_close'}
+        return {   
+            'type': 'ir.actions.client',
+            'tag': 'reload'
+        }

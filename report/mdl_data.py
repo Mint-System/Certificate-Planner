@@ -19,6 +19,9 @@ def _get_report_values(self, docids, data=None, report_name=''):
         # Set last print date
         if report_name == 'certificate_planer.mdl_report_view':
             document.print_date = datetime.now()
+            print_report_name = document.name
+        else:
+            print_report_name = document.name.replace('MDL','TPI')
 
         # Get revisions and filter by change > status > shown on report attribute
         revisions = document.revision_ids.filtered(
@@ -122,12 +125,14 @@ def _get_report_values(self, docids, data=None, report_name=''):
                     parts = document.part_ids.filtered(
                         lambda r: r.id in part_seen)
                     # Append document if not seen
-                    if document.id not in documents_seen and document.type_id.class_id.show_on_report:
-                        documents_and_parts.append({
-                            'doc': document,
-                            'parts': parts
-                        })
-                        documents_seen.append(document.id)
+                    if document.id not in documents_seen:
+                        if ((report_name == 'certificate_planer.mdl_report_view' and document.type_id.class_id.show_on_report) or 
+                                (report_name == 'certificate_planer.tpi_report_view' and document.type_id.class_id.show_on_tpi_report)):
+                            documents_and_parts.append({
+                                'doc': document,
+                                'parts': parts
+                            })
+                            documents_seen.append(document.id)
                 # Run this function for subparts
                 get_documents_by_parts(
                     part.bom_id.part_ids.certificate_planer_part_id)
@@ -157,6 +162,7 @@ def _get_report_values(self, docids, data=None, report_name=''):
         tpi_page_text = tpi_page_text.replace('DOCUMENT_NAME', document.name).replace('DOCUMENT_REVISION_TITLE', document.current_revision_id.index_id.name)
 
         return {
+            'print_report_name': print_report_name, 
             'docs': documents,
             'current_revision': document.current_revision_id,
             'print_date': document.print_date,

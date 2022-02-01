@@ -45,7 +45,7 @@
             </div>
             <div class="col-4 text-center">
               <br />
-              <h4 t-esc="doc.name"/>
+              <h4 t-esc="print_report_name"/>
             </div>
             <div class="col-4 text-right">
               <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)" style="max-height: 40px; max-width: 300px" alt="Logo"/>
