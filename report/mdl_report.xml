@@ -182,7 +182,7 @@
             <t t-foreach="changes" t-as="change">
               <t t-set="hide_legacy_class" t-value="change.status_id.hide_legacy_class"/>
               <t t-set="hide_partnumbers" t-value="change.status_id.hide_partnumbers"/>
-              <t t-set="filter_document_class_names" t-value="change.status_id.class_ids.name or []"/>
+              <t t-set="filter_document_class_names" t-value="[r.name for r in change.status_id.class_ids] or []"/>
 
               <div style="page-break-inside: avoid;"> 
                 <h3 t-field="change.change_id_id" />
