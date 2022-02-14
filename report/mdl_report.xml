@@ -363,13 +363,14 @@
             <t t-foreach="documents_by_class" t-as="document_class">
               <h3 t-esc="document_class"/>
               <style>
-                <!-- Workaround for <https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2756> -->
-                table { page-break-after:auto }
-                tr { page-break-inside:avoid; page-break-after:auto }
-                td { page-break-inside:avoid; page-break-after:auto }
-                thead { display: table-row-group; }
+                #list-of-documents td {
+                  vertical-align: top;
+                }
+                #list-of-documents thead {
+                  display: table-row-group;
+                }
               </style>
-              <table class="table-striped table-bordered table-sm" width="100%">
+              <table class="table-striped table-bordered table-sm" id="list-of-documents" width="100%">
                 <thead>
                   <tr>
                     <th style="width: 200px;">Document</th>
@@ -391,8 +392,13 @@
                       <span t-esc="item['doc'].current_revision_id.index_id.name"/>
                     </td>
                     <td>
+                      <!-- <t t-set="parts" t-value="len(item['parts'])" /> -->
                       <t t-foreach="item['parts']" t-as="part">
                         <span t-esc="part.name"/><br/>
+                        <!-- <t t-if="part_index == 50">
+                          <br/>
+                          <br/>
+                        </t> -->
                       </t>
                     </td>
                   </tr>
