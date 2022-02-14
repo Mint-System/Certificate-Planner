@@ -142,7 +142,7 @@
 
             <p style="page-break-before:always;" />
 
-            <h2>Log of Ammendments</h2>
+            <h2>Log of Amendments</h2>
 
             <t t-foreach="change_ids" t-as="change_id">
 

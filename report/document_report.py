@@ -25,7 +25,7 @@ class DocumentReport(models.AbstractModel):
             fields=['id'],
             groupby=['change_id_id'])
 
-        # dict log of ammendments
+        # dict log of amendments
         log = {}
 
         # change id

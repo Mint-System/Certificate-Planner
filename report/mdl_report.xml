@@ -178,7 +178,7 @@
             </table>
             <p style="page-break-before:always;" />
 
-            <h2>Log of Ammendments</h2>
+            <h2>Log of Amendments</h2>
             <t t-foreach="changes" t-as="change">
               <t t-set="hide_legacy_class" t-value="change.status_id.hide_legacy_class"/>
               <t t-set="hide_partnumbers" t-value="change.status_id.hide_partnumbers"/>
@@ -337,7 +337,7 @@
               </style>
               <t t-foreach="parts" t-as="item">
                 <tr>
-                  <td>
+                  <td style="white-space: nowrap;">
                     <span t-esc="item['marker']"/>
                   </td>
                   <td style="white-space: nowrap;">
@@ -363,9 +363,11 @@
             <t t-foreach="documents_by_class" t-as="document_class">
               <h3 t-esc="document_class"/>
               <style>
-                table td {
-                  vertical-align: top;
-                }
+                <!-- Workaround for <https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2756> -->
+                table { page-break-after:auto }
+                tr { page-break-inside:avoid; page-break-after:auto }
+                td { page-break-inside:avoid; page-break-after:auto }
+                thead { display: table-row-group; }
               </style>
               <table class="table-striped table-bordered table-sm" width="100%">
                 <thead>
@@ -388,7 +390,7 @@
                     <td>
                       <span t-esc="item['doc'].current_revision_id.index_id.name"/>
                     </td>
-                    <td style="page-break-inside: avoid;">
+                    <td>
                       <t t-foreach="item['parts']" t-as="part">
                         <span t-esc="part.name"/><br/>
                       </t>
