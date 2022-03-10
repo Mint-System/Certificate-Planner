@@ -18,7 +18,7 @@ def _get_report_values(self, docids, data=None, report_name=''):
 
         # Set last print date
         if report_name == 'certificate_planer.mdl_report_view':
-            document.print_date = datetime.now()
+            document.sudo().print_date = datetime.now()
             print_report_name = document.name
         else:
             print_report_name = document.name.replace('MDL','TPI')
