@@ -56,8 +56,8 @@ def _get_report_values(self, docids, data=None, report_name=''):
                     items = new_items
 
                 # Sort revisions by type_id.sequence and document_id.name
-                items = sorted(items, key=lambda r: r.document_id.type_id.sequence)
                 items = sorted(items, key=lambda r: r.document_id.name)
+                items = sorted(items, key=lambda r: r.document_id.type_id.sequence)
 
                 # Set change class key in case of non existing key
                 change_revisions[change.id][key] = {}
