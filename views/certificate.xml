@@ -50,7 +50,17 @@
           <p class="oe_edit_only">Note: A Certificate is linked by Documents and Issues.</p>
           <group>
             <field name="document_ids" context="{'default_certificate_id': id}"/>
-            <field name="change_ids" context="{'default_certificate_id': id}"/>
+            <field name="change_ids" context="{'default_certificate_id': id}">
+              <tree limit="200" delete="true">
+                <field name="certificate_id"/>
+                <field name="change_id_id"/>
+                <field name="classification_id" optional="show"/>
+                <field name="reference" optional="show"/>
+                <field name="authority_reference" optional="show"/>
+                <field name="status_id" optional="show"/>
+                <field name="description"/>
+              </tree>
+            </field>
           </group>
           <p>Last edit by <field name="write_uid"/>
  on <field name="write_date"/>
