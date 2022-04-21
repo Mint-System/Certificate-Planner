@@ -15,7 +15,7 @@ class DocumentRevision(models.Model):
     current_revision_id = fields.Many2one(related="document_id.current_revision_id", string="Current Revision")
     title = fields.Char(related="document_id.title", string="Title")
     type_id = fields.Many2one(related="document_id.type_id", string="Type")
-    document_id = fields.Many2one("certificate_planer.document", string="Document", track_visibility="always", ondelete="restrict")
+    document_id = fields.Many2one("certificate_planer.document", string="Document", required=True, track_visibility="always", ondelete="restrict")
     index_id = fields.Many2one("certificate_planer.document_revision_index", required=True, string="Index", track_visibility="always", ondelete="restrict")
     change_id = fields.Many2one("certificate_planer.change", string="Change", track_visibility="always", ondelete="restrict")
     change_status_id = fields.Many2one(related='change_id.status_id')

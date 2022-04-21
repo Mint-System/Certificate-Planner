@@ -15,7 +15,7 @@ class Document(models.Model):
     title = fields.Char(required=True)
     description = fields.Char(help="Document ID Assignment")
     revision_count = fields.Integer(compute='_compute_revision_count')
-    attachment_count = fields.Integer(compute='_compute_attachment_count')
+    attachment_count = fields.Integer(compute='_compute_attachment_count', string="Document Attachment Count")
     print_date = fields.Datetime()
     current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", track_visibility="always")
     change_id = fields.Many2one("certificate_planer.change", string="Change", readonly=True) # deprecated
