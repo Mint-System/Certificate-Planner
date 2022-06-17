@@ -17,10 +17,10 @@ class Document(models.Model):
     revision_count = fields.Integer(compute='_compute_revision_count')
     attachment_count = fields.Integer(compute='_compute_attachment_count', string="Document Attachment Count")
     print_date = fields.Datetime()
-    current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", track_visibility="always")
+    current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", tracking=True)
     change_id = fields.Many2one("certificate_planer.change", string="Change", readonly=True) # deprecated
-    type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", track_visibility="always", ondelete="restrict")
-    certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
+    type_id = fields.Many2one("certificate_planer.document_type", required=True, string="Type", tracking=True, ondelete="restrict")
+    certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     index_id = fields.Many2one(related='current_revision_id.index_id')
 
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict", read=['certificate_planer.group_certificate_planer_manager_document'])

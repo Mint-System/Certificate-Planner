@@ -11,8 +11,8 @@ class Certificate(models.Model):
     # fields
     part_id = fields.Many2one("certificate_planer.part", required=True, string="Part")
     
-    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", track_visibility="always", ondelete="restrict")
-    specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification", track_visibility="always", ondelete="restrict")
+    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", tracking=True, ondelete="restrict")
+    specification_id = fields.Many2one("certificate_planer.specification", required=True, string="Specification", tracking=True, ondelete="restrict")
     
     document_ids = fields.One2many("certificate_planer.document", "certificate_id", string="Documents")
     change_ids = fields.One2many("certificate_planer.change", "certificate_id", string="Changes")

@@ -10,16 +10,16 @@ class Change(models.Model):
 
     # fields
     description = fields.Char(required=True)
-    certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", track_visibility="always")
+    certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
     part_count = fields.Integer(compute='_compute_part_count')
     revision_count = fields.Integer(compute='_compute_revision_count')
     item_count = fields.Integer(compute='_compute_item_count')
 
-    status_id = fields.Many2one("certificate_planer.change_status", track_visibility="always", default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
-    classification_id = fields.Many2one("certificate_planer.change_classification", track_visibility="always", ondelete="restrict")
-    change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", track_visibility="always", ondelete="restrict")
+    status_id = fields.Many2one("certificate_planer.change_status", tracking=True, default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
+    classification_id = fields.Many2one("certificate_planer.change_classification", tracking=True, ondelete="restrict")
+    change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", tracking=True, ondelete="restrict")
     
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict")
 

@@ -13,7 +13,7 @@ class PostCertificationItem(models.Model):
     description = fields.Char(required=True)
 
     change_id = fields.Many2one("certificate_planer.change", string="Change", ondelete="restrict")
-    status_id = fields.Many2one("certificate_planer.post_certification_item_status", track_visibility="always", default=lambda self: self.env['certificate_planer.post_certification_item_status'].search([]), ondelete="restrict")
+    status_id = fields.Many2one("certificate_planer.post_certification_item_status", tracking=True, default=lambda self: self.env['certificate_planer.post_certification_item_status'].search([]), ondelete="restrict")
 
     # defaults
     def unlink(self):
