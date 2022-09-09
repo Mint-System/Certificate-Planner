@@ -80,8 +80,8 @@ class Document(models.Model):
         )]).unlink()
 
         # Render report
-        pdf_content, content_type = self.env.ref('certificate_planer.mdl_report').render_qweb_pdf(self.id)
-        pdf_content, content_type = self.env.ref('certificate_planer.tpi_report').render_qweb_pdf(self.id)
+        pdf_content, content_type = self.env.ref('certificate_planer.mdl_report')._render_qweb_pdf(self.id)
+        pdf_content, content_type = self.env.ref('certificate_planer.tpi_report')._render_qweb_pdf(self.id)
         # self.env['ir.attachment'].create({
         #     'name': self.name + '.pdf',
         #     'type': 'binary',
