@@ -23,9 +23,9 @@ class Document(models.Model):
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     index_id = fields.Many2one(related='current_revision_id.index_id')
 
-    part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict", read=['certificate_planer.group_certificate_planer_manager_document'])
+    part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict")
 
-    revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]", read=['certificate_planer.group_certificate_planer_manager_document'])
+    revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]", )
 
     # constraints
     _sql_constraints = [
