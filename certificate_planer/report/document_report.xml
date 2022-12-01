@@ -1,6 +1,6 @@
 <odoo>
 
-  <report id="document_report"
+  <!-- <report id="document_report"
     model="certificate_planer.document"
     string="MDL v1 Report"
     name="certificate_planer.document_report_view"
@@ -8,7 +8,16 @@
     report_type="qweb-pdf"
     print_report_name="'%s' % (object.name)"
     menu="False"
-    paperformat="paperformat_certificate_planer"/>
+    paperformat="paperformat_certificate_planer"/> -->
+
+  <record id="document_report" model="ir.actions.report">
+    <field name="name">MDL v1 Report</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">certificate_planer.document_report_view</field>
+    <field name="report_file">'%s' % (object.name)</field>
+    <field name="paperformat_id" ref="certificate_planer.paperformat_certificate_planer"/>
+  </record>
 
   <template id="internal_layout">
     <t t-if="not o" t-set="o" t-value="doc"/>

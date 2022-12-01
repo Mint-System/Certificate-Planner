@@ -10,6 +10,7 @@
     "license": "AGPL-3",
     "depends": ["base", "mail"],
     "data": [
+        "views/menu.xml",
         "data/report_paperformat.xml",
         "security/certificate_planner_security.xml",
         "security/ir.model.access.csv",
@@ -24,7 +25,6 @@
         "views/document_type.xml",
         "views/document_revision.xml",
         "views/document_revision_index.xml",
-        "views/menu.xml",
         "report/document_report.xml",
         "views/document_part_report.xml",
         "views/change_status.xml",
