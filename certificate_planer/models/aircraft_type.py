@@ -5,6 +5,7 @@ from odoo.exceptions import UserError
 class AircraftType(models.Model):
     _name = 'certificate_planer.aircraft_type'
     _description = 'Certificate Planner Aircraft Type'
+    _order = 'name'
     
     # fields
     active = fields.Boolean(default=True)
