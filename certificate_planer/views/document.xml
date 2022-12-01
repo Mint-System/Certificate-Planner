@@ -93,7 +93,14 @@
           </group>
           <p class="oe_edit_only">Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
           <group>
-            <field name="revision_ids" context="{'default_document_id': id}"/>
+            <field name="revision_ids" widget="one2many" context="{'default_id': id}">
+              <tree string="Revisions" editable="bottom">
+                <field name="index_id"/>
+                <field name="reason"/>
+                <field name="change_id"/>
+                <field name="change_status_id"/>
+              </tree>
+            </field>
             <field name="part_ids"/>
           </group>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
