@@ -40,11 +40,11 @@ class Part(models.Model):
         })
         return super().copy(default=default)
     
-    def name_get(self):
-        res = []
-        for rec in self:
-            res.append((rec.id, _('%s (%s)') % (rec.name, rec.designation)))
-        return res
+    # def name_get(self):
+    #     res = []
+    #     for rec in self:
+    #         res.append((rec.id, _('%s (%s)') % (rec.name, rec.designation)))
+    #     return res
 
     def unlink(self):
         if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
