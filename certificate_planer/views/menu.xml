@@ -136,6 +136,14 @@
     <field name="context">{'create': False}</field>
   </record>
 
+  <!-- <record model="ir.actions.act_window" id="link_part_action">
+    <field name="name">Child Parts</field>
+    <field name="res_model">certificate_planer.part</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[("id", "in", self.part_ids.ids)]</field>
+    <field name="context">{'create': False}</field>
+  </record> -->
+
   <!-- Top menu item -->
 
   <menuitem name="Certificate Planner" id="menu_root" web_icon="certificate_planer,static/description/icon.png"/>

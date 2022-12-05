@@ -8,7 +8,6 @@ class Change(models.Model):
     _description = 'Certificate Planner Change'
     _rec_name = 'change_id_id'
 
-    # fields
     description = fields.Char(required=True)
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     authority_reference = fields.Char()
@@ -37,17 +36,14 @@ class Change(models.Model):
             raise UserError(_('You cannot delete multiple documents.'))
         return super().unlink()
 
-    # compute
     def _compute_part_count(self):
         for record in self:
             record.part_count = len(self.part_ids)
     
-    # compute
     def _compute_revision_count(self):
         for record in self:
             record.revision_count = len(self.revision_ids)
 
-    # compute
     def _compute_item_count(self):
         for record in self:
             record.item_count = len(self.item_ids)

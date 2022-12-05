@@ -10,6 +10,7 @@
     "license": "AGPL-3",
     "depends": ["base", "mail"],
     "data": [
+        "wizard/change.xml",
         "views/menu.xml",
         "data/report_paperformat.xml",
         "security/certificate_planner_security.xml",

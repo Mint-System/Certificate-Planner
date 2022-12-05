@@ -14,6 +14,7 @@ class Bom(models.Model):
         "certificate_planer_bom_id",
         string="Child Parts",
     )
+    part_count = fields.Integer(compute='_compute_part_count')
     prerequisite_ids = fields.One2many(
         "certificate_planer.bom_certificate_planer_prerequisite_rel",
         "certificate_planer_bom_id",
@@ -32,6 +33,20 @@ class Bom(models.Model):
         self.part_id.unlink()
         return super(Bom, self).unlink()
 
+    def _compute_part_count(self):
+        for record in self:
+            record.part_count = len(self.part_ids)
+
+    def view_part_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Child Parts",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.part",
+            "domain": [("id", "in", [t.id for t in self.part_ids])],
+            "context": "{'create': False}",
+        }
 
 class BomPartRel(models.Model):
     _name = "certificate_planer.bom_certificate_planer_part_rel"

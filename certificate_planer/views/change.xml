@@ -73,14 +73,15 @@
     <field name="arch" type="xml">
       <form string="Change Form">
         <header>
-          <field name="status_id" widget="statusbar" options="{'clickable': '1'}"/>
+          <button name="%(change_wizard_action)d" string="Set Status" type="action" />
+          <field name="status_id" widget="statusbar"/>
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">
             <button name="view_revision_ids" type="object" class="oe_stat_button" icon="fa-files-o">
               <field string="Document Revisions" name="revision_count" widget="statinfo"/>
             </button>
-            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-bars">
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-sitemap">
               <field string="Parts" name="part_count" widget="statinfo"/>
             </button>
             <button name="view_item_ids" type="object" class="oe_stat_button" icon="fa-bars">

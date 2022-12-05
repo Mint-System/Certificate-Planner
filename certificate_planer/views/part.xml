@@ -41,7 +41,7 @@
       <form string="Part Form">
         <sheet>
           <div class="oe_button_box" name="button_box">
-            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-bars">
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-sitemap">
               <field string="Child Parts" name="part_count" widget="statinfo"/>
             </button>
             <button name="view_prerequisite_ids" type="object" class="oe_stat_button" icon="fa-bars">
