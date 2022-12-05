@@ -19,6 +19,7 @@
     <field name="arch" type="xml">
       <tree limit="200" delete="true">
         <field name="document_id"/>
+        <field name="title"/>
         <field name="index_id"/>
         <field name="reason"/>
         <field name="change_id"/>
