@@ -71,6 +71,9 @@
             <button name="view_document_revisions" type="object" class="oe_stat_button" icon="fa-files-o">
               <field string="Revisions" name="revision_count" widget="statinfo"/>
             </button>
+            <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-sitemap">
+              <field string="Parts" name="part_count" widget="statinfo"/>
+            </button>
             <button class="oe_stat_button" icon="fa-file-o" type="action" name="certificate_planer.document_attachment_action">
               <field string="Attachments" name="attachment_count" widget="statinfo"/>
             </button>

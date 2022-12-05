@@ -14,7 +14,6 @@ class Document(models.Model):
     name = fields.Char(required=True, string="Document ID")
     title = fields.Char(required=True)
     description = fields.Char(help="Document ID Assignment")
-    revision_count = fields.Integer(compute='_compute_revision_count')
     attachment_count = fields.Integer(compute='_compute_attachment_count', string="Document Attachment Count")
     print_date = fields.Datetime()
     current_revision_id = fields.Many2one("certificate_planer.document_revision", string="Current Revision", domain="[('document_id','=',id)]", tracking=True)
@@ -24,10 +23,11 @@ class Document(models.Model):
     index_id = fields.Many2one(related='current_revision_id.index_id')
 
     part_ids = fields.Many2many("certificate_planer.part", string="Parts", ondelete="restrict")
+    part_count = fields.Integer(compute='_compute_part_count')
 
     revision_ids = fields.One2many("certificate_planer.document_revision", "document_id", string="Revisions", domain="[('document_id','=',id)]", )
+    revision_count = fields.Integer(compute='_compute_revision_count')
 
-    # constraints
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Document with this Document ID already exists."),
     ]
@@ -45,16 +45,18 @@ class Document(models.Model):
             raise UserError(_('You cannot delete multiple documents.'))
         return super().unlink()
 
-    # compute
+    def _compute_part_count(self):
+        for record in self:
+            record.part_count = len(self.part_ids)
+
     def _compute_revision_count(self):
         for record in self:
-            record.revision_count = self.env['certificate_planer.document_revision'].search_count([('document_id', '=', self.id)])
+            record.revision_count = len(self.revision_ids)
 
     def _compute_attachment_count(self):
         for record in self:
             record.attachment_count = self.env['ir.attachment'].search_count([('res_id', 'in', self.ids), ('res_model', '=', self._name)])
 
-    # actions
     def view_document_report(self):
         self.ensure_one()
         
@@ -82,13 +84,6 @@ class Document(models.Model):
         # Render report
         pdf_content, content_type = self.env.ref('certificate_planer.mdl_report')._render_qweb_pdf(self.id)
         pdf_content, content_type = self.env.ref('certificate_planer.tpi_report')._render_qweb_pdf(self.id)
-        # self.env['ir.attachment'].create({
-        #     'name': self.name + '.pdf',
-        #     'type': 'binary',
-        #     'datas': base64.encodebytes(pdf_content),
-        #     'res_model': self._name,
-        #     'res_id': self.id
-        # })
 
         # Return message
         message_id = self.env['certificate_planer.document.message'].create({'message': 'The reports have been generated. See attachments of this documents.'})
@@ -101,6 +96,17 @@ class Document(models.Model):
             'target': 'new'
         }
 
+    def view_part_ids(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Parts",
+            "view_mode": "tree,form",
+            "res_model": "certificate_planer.part",
+            "domain": [("id", "in", [t.id for t in self.part_ids])],
+            "context": "{'create': False}",
+        }
+        
     def view_document_revisions(self):
         self.ensure_one()
         return {
