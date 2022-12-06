@@ -7,7 +7,6 @@ class Bom(models.Model):
     _description = 'Certificate Planner BoM'
     _rec_name = 'part_id'
     
-    # fields
     part_id = fields.Many2one("certificate_planer.part", string="Part")
     part_ids = fields.One2many(
         "certificate_planer.bom_certificate_planer_part_rel",
@@ -21,12 +20,10 @@ class Bom(models.Model):
         string="Prerequisites",
     )
 
-    # constraints
     _sql_constraints = [
         ('part_id_unique', 'unique (part_id)', "BoM with this Part already exists."),
     ]
 
-    # defaults
     def unlink(self):
         if not self.env.user.has_group('certificate_planer.group_certificate_planer_administrator') and len(self) > 1:
             raise UserError(_('You cannot delete multiple documents.'))
@@ -59,13 +56,11 @@ class BomPartRel(models.Model):
     certificate_planer_bom_id = fields.Many2one("certificate_planer.bom", string="BoM")
     certificate_planer_part_id = fields.Many2one("certificate_planer.part", string="Part")
 
-    # constraints
     _sql_constraints = [
         ('bom_part_unique', 'UNIQUE (certificate_planer_bom_id, certificate_planer_part_id)', "Relation with this BoM and Part already exists."),
         ('self_ref_check', 'CHECK (certificate_planer_bom_id <> certificate_planer_part_id)', "BoM cannot have linked Part as Child Part."),
     ]
 
-    # fields
     sequence = fields.Integer()
 
 class BomPrerequisiteRel(models.Model):
@@ -77,13 +72,11 @@ class BomPrerequisiteRel(models.Model):
     designation = fields.Char(related='certificate_planer_part_id.designation')
 
     certificate_planer_bom_id = fields.Many2one("certificate_planer.bom", string="BoM")
-    certificate_planer_part_id = fields.Many2one("certificate_planer.part", string="Prerequisite")
+    certificate_planer_part_id = fields.Many2one("certificate_planer.part", string="Part")
 
-    # constraints
     _sql_constraints = [
         ('bom_prerequisite_unique', 'UNIQUE (certificate_planer_bom_id, certificate_planer_part_id)', "Relation with this BoM and Prerequisite already exists."),
         ('self_ref_check', 'CHECK (certificate_planer_bom_id <> certificate_planer_part_id)', "BoM cannot have linked Part as Prerequisite."),
     ]
 
-    # fields
     sequence = fields.Integer()

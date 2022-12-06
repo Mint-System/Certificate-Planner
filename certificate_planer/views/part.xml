@@ -41,10 +41,19 @@
       <form string="Part Form">
         <sheet>
           <div class="oe_button_box" name="button_box">
+            <button name="view_document_ids" type="object" class="oe_stat_button" icon="fa-file-o">
+              <field string="Documents" name="document_count" widget="statinfo"/>
+            </button>
+            <button name="view_parent_bom_ids" type="object" class="oe_stat_button" icon="fa-level-up">
+              <field string="Parent BoMs" name="parent_bom_count" widget="statinfo"/>
+            </button>
+            <button name="view_prerequisite_bom_ids" type="object" class="oe_stat_button" icon="fa-bullseye">
+              <field string="Prerequisite for" name="prerequisite_bom_count" widget="statinfo"/>
+            </button>
             <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-sitemap">
               <field string="Child Parts" name="part_count" widget="statinfo"/>
             </button>
-            <button name="view_prerequisite_ids" type="object" class="oe_stat_button" icon="fa-bars">
+            <button name="view_prerequisite_ids" type="object" class="oe_stat_button" icon="fa-list">
               <field string="Prerequisites" name="prerequisite_count" widget="statinfo"/>
             </button>
           </div>
@@ -63,14 +72,35 @@
             <field name="certificate_id"/>
           </group>
           <p class="oe_edit_only">Note: A Part must be linked with a BoM and can be linked as child Part in another BoM.</p>
-          <group>
-            <field name="document_ids"/>
-            <field name="parent_bom_ids"/>
-            <field name="prequisite_bom_ids"/>
-            <field name="category_ids"/>
-            <!-- <field name="part_ids"/> -->
-            <field name="change_ids"/>
-          </group>
+          <notebook>
+            <page string="Documents &amp; Changes">
+              <group>
+                <field name="document_ids"/>
+                <field name="change_ids"/>
+              </group>
+            </page>
+            <page string="BoMs">
+              <group>
+                <field name="parent_bom_ids"/>
+                <field name="prequisite_bom_ids"/>
+                <field name="part_ids">
+                  <tree>
+                    <field name="certificate_planer_part_id"/>
+                  </tree>
+                </field>
+                <field name="prerequisite_ids">
+                  <tree>
+                    <field name="certificate_planer_part_id"/>
+                  </tree>
+                </field>
+              </group>
+            </page>
+            <page string="Categories">
+              <group>
+                <field name="category_ids"/>
+              </group>
+            </page>
+          </notebook>
           <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
           Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
         </sheet>
