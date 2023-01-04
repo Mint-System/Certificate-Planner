@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="certificate_planer_change_id_1" model="certificate_planer.change_id">
+            <field name="name">Issue 4-0</field>
+        </record>
+
+        <record id="certificate_planer_change_classification_1" model="certificate_planer.change_classification">
+            <field name="designation">major change to STC</field>
+        </record>
+
+        <record id="certificate_planer_document_revision_index_1" model="certificate_planer.document_revision_index">
+            <field name="name">L</field>
+        </record>
+
+        <record id="certificate_planer_aircraft_type_1" model="certificate_planer.aircraft_type">
+            <field name="name">PC-24</field>
+        </record>
+
+        <record id="certificate_planer_specification_1" model="certificate_planer.specification">
+            <field name="name">CS-23</field>
+        </record>
+
+        <record id="certificate_planer_part_1" model="certificate_planer.part">
+            <field name="name">EASA 10067483</field>
+            <field name="designation">EMS Equipment RFDS</field>
+        </record>
+
+        <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">
+            <field name="part_id" ref="certificate_planer.certificate_planer_part_1"/>
+            <field name="aircraft_type_id" ref="certificate_planer.certificate_planer_aircraft_type_1"/>
+            <field name="specification_id" ref="certificate_planer.certificate_planer_specification_1"/>
+        </record>
+
+        <record id="certificate_planer_document_class_1" model="certificate_planer.document_class">
+            <field name="name">Certification Documents</field>
+            <field name="description">DOE chapter 2.1.6.1.3 Zulassungsdokumente / Certification documents</field>
+            <field name="show_on_report" eval="True"/>
+        </record>
+
+        <record id="certificate_planer_change_status_1" model="certificate_planer.change_status">
+            <field name="designation">approved</field>
+            <field name="description">the change is approved, there is evidence of approval</field>
+            <field name="show_on_report" eval="True"/>
+            <field name="hide_partnumbers" eval="True"/>
+            <field name="class_ids" eval="[(4, ref('certificate_planer.certificate_planer_document_class_1'))]"/>
+        </record>
+
+        <record id="certificate_planer_change_1" model="certificate_planer.change">
+            <field name="change_id_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+            <field name="description">corrective actions resulting from FDA-5717,improvement and corrections to FMS-024-0229582-501 and OPM-024-0229582-501, minor modifications</field>
+            <field name="classification_id" ref="certificate_planer.certificate_planer_change_classification_1"/>
+            <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+            <field name="status_id" ref="certificate_planer.certificate_planer_change_status_1"/>
+            <field name="authority_reference">EASA 00060078856-001</field>
+            <field name="reference">P13011</field>
+        </record>
+
+        <record id="certificate_planer_document_type_mdl" model="certificate_planer.document_type">
+            <field name="identification">MDL</field>
+            <field name="designation">Master Document List</field>
+            <field name="class_id" ref="certificate_planer.certificate_planer_document_class_1"/>
+        </record>
+
+        <record id="certificate_planer_document_1" model="certificate_planer.document">
+            <field name="name">MDL-16-005</field>
+            <field name="title">Master Document List</field>
+            <field name="description">PC-24 EMS Equipment Installation for RFDS</field>
+            <field name="type_id" ref="certificate_planer.certificate_planer_document_type_mdl"/>
+            <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+        </record>
+
+        <record id="certificate_planer_document_1_revision_1" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_1"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_1"/>
+            <field name="reason">CPR-21-004</field>
+        </record>
+
+    </data>
+</odoo>
