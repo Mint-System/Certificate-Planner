@@ -5,7 +5,7 @@
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <search>
-        <field name="description"/>
+        <field name="project_title"/>
         <field name="certificate_id"/>
         <field name="reference"/>
         <field name="authority_reference"/>
@@ -23,7 +23,7 @@
       <tree limit="200" delete="true">
         <field name="certificate_id"/>
         <field name="change_id_id"/>
-        <field name="description"/>
+        <field name="project_title"/>
         <field name="classification_id" optional="show"/>
         <field name="reference" optional="show"/>
         <field name="authority_reference" optional="show"/>
@@ -98,11 +98,20 @@
             </h1>
           </div>
           <group>
-            <field name="description"/>
-            <field name="classification_id"/>
-            <field name="certificate_id"/>
-            <field name="authority_reference"/>
-            <field name="reference"/>
+            <group>
+              <field name="project_title"/>
+              <field name="description"/>
+              <field name="classification_id"/>
+              <field name="certificate_id"/>
+              <field name="authority_reference"/>
+              <field name="reference"/>
+            </group>
+            <group>
+              <field name="version"/>
+              <field name="target_approval_date"/>
+              <field name="approval_date"/>
+              <field name="references"/>
+            </group>
           </group>
           <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>

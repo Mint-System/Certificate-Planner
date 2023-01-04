@@ -27,6 +27,22 @@
             <field name="designation">EMS Equipment RFDS</field>
         </record>
 
+        <record id="certificate_planer_bom_1" model="certificate_planer.bom">
+            <field name="part_id" ref="certificate_planer.certificate_planer_part_1"/>
+        </record>
+
+        <record id="certificate_planer_part_2" model="certificate_planer.part">
+            <field name="name">024-0229582-501</field>
+            <field name="designation">EMS Equipment</field>
+            <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_1'))]"/>
+        </record>
+
+        <record id="certificate_planer_part_3" model="certificate_planer.part">
+            <field name="name">024-0314000-501</field>
+            <field name="designation">EMS Equipment</field>
+            <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_1'))]"/>
+        </record>
+
         <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">
             <field name="part_id" ref="certificate_planer.certificate_planer_part_1"/>
             <field name="aircraft_type_id" ref="certificate_planer.certificate_planer_aircraft_type_1"/>
@@ -49,7 +65,7 @@
 
         <record id="certificate_planer_change_1" model="certificate_planer.change">
             <field name="change_id_id" ref="certificate_planer.certificate_planer_change_id_1"/>
-            <field name="description">corrective actions resulting from FDA-5717,improvement and corrections to FMS-024-0229582-501 and OPM-024-0229582-501, minor modifications</field>
+            <field name="project_title">corrective actions resulting from FDA-5717,improvement and corrections to FMS-024-0229582-501 and OPM-024-0229582-501, minor modifications</field>
             <field name="classification_id" ref="certificate_planer.certificate_planer_change_classification_1"/>
             <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
             <field name="status_id" ref="certificate_planer.certificate_planer_change_status_1"/>
@@ -75,7 +91,19 @@
             <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_1"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_1"/>
             <field name="reason">CPR-21-004</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
+        <record id="certificate_planer_document_1" model="certificate_planer.document">
+            <field name="current_revision_id" ref="certificate_planer.certificate_planer_document_1_revision_1"/>
+        </record>
+
+        <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">
+            <field name="document_ids" eval="[(4, ref('certificate_planer.certificate_planer_document_1'))]"/>
+        </record>
+       
+        <record id="certificate_planer_document_class_1" model="certificate_planer.document_class">
+            <field name="status_ids" eval="[(4, ref('certificate_planer.certificate_planer_change_status_1'))]"/>
+        </record>
     </data>
 </odoo>

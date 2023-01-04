@@ -8,13 +8,18 @@ class Change(models.Model):
     _description = 'Certificate Planner Change'
     _rec_name = 'change_id_id'
 
-    description = fields.Char(required=True)
+    project_title = fields.Char(required=True)
+    description = fields.Char()
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
     part_count = fields.Integer(compute='_compute_part_count')
     revision_count = fields.Integer(compute='_compute_revision_count')
     item_count = fields.Integer(compute='_compute_item_count')
+    version = fields.Integer(readonly=True)
+    target_approval_date = fields.Date()
+    approval_date = fields.Date()
+    references = fields.Text()
 
     status_id = fields.Many2one("certificate_planer.change_status", tracking=True, default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
     classification_id = fields.Many2one("certificate_planer.change_classification", tracking=True, ondelete="restrict")

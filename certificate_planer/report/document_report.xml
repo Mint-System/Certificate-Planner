@@ -161,7 +161,7 @@
               <h3 class="o_bold" t-field="change_id.name"/>
 
               <t t-foreach="log[change_id.id]['changes']" t-as="change">
-                <p t-field="change.description"/>
+                <p t-field="change.project_title"/>
                 <p>
                 Authority Ref: <span t-field="change.authority_reference"/>
                 <br/>

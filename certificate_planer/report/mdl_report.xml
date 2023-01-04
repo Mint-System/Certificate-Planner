@@ -208,7 +208,7 @@
                     </tr>
                     <tr>
                       <td colspan="5">
-                        <span t-field="change.description"/>
+                        <span t-field="change.project_title"/>
                       </td>
                     </tr>
                   </tbody>
