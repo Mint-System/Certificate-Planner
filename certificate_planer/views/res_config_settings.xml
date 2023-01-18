@@ -43,6 +43,21 @@
                                     </div>
                                     <div class="mt16 text-muted">Template: Approved under the authority of the Design Organisation No: EASA.21J.359</div>
 
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="Design Change Classifcation Survey Template" for="dcc_survey_template"/>
+                                        <field name="dcc_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="OSD Change Classication Survey Template" for="occ_survey_template"/>
+                                        <field name="occ_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="Conclusion Survey Template" for="conclusion_survey_template"/>
+                                        <field name="conclusion_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
                                 </div>
                             </div>
 

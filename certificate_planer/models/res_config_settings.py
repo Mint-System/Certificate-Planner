@@ -11,3 +11,9 @@ class ResConfigSettings(models.TransientModel):
     footer_text = fields.Char(config_parameter='certificate_planer.footer_text')
 
     design_organisation_statement_text = fields.Char(config_parameter='certificate_planer.design_organisation_statement_text')
+
+    dcc_survey_template = fields.Char(config_parameter='certificate_planer.dcc_survey_template')
+
+    occ_survey_template = fields.Char(config_parameter='certificate_planer.occ_survey_template')
+
+    conclusion_survey_template = fields.Char(config_parameter='certificate_planer.conclusion_survey_template')
