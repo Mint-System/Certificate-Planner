@@ -23,6 +23,9 @@
         <field name="show_on_report"/>
         <field name="show_on_tpi_report"/>
         <field name="show_reason"/>
+        <field name="mcr_planning"/>
+        <field name="mcr_design"/>
+        <field name="mcr_documents"/>
       </tree>
     </field>
   </record>
@@ -57,10 +60,17 @@
             </h1>
           </div>
           <group>
-            <field name="description"/>
-            <field name="show_on_report"/>
-            <field name="show_on_tpi_report"/>
-            <field name="show_reason"/>
+            <group>
+              <field name="description"/>
+              <field name="show_on_report"/>
+              <field name="show_on_tpi_report"/>
+              <field name="show_reason"/>
+            </group>
+            <group>
+              <field name="mcr_planning"/>
+              <field name="mcr_design"/>
+              <field name="mcr_documents"/>
+            </group>
           </group>
           <group>
             <field name="status_ids">
