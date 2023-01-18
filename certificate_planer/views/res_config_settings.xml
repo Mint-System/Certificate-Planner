@@ -9,7 +9,7 @@
             <xpath expr="//div[hasclass('settings')]" position="inside">
                 <div class="app_settings_block" data-string="Certificate Planner" string="Certificate Planner" data-key="certificate_planer">
                     
-                    <h2>Demand Planner</h2>
+                    <h2>Certificate Planner</h2>
                     <div class="row mt16 o_settings_container" id="certificate_planer_setting_container">
                         <div class="col-12 col-lg-12 o_setting_box" id="certificate_planer_text_block">
                             
@@ -43,19 +43,31 @@
                                     </div>
                                     <div class="mt16 text-muted">Template: Approved under the authority of the Design Organisation No: EASA.21J.359</div>
 
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <h2>Survey</h2>
+                    <div class="row mt16 o_settings_container" id="certificate_planer_survey_container">
+                        <div class="col-12 col-lg-12 o_setting_box" id="certificate_planer_survey_container_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+
                                     <div class="row mt16">
-                                        <label class="col-lg-3 o_light_label" string="Design Change Classifcation Survey Template" for="dcc_survey_template"/>
-                                        <field name="dcc_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                        <label class="col-lg-3 o_light_label" string="Design Change Classifcation Survey Template" for="dcc_survey_template_id"/>
+                                        <field name="dcc_survey_template_id" class="oe_inline" style="width: 70% !important;"/>
                                     </div>
 
                                     <div class="row mt16">
-                                        <label class="col-lg-3 o_light_label" string="OSD Change Classication Survey Template" for="occ_survey_template"/>
-                                        <field name="occ_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                        <label class="col-lg-3 o_light_label" string="OSD Change Classication Survey Template" for="occ_survey_template_id"/>
+                                        <field name="occ_survey_template_id" class="oe_inline" style="width: 70% !important;"/>
                                     </div>
 
                                     <div class="row mt16">
-                                        <label class="col-lg-3 o_light_label" string="Conclusion Survey Template" for="conclusion_survey_template"/>
-                                        <field name="conclusion_survey_template" class="oe_inline" style="width: 70% !important;"/>
+                                        <label class="col-lg-3 o_light_label" string="Conclusion Survey Template" for="conclusion_survey_template_id"/>
+                                        <field name="conclusion_survey_template_id" class="oe_inline" style="width: 70% !important;"/>
                                     </div>
 
                                 </div>

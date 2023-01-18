@@ -12,8 +12,8 @@ class ResConfigSettings(models.TransientModel):
 
     design_organisation_statement_text = fields.Char(config_parameter='certificate_planer.design_organisation_statement_text')
 
-    dcc_survey_template = fields.Char(config_parameter='certificate_planer.dcc_survey_template')
+    dcc_survey_template_id = fields.Many2one('survey.survey', related='company_id.dcc_survey_template_id', readonly=False)
 
-    occ_survey_template = fields.Char(config_parameter='certificate_planer.occ_survey_template')
+    occ_survey_template_id = fields.Many2one('survey.survey', related='company_id.occ_survey_template_id', readonly=False)
 
-    conclusion_survey_template = fields.Char(config_parameter='certificate_planer.conclusion_survey_template')
+    conclusion_survey_template_id = fields.Many2one('survey.survey', related='company_id.conclusion_survey_template_id', readonly=False)

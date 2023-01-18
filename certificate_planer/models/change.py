@@ -21,6 +21,15 @@ class Change(models.Model):
     approval_date = fields.Date()
     references = fields.Text()
 
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company, required=True)
+    dcc_survey_template_id = fields.Many2one('survey.survey', related='company_id.dcc_survey_template_id')
+    occ_survey_template_id = fields.Many2one('survey.survey', related='company_id.occ_survey_template_id')
+    conclusion_survey_template_id = fields.Many2one('survey.survey', related='company_id.conclusion_survey_template_id')
+
+    dcc_survey_result_id = fields.Many2one('survey.user_input', tring="DCC Survey Result")
+    occ_survey_result_id = fields.Many2one('survey.user_input', string="OCC Survey Result")
+    conclusion_survey_result_id = fields.Many2one('survey.user_input')
+
     status_id = fields.Many2one("certificate_planer.change_status", tracking=True, default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
     classification_id = fields.Many2one("certificate_planer.change_classification", tracking=True, ondelete="restrict")
     change_id_id = fields.Many2one("certificate_planer.change_id", required=True, string="Change ID", tracking=True, ondelete="restrict")

@@ -112,6 +112,20 @@
               <field name="approval_date"/>
               <field name="references"/>
             </group>
+            <group>
+              <field name="dcc_survey_template_id" invisible="1"/>
+              <field name="occ_survey_template_id" invisible="1"/>
+              <field name="conclusion_survey_template_id" invisible="1"/>
+              <field name="dcc_survey_result_id"
+                options="{'no_quick_create': True, 'no_create_edit': True}"
+                domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done')]" />
+              <field name="occ_survey_result_id"
+                options="{'no_quick_create': True, 'no_create_edit': True}"
+                domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done')]" />
+              <field name="conclusion_survey_result_id"
+                options="{'no_quick_create': True, 'no_create_edit': True}"
+                domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done')]" />
+            </group>
           </group>
           <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
           <group>
