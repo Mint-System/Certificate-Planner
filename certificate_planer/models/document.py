@@ -73,20 +73,36 @@ class Document(models.Model):
             'url': '/report/html/certificate_planer.mdl_report_view/%(document_id)s' % {'document_id': self.id},
         }
 
+    def view_tpi_report(self):
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/report/html/certificate_planer.tpi_report_view/%(document_id)s' % {'document_id': self.id},
+        }
+
+    def view_mcr_report(self):
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/report/html/certificate_planer.mcr_report_view/%(document_id)s' % {'document_id': self.id},
+        }
+
     def store_tpi_report(self):
         self.ensure_one()
 
         # Remove existing report attachments
         self.env['ir.attachment'].search([
-            ('name', 'in', [self.name + '.pdf', self.name.replace('MDL', 'TPI') + '.pdf']
-        )]).unlink()
+            ('name', 'in', [self.name + '.pdf', self.name.replace('MDL', 'TPI') + '.pdf'])
+        ]).unlink()
 
         # Render report
         pdf_content, content_type = self.env.ref('certificate_planer.mdl_report')._render_qweb_pdf(self.id)
         pdf_content, content_type = self.env.ref('certificate_planer.tpi_report')._render_qweb_pdf(self.id)
 
         # Return message
-        message_id = self.env['certificate_planer.document.message'].create({'message': 'The reports have been generated. See attachments of this documents.'})
+        message_id = self.env['certificate_planer.document.message'].create({'message': 'The reports have been generated. See attachments of this document.'})
         return {
             'name': 'Message',
             'type': 'ir.actions.act_window',
@@ -96,12 +112,26 @@ class Document(models.Model):
             'target': 'new'
         }
 
-    def view_tpi_report(self):
+    def store_mcr_report(self):
         self.ensure_one()
-        
+
+        # Remove existing report attachments
+        self.env['ir.attachment'].search([
+            ('name', 'in', [self.name + '.pdf'])
+        ]).unlink()
+
+        # Render report
+        pdf_content, content_type = self.env.ref('certificate_planer.mcr_report')._render_qweb_pdf(self.id)
+
+        # Return message
+        message_id = self.env['certificate_planer.document.message'].create({'message': 'The report has been generated. See attachments of this document.'})
         return {
-            'type': 'ir.actions.act_url',
-            'url': '/report/html/certificate_planer.tpi_report_view/%(document_id)s' % {'document_id': self.id},
+            'name': 'Message',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'certificate_planer.document.message',
+            'res_id': message_id.id,
+            'target': 'new'
         }
 
     def view_part_ids(self):

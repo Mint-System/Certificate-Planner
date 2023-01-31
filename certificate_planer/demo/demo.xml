@@ -14,6 +14,10 @@
             <field name="name">L</field>
         </record>
 
+        <record id="certificate_planer_document_revision_index_2" model="certificate_planer.document_revision_index">
+            <field name="name">A</field>
+        </record>
+
         <record id="certificate_planer_aircraft_type_1" model="certificate_planer.aircraft_type">
             <field name="name">PC-24</field>
         </record>
@@ -79,11 +83,25 @@
             <field name="class_id" ref="certificate_planer.certificate_planer_document_class_1"/>
         </record>
 
+        <record id="certificate_planer_document_type_mcr" model="certificate_planer.document_type">
+            <field name="identification">MCR</field>
+            <field name="designation">Minor/Major Change Request</field>
+            <field name="class_id" ref="certificate_planer.certificate_planer_document_class_1"/>
+        </record>
+
         <record id="certificate_planer_document_1" model="certificate_planer.document">
             <field name="name">MDL-16-005</field>
             <field name="title">Master Document List</field>
             <field name="description">PC-24 EMS Equipment Installation for RFDS</field>
             <field name="type_id" ref="certificate_planer.certificate_planer_document_type_mdl"/>
+            <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+        </record>
+
+        <record id="certificate_planer_document_2" model="certificate_planer.document">
+            <field name="name">MCR-21-004</field>
+            <field name="title">Minor/Major Change Request</field>
+            <field name="description">P13011 PC-24 Major Change to STC 10067483 Rev. 1: FMS Limitations Change</field>
+            <field name="type_id" ref="certificate_planer.certificate_planer_document_type_mcr"/>
             <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
         </record>
 
@@ -94,8 +112,19 @@
             <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
+        <record id="certificate_planer_document_2_revision_1" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_2"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
+            <field name="reason">Update</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+        </record>
+
         <record id="certificate_planer_document_1" model="certificate_planer.document">
             <field name="current_revision_id" ref="certificate_planer.certificate_planer_document_1_revision_1"/>
+        </record>
+
+        <record id="certificate_planer_document_2" model="certificate_planer.document">
+            <field name="current_revision_id" ref="certificate_planer.certificate_planer_document_2_revision_1"/>
         </record>
 
         <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">
