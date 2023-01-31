@@ -121,7 +121,7 @@ class Part(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "Prerequisites",
+            "name": "Parent BoMs",
             "view_mode": "tree,form",
             "res_model": "certificate_planer.part",
             "domain": [("id", "in", [t.part_id.id for t in self.parent_bom_ids])],
