@@ -96,6 +96,14 @@ class Document(models.Model):
             'target': 'new'
         }
 
+    def view_tpi_report(self):
+        self.ensure_one()
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/report/html/certificate_planer.tpi_report_view/%(document_id)s' % {'document_id': self.id},
+        }
+
     def view_part_ids(self):
         self.ensure_one()
         return {
