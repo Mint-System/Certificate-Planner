@@ -105,5 +105,25 @@
         <record id="certificate_planer_document_class_1" model="certificate_planer.document_class">
             <field name="status_ids" eval="[(4, ref('certificate_planer.certificate_planer_change_status_1'))]"/>
         </record>
+
+        <record model="survey.survey" id="survey.survey_feedback">
+            <field name="is_certificate_planner" eval="True"/>
+        </record>
+
+        <record id="certificate_planer_document_class_1" model="certificate_planer.document_class">
+            <field name="status_ids" eval="[(4, ref('certificate_planer.certificate_planer_change_status_1'))]"/>
+        </record>
+
+        <record id="base.main_company" model="res.company">
+            <field name="dcc_survey_template_id" eval="ref('survey.survey_feedback')"/>
+            <field name="occ_survey_template_id" eval="ref('survey.survey_feedback')"/>
+            <field name="conclusion_survey_template_id" eval="ref('survey.survey_feedback')"/>
+        </record>
+
+        <record id="certificate_planer_change_1" model="certificate_planer.change">
+            <field name="dcc_survey_result_id" eval="ref('survey.survey_answer_1')"/>
+            <field name="occ_survey_result_id" eval="ref('survey.survey_answer_2')"/>
+            <field name="conclusion_survey_result_id" eval="ref('survey.survey_answer_3')"/>
+        </record>
     </data>
 </odoo>
