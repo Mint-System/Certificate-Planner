@@ -84,13 +84,25 @@
 
             <h2>Design Change Classification</h2>
 
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="dcc_survey_data" />
+            </t>
+
             <p style="page-break-before:always;" />
 
             <h2>OSD Change Classification</h2>
 
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="occ_survey_data" />
+            </t>
+
             <p style="page-break-before:always;" />
 
             <h2>Conclusion</h2>
+
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="conclusion_survey_data" />
+            </t>
 
           </div>
         </t>
@@ -123,6 +135,49 @@
 
       </t>
     </t>
+  </template>
+
+  <template id="survey_data_table">
+    <style>
+      table.survey_data td.page {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    </style>
+    <table class="table-bordered table-sm survey_data" name="survey_data">
+      <thead>
+        <tr>
+          <th>Criteria</th>
+          <th>Result</th>
+          <th>Remark / Justification </th>
+        </tr>
+      </thead>
+      <tbody>
+        <t t-foreach="survey_data" t-as="line">                  
+          <t t-if="line['type'] == 'page'">
+            <tr>
+            <td id="type" colspan="99" class="page">
+              <span t-esc="line['text']" />
+            </td>
+          </tr>
+          </t>
+          <t t-if="line['type'] == 'question'">
+              <tr>
+                <td>
+                  <span t-esc="line['text']" />
+                </td>
+                <td>
+                  <t t-foreach="line['options']" t-as="option">
+                    <input type="checkbox"> <span t-esc="option['value']" /><br /></input>
+                  </t>
+                </td>
+                <td>
+                  <span t-esc="line['comment']" />
+                </td>
+              </tr>
+          </t>
+        </t>
+      </tbody>
+    </table>
   </template>
 
 </odoo>
