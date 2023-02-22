@@ -16,9 +16,10 @@ def _get_report_values(self, docids, data=None, report_name=''):
         # Get first document
         document = documents[0]
 
-        # Set last print date
+        # Set report name and last print date
         if report_name == 'certificate_planer.mdl_report_view':
-            document.sudo().print_date = datetime.now()
+            if data['report_type'] == 'pdf' or not document.print_date:
+                document.sudo().print_date = datetime.now()
             print_report_name = document.name
         else:
             print_report_name = document.name.replace('MDL','TPI')

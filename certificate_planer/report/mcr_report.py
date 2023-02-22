@@ -19,8 +19,13 @@ class MCRReport(models.AbstractModel):
         # Get the records selected for this report
         docs = self.env[report.model].browse(docids)
 
-        # Set print date
-        docs.sudo().print_date = datetime.now()
+        # Get first document
+        doc = docs[0]
+
+        # Increase change version and update rpint date
+        if data['report_type'] == 'pdf' or not doc.print_date:
+            doc.sudo().print_date = datetime.now()
+            docs.current_revision_id.change_id.version += 1
 
         return {
             'docids': docids, 

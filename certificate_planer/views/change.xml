@@ -9,6 +9,8 @@
         <field name="certificate_id"/>
         <field name="reference"/>
         <field name="authority_reference"/>
+        <filter name="target_approval_date" date="target_approval_date" string="Target Approval Date"/>
+        <filter name="approval_date" date="approval_date" string="Approval Date"/>
         <filter name="group_certificate)id" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
         <filter name="group_change_id" string="By Change ID" context="{'group_by': 'change_id_id'}"/>
         <filter name="group_status_id" string="By Status" context="{'group_by': 'status_id'}"/>
