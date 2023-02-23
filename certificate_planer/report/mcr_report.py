@@ -18,7 +18,7 @@ class MCRReport(models.AbstractModel):
                 'type': 'question' if not survey_input.is_page else 'page',
                 'text': survey_input.title,
                 'options': '',
-                'answert': '',
+                'answer': '',
                 'comment': '',
             }
 
@@ -40,7 +40,7 @@ class MCRReport(models.AbstractModel):
                 # Process answer of type sugestion
                 answer = answers.filtered(lambda a: a.answer_type == 'suggestion')[:1]
                 if answer:
-                    entry['answer'] = answer.suggested_answer_id
+                    entry['answer'] = answer.suggested_answer_id.id
 
             survey_data.append(entry)
         

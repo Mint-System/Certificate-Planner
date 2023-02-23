@@ -167,7 +167,14 @@
                 </td>
                 <td>
                   <t t-foreach="line['options']" t-as="option">
-                    <input type="checkbox"> <span t-esc="option['value']" /><br /></input>
+                    <!-- <span t-esc="option['id']" />
+                    <span t-esc="line['answer']" /> -->
+                    <t t-if="option['id'] == line['answer']">
+                      <input type="checkbox" checked="True"> <span t-esc="option['value']" /><br /></input>
+                    </t>
+                    <t t-else="">
+                      <input type="checkbox"> <span t-esc="option['value']" /><br /></input>
+                    </t>
                   </t>
                 </td>
                 <td>
