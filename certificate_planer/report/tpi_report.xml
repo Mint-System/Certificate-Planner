@@ -17,8 +17,8 @@
     <field name="model">certificate_planer.document</field>
     <field name="report_type">qweb-pdf</field>
     <field name="report_name">certificate_planer.tpi_report_view</field>
-    <field name="report_file">'%s' % (object.name)</field>
-    <field name="attachment">'%s' % (object.name) + '.pdf'</field>
+    <field name="report_file">'%s' % (object.name.replace('MDL','TPI'))</field>
+    <field name="attachment">'%s' % (object.name.replace('MDL','TPI')) + '.pdf'</field>
     <field name="paperformat_id" ref="certificate_planer.paperformat_certificate_planer"/>
   </record>
 

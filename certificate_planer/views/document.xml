@@ -63,11 +63,11 @@
       <form string="Document Form">
         <header>
           <button name="view_document_report" type="object" string="View MDL v1 Report" groups="base.group_no_one" />
-          <button name="view_mdl_report" type="object" string="View MDL v2 Report" groups="base.group_no_one" />
-          <button name="view_tpi_report" type="object" string="View TPI Report" groups="base.group_no_one" />
+          <button name="view_mdl_report" type="object" string="View MDL v2 Report" />
+          <button name="view_tpi_report" type="object" string="View TPI Report" />
           <button name="view_mcr_report" type="object" string="View MCR Report" groups="base.group_no_one" />
           <button name="store_tpi_report" type="object" string="Generate MDL/TPI reports" class="oe_highlight"/>
-          <button name="store_mcr_report" type="object" string="Generate MCR report" class="oe_highlight"/>
+          <button name="store_mcr_report" type="object" string="Generate MCR report" class="oe_highlight" groups="base.group_no_one"/>
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">

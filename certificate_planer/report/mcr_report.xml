@@ -35,6 +35,8 @@
   <template id="mcr_report_view">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
+        <t t-set="change_id" t-value="doc.current_revision_id.change_id" />
+        <t t-set="certificate_id" t-value="doc.certificate_id" />
 
         <!-- Header definition -->
         <div class="header">
@@ -61,16 +63,120 @@
 
             <h1 t-esc="doc.type_id.designation" />
             <h2 t-field="doc.name" />
-            <p>Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" /></p>
-            <p>Current Revision: <span t-field="doc.current_revision_id.change_id.version" /></p>
-
-            <p style="page-break-before:always;" />
+            <p>Current Revision: <span t-field="doc.current_revision_id.change_id.version" /><br/>
+            Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" /></p>
+            
+            <style>
+              table.signatures th {
+                vertical-align: bottom;
+              }
+              table.signatures td {
+                height: 100px;
+              }
+            </style>
+            <table class="table-bordered table-sm signatures" name="signatures">
+              <tbody>
+                <tr>
+                  <td><strong>Name / Date / Signature:</strong></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th width="25%">Function:</th>
+                  <th width="25%">Prepared</th>
+                  <th width="25%">Project Management</th>
+                  <th width="25%">Head of Office Airworthiness</th>
+                </tr>
+              </thead>
+            </table>
 
             <h2>Record of Revisions</h2>
+
+            <style>
+              table.revisions th {
+                vertical-align: bottom;
+              }
+              table.revisions td.page {
+                background-color: rgba(0, 0, 0, 0.05);
+              }
+            </style>
+            <table class="table-bordered table-sm revisions" name="revisions">
+              <thead>
+                <tr>
+                  <th width="10%">Revision</th>
+                  <th width="90%">Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="doc.revision_ids" t-as="revision">
+                  <tr>
+                    <td id="index">
+                      <span t-esc="revision.index_id.name" />
+                    </td>
+                    <td id="index">
+                      <span t-esc="revision.reason" />
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
 
             <p style="page-break-before:always;" />
 
             <h2>Planning Data</h2>
+            
+            <style>
+              table.planning_data td,
+              table.planning_data th {
+                width: 25%;
+              }
+            </style>
+            <table class="table-bordered table-sm planning_data" name="planning_data">
+              <tr>
+                <th>Certificate</th>
+                <td><span t-field="certificate_id.part_id" /></td>
+                <th>Aerolite Reference</th>
+                <td><span t-field="change_id.reference" /></td>
+              </tr>
+              <tr>
+                <th>Aircraft Type</th>
+                <td><span t-field="certificate_id.aircraft_type_id" /></td>
+                <th>Target Approval Date</th>
+                <td><span t-field="change_id.target_approval_date" /></td>
+
+              </tr>
+              <tr>
+                <th>Project Title</th>
+                <td colspan="99"><span t-field="change_id.project_title" /></td>
+              </tr>
+            </table>
+
+            <style>
+              table.mcr_planning th {
+                vertical-align: bottom;
+              }
+            </style>
+            <table class="table-bordered table-sm mcr_planning" name="mcr_planning">
+              <thead>
+                <tr>
+                  <th>Document</th>
+                  <th>Rev</th>
+                  <th>Title</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
 
             <p style="page-break-before:always;" />
 
@@ -79,6 +185,32 @@
             <p style="page-break-before:always;" />
 
             <h2>List of Installations and Design Data</h2>
+
+            <style>
+              table.design_data th {
+                vertical-align: bottom;
+              }
+            </style>
+            <table class="table-bordered table-sm design_data" name="design_data">
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th>Partnumber</th>
+                  <th>Designation</th>
+                  <th>DWG Rev.</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
 
             <p style="page-break-before:always;" />
 
@@ -139,6 +271,9 @@
 
   <template id="survey_data_table">
     <style>
+      table.survey_data th {
+        vertical-align: bottom;
+      }
       table.survey_data td.page {
         background-color: rgba(0, 0, 0, 0.05);
       }
@@ -147,7 +282,7 @@
       <thead>
         <tr>
           <th>Criteria</th>
-          <th>Result</th>
+          <th>Result / Options</th>
           <th>Remark / Justification </th>
         </tr>
       </thead>
