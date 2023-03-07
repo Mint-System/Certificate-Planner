@@ -210,11 +210,17 @@
               <tbody>
                 <t t-foreach="design_data" t-as="line">
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="white-space: nowrap;">
+                      <span t-esc="line['marker']"/>
+                    </td>
+                    <td><span t-esc="line['name']" /></td>
+                    <td><span t-esc="line['designation']" /></td>
+                    <td><t t-foreach="line['document_revisions']" t-as="revision">
+                      <span t-field="revision.index_id" />
+                    </t></td>
+                    <td><t t-foreach="line['document_revisions']" t-as="revision">
+                      <span t-field="revision.reason" />
+                    </t></td>
                   </tr>
                 </t>
               </tbody>

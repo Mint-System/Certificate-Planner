@@ -10,12 +10,16 @@
             <field name="designation">major change to STC</field>
         </record>
 
-        <record id="certificate_planer_document_revision_index_1" model="certificate_planer.document_revision_index">
+        <record id="certificate_planer_document_revision_index_l" model="certificate_planer.document_revision_index">
             <field name="name">L</field>
         </record>
 
-        <record id="certificate_planer_document_revision_index_2" model="certificate_planer.document_revision_index">
+        <record id="certificate_planer_document_revision_index_a" model="certificate_planer.document_revision_index">
             <field name="name">A</field>
+        </record>
+
+        <record id="certificate_planer_document_revision_index_c" model="certificate_planer.document_revision_index">
+            <field name="name">C</field>
         </record>
 
         <record id="certificate_planer_aircraft_type_1" model="certificate_planer.aircraft_type">
@@ -47,6 +51,33 @@
             <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_1'))]"/>
         </record>
 
+        <record id="certificate_planer_part_4" model="certificate_planer.part">
+            <field name="name">024-0228402-501</field>
+            <field name="designation">Battery Inst.</field>
+        </record>
+
+        <record id="certificate_planer_bom_2" model="certificate_planer.bom">
+            <field name="part_id" ref="certificate_planer.certificate_planer_part_4"/>
+        </record>
+
+        <record id="certificate_planer_part_5" model="certificate_planer.part">
+            <field name="name">007-0249842-501</field>
+            <field name="designation">Kit, Battery</field>
+            <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_2'))]"/>
+        </record>
+
+        <record id="certificate_planer_part_6" model="certificate_planer.part">
+            <field name="name">007-0249824-501</field>
+            <field name="designation">Kit, Battery FixPro</field>
+            <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_2'))]"/>
+        </record>
+
+        <record id="certificate_planer_part_7" model="certificate_planer.part">
+            <field name="name">003-0249838-501</field>
+            <field name="designation">Kit, El. Sys, Battery</field>
+            <field name="parent_bom_ids" eval="[(4, ref('certificate_planer.certificate_planer_bom_2'))]"/>
+        </record>
+
         <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">
             <field name="part_id" ref="certificate_planer.certificate_planer_part_1"/>
             <field name="aircraft_type_id" ref="certificate_planer.certificate_planer_aircraft_type_1"/>
@@ -58,6 +89,15 @@
             <field name="description">DOE chapter 2.1.6.1.3 Zulassungsdokumente / Certification documents</field>
             <field name="show_on_report" eval="True"/>
             <field name="mcr_planning" eval="True"/>
+        </record>
+
+        <record id="certificate_planer_document_class_2" model="certificate_planer.document_class">
+            <field name="name">Design Data</field>
+            <field name="description">	DOE chapter 2.1.6.1.2 Bauunterlagen / Constructional documents</field>
+            <field name="show_on_report" eval="True"/>
+            <field name="show_reason" eval="True"/>
+            <field name="mcr_planning" eval="True"/>
+            <field name="mcr_design" eval="True"/>
         </record>
 
         <record id="certificate_planer_change_status_1" model="certificate_planer.change_status">
@@ -82,6 +122,7 @@
                 1) Current Limiter P/N 003-0327214-001 for ground power supply is changed inside Battery Installation AFT LH P/N 024-0272230-501 and within Battery Kit P/N 009-0297938;
                 2) Connection of existing T2T MLX 100 router with the cabin port of the Honeywell Aspire 350 to support data communication of the MLX 100 router via the Satcom Aspire 350 if data transfer via the internal 3G/4G system is not available.
             </field>
+            <field name="part_ids" eval="[(4, ref('certificate_planer.certificate_planer_part_4'))]"/>
         </record>
 
         <record id="certificate_planer_document_type_mdl" model="certificate_planer.document_type">
@@ -94,6 +135,13 @@
             <field name="identification">MCR</field>
             <field name="designation">Minor/Major Change Request</field>
             <field name="class_id" ref="certificate_planer.certificate_planer_document_class_1"/>
+        </record>
+
+        <record id="certificate_planer_document_type_idwg" model="certificate_planer.document_type">
+            <field name="identification">IDWG</field>
+            <field name="designation">Installation Drawing</field>
+            <field name="description">Einbauzeichnungen beschreiben, wie und wo eine Bau-gruppe im Luftfahrzeug eingebaut wird. Installation drawings describe how and where an assembly is to be installed in the aircraft.</field>
+            <field name="class_id" ref="certificate_planer.certificate_planer_document_class_2"/>
         </record>
 
         <record id="certificate_planer_document_1" model="certificate_planer.document">
@@ -112,17 +160,33 @@
             <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
         </record>
 
+        <record id="certificate_planer_document_3" model="certificate_planer.document">
+            <field name="name">024-0228402</field>
+            <field name="title">Battery Inst.</field>
+            <field name="description"></field>
+            <field name="type_id" ref="certificate_planer.certificate_planer_document_type_idwg"/>
+            <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+            <field name="part_ids" eval="[(4, ref('certificate_planer.certificate_planer_part_4'))]"/>
+        </record>
+
         <record id="certificate_planer_document_1_revision_1" model="certificate_planer.document_revision">
-            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_1"/>
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_l"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_1"/>
             <field name="reason">CPR-21-004</field>
             <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
         <record id="certificate_planer_document_2_revision_1" model="certificate_planer.document_revision">
-            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_2"/>
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_a"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
             <field name="reason">Update</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+        </record>
+
+        <record id="certificate_planer_document_3_revision_1" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_c"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_3"/>
+            <field name="reason">ECR-22-023</field>
             <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
@@ -132,6 +196,10 @@
 
         <record id="certificate_planer_document_2" model="certificate_planer.document">
             <field name="current_revision_id" ref="certificate_planer.certificate_planer_document_2_revision_1"/>
+        </record>
+
+        <record id="certificate_planer_document_3" model="certificate_planer.document">
+            <field name="current_revision_id" ref="certificate_planer.certificate_planer_document_3_revision_1"/>
         </record>
 
         <record id="certificate_planer_certificate_1" model="certificate_planer.certificate">

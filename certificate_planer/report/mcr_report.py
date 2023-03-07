@@ -46,6 +46,45 @@ class MCRReport(models.AbstractModel):
         
         return survey_data
 
+    def _get_subparts(self, part_ids, change_id, level=0, subparts=[]):
+        
+        # Iterate through list of parts
+        for part in part_ids:
+
+            
+            documents = part.document_ids.filtered(lambda d: d.type_id.class_id.mcr_design)
+            document_revisions = documents.current_revision_id.filtered(lambda r: r.change_id == change_id)
+
+            # Append part to parts list
+            subparts.append({
+                'marker': '-'*level,
+                'level': level,
+                'name': part.name,
+                'designation': part.designation,
+                'document_revisions': document_revisions
+            })
+
+            # Append subparts
+            subpart_ids = part.bom_id.part_ids.certificate_planer_part_id
+            self._get_subparts(subpart_ids, change_id, level+1, subparts)
+
+        return subparts
+
+    def _get_design_data(self, change_id):
+        subparts = self._get_subparts(part_ids=change_id.part_ids, change_id=change_id, level=0, subparts=[])
+
+        # design_data = []
+        # for part in subparts:
+
+        #     design_data.append({
+        #         'level': part['level'],
+        #         'name': part['name'],
+        #         'designation': part['designation'],
+        #         'document_revisions': part['document_revisions'],
+        #     })
+        
+        return subparts
+
     def _get_planning_data(self, change_id):
         documents = change_id.revision_ids.document_id
 
@@ -65,6 +104,7 @@ class MCRReport(models.AbstractModel):
                 'reason': document.current_revision_id.reason,
             })
         return planning_data
+
 
     def _get_report_values(self, docids, data=None):
 
@@ -92,7 +132,7 @@ class MCRReport(models.AbstractModel):
             'docs': docs,
             'print_date': docs.print_date,
             'planning_data': self._get_planning_data(change_id),
-            'design_data': [],
+            'design_data': self._get_design_data(change_id),
             'dcc_survey_data': self._get_survey_data(change_id.dcc_survey_result_id),
             'occ_survey_data': self._get_survey_data(change_id.occ_survey_result_id),
             'conclusion_survey_data': self._get_survey_data(change_id.conclusion_survey_result_id),
