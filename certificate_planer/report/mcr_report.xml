@@ -154,6 +154,8 @@
               </tr>
             </table>
 
+            <br/>
+
             <style>
               table.mcr_planning th {
                 vertical-align: bottom;
@@ -169,12 +171,14 @@
                 </tr>
               </thead>
               <tbody>
+                <t t-foreach="planning_data" t-as="line">
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><span t-esc="line['name']" /></td>
+                  <td><span t-esc="line['index']" /></td>
+                  <td><span t-esc="line['title']" /></td>
+                  <td><span t-esc="line['reason']" /></td>
                 </tr>
+              </t>
               </tbody>
             </table>
 
@@ -202,13 +206,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                <t t-foreach="design_data" t-as="line">
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </t>
               </tbody>
             </table>
 

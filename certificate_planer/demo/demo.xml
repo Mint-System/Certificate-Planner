@@ -57,6 +57,7 @@
             <field name="name">Certification Documents</field>
             <field name="description">DOE chapter 2.1.6.1.3 Zulassungsdokumente / Certification documents</field>
             <field name="show_on_report" eval="True"/>
+            <field name="mcr_planning" eval="True"/>
         </record>
 
         <record id="certificate_planer_change_status_1" model="certificate_planer.change_status">

@@ -46,6 +46,26 @@ class MCRReport(models.AbstractModel):
         
         return survey_data
 
+    def _get_planning_data(self, change_id):
+        documents = change_id.revision_ids.document_id
+
+        # Filter and sort documents by name, type_id.sequence, class_id.sequence
+        documents = documents.filtered(lambda d: d.type_id.class_id.mcr_planning)
+        documents = sorted(documents, key=lambda d: d.name)
+        documents = sorted(documents, key=lambda d: d.type_id.sequence)
+        documents = sorted(documents, key=lambda d: d.type_id.class_id.sequence)
+
+        planning_data = []
+        for document in documents:
+
+            planning_data.append({
+                'name': document.name,
+                'title': document.title,
+                'index': document.current_revision_id.index_id.name,
+                'reason': document.current_revision_id.reason,
+            })
+        return planning_data
+
     def _get_report_values(self, docids, data=None):
 
         report_name = 'certificate_planer.mcr_report_view'
@@ -71,6 +91,8 @@ class MCRReport(models.AbstractModel):
             'docids': docids, 
             'docs': docs,
             'print_date': docs.print_date,
+            'planning_data': self._get_planning_data(change_id),
+            'design_data': [],
             'dcc_survey_data': self._get_survey_data(change_id.dcc_survey_result_id),
             'occ_survey_data': self._get_survey_data(change_id.occ_survey_result_id),
             'conclusion_survey_data': self._get_survey_data(change_id.conclusion_survey_result_id),
