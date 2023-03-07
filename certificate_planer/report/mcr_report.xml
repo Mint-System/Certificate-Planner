@@ -186,6 +186,8 @@
 
             <h2>Change Descriptions</h2>
 
+            <p t-field="change_id.description" />
+
             <p style="page-break-before:always;" />
 
             <h2>List of Installations and Design Data</h2>

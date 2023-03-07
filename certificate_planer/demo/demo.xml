@@ -78,6 +78,10 @@
             <field name="target_approval_date" eval="(DateTime.now() - timedelta(days=1))" />
             <field name="approval_date" eval="DateTime.now()" />
             <field name="references">P13011</field>
+            <field name="description">
+                1) Current Limiter P/N 003-0327214-001 for ground power supply is changed inside Battery Installation AFT LH P/N 024-0272230-501 and within Battery Kit P/N 009-0297938;
+                2) Connection of existing T2T MLX 100 router with the cabin port of the Honeywell Aspire 350 to support data communication of the MLX 100 router via the Satcom Aspire 350 if data transfer via the internal 3G/4G system is not available.
+            </field>
         </record>
 
         <record id="certificate_planer_document_type_mdl" model="certificate_planer.document_type">
