@@ -5,15 +5,17 @@
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <search>
-        <field name="project_title"/>
-        <field name="certificate_id"/>
-        <field name="reference"/>
-        <field name="authority_reference"/>
-        <filter name="target_approval_date" date="target_approval_date" string="Target Approval Date"/>
-        <filter name="approval_date" date="approval_date" string="Approval Date"/>
-        <filter name="group_certificate)id" string="By Certificate" context="{'group_by': 'certificate_id'}"/>
-        <filter name="group_change_id" string="By Change ID" context="{'group_by': 'change_id_id'}"/>
-        <filter name="group_status_id" string="By Status" context="{'group_by': 'status_id'}"/>
+        <field name="project_title" />
+        <field name="certificate_id" />
+        <field name="reference" />
+        <field name="authority_reference" />
+        <filter name="target_approval_date" date="target_approval_date"
+          string="Target Approval Date" />
+        <filter name="approval_date" date="approval_date" string="Approval Date" />
+        <filter name="group_certificate)id" string="By Certificate"
+          context="{'group_by': 'certificate_id'}" />
+        <filter name="group_change_id" string="By Change ID" context="{'group_by': 'change_id_id'}" />
+        <filter name="group_status_id" string="By Status" context="{'group_by': 'status_id'}" />
       </search>
     </field>
   </record>
@@ -23,22 +25,22 @@
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <tree limit="200" delete="true">
-        <field name="certificate_id"/>
-        <field name="change_id_id"/>
-        <field name="project_title"/>
-        <field name="classification_id" optional="show"/>
-        <field name="reference" optional="show"/>
-        <field name="authority_reference" optional="show"/>
-        <field name="status_id" optional="show"/>
+        <field name="certificate_id" />
+        <field name="change_id_id" />
+        <field name="project_title" />
+        <field name="classification_id" optional="show" />
+        <field name="reference" optional="show" />
+        <field name="authority_reference" optional="show" />
+        <field name="status_id" optional="show" />
       </tree>
     </field>
   </record>
 
   <record id="change_delete_rule" model="ir.ui.view">
     <field name="name">change_delete_rule</field>
-    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]"/>
+    <field name="groups_id" eval="[(4,ref('group_certificate_planer_administrator'))]" />
     <field name="model">certificate_planer.change</field>
-    <field name="inherit_id" ref="change_list"/>
+    <field name="inherit_id" ref="change_list" />
     <field name="arch" type="xml">
       <xpath expr="//tree" position='attributes'>
         <attribute name='delete'>true</attribute>
@@ -46,24 +48,24 @@
     </field>
   </record>
 
-  <record model="ir.ui.view" id="change_kanban" >
+  <record model="ir.ui.view" id="change_kanban">
     <field name="name">Change Kanban</field>
     <field name="model">certificate_planer.change</field>
     <field name="arch" type="xml">
       <kanban default_group_by="status_id" class="o_kanban_small_column">
-        <field name="change_id_id"/>
-        <field name="certificate_id"/>
+        <field name="change_id_id" />
+        <field name="certificate_id" />
         <templates>
-        <t t-name="kanban-box">
-          <div class="oe_kanban_card oe_kanban_global_click">
-            <div class="oe_kanban_content">
-              <strong>
-                <field name="change_id_id"/>
-              </strong>
-              <field name="certificate_id"/>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_card oe_kanban_global_click">
+              <div class="oe_kanban_content">
+                <strong>
+                  <field name="change_id_id" />
+                </strong>
+                <field name="certificate_id" />
+              </div>
             </div>
-          </div>
-        </t>
+          </t>
         </templates>
       </kanban>
     </field>
@@ -76,87 +78,101 @@
       <form string="Change Form">
         <header>
           <button name="%(change_wizard_action)d" string="Set Status" type="action" />
-          <field name="status_id" widget="statusbar"/>
+          <field name="status_id" widget="statusbar" />
         </header>
         <sheet>
           <div class="oe_button_box" name="button_box">
             <button name="view_revision_ids" type="object" class="oe_stat_button" icon="fa-files-o">
-              <field string="Document Revisions" name="revision_count" widget="statinfo"/>
+              <field string="Document Revisions" name="revision_count" widget="statinfo" />
             </button>
             <button name="view_part_ids" type="object" class="oe_stat_button" icon="fa-sitemap">
-              <field string="Parts" name="part_count" widget="statinfo"/>
+              <field string="Parts" name="part_count" widget="statinfo" />
             </button>
             <button name="view_item_ids" type="object" class="oe_stat_button" icon="fa-bars">
-              <field string="Post Certification Items" name="item_count" widget="statinfo"/>
+              <field string="Post Certification Items" name="item_count" widget="statinfo" />
             </button>
           </div>
           <p>Change</p>
           <div class="oe_title">
             <div class="oe_edit_only">
-              <label for="change_id_id"/>
+              <label for="change_id_id" />
             </div>
             <h1>
-              <field name="change_id_id"/>
+              <field name="change_id_id" />
             </h1>
           </div>
-          <group>
-            <group>
-              <field name="project_title"/>
-              <field name="description"/>
-              <field name="classification_id"/>
-              <field name="certificate_id"/>
-              <field name="authority_reference"/>
-              <field name="reference"/>
-            </group>
-            <group>
-              <field name="version"/>
-              <field name="target_approval_date"/>
-              <field name="approval_date"/>
-              <field name="references"/>
-            </group>
-            <group>
-              <field name="dcc_survey_template_id" invisible="1"/>
-              <field name="occ_survey_template_id" invisible="1"/>
-              <field name="conclusion_survey_template_id" invisible="1"/>
-              <field name="dcc_survey_result_id"
-                options="{'no_quick_create': True, 'no_create_edit': True}"
-                domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done')]" />
-              <field name="occ_survey_result_id"
-                options="{'no_quick_create': True, 'no_create_edit': True}"
-                domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done')]" />
-              <field name="conclusion_survey_result_id"
-                options="{'no_quick_create': True, 'no_create_edit': True}"
-                domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done')]" />
-            </group>
-          </group>
-          <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from a linked Change</p>
-          <group>
-            <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
-              <tree default_order="document_id">
-                <field name="document_id"/>
-                <field name="title"/>
-                <field name="type_id"/>
-                <field name="index_id"/>
-                <field name="reason"/>
-                <field name="current_revision_id"/>
-              </tree>
-            </field>
-          </group>
-          <p class="oe_edit_only">Note: Change can linked with multiple Parts</p>
-          <group>
-            <field name="part_ids" widget="many2many"/>
-          </group>
-          <p class="oe_edit_only">Note: Adding an existing Post Certification Item will remove it from a linked Change</p>
-          <group>
-            <field name="item_ids" widget="many2many" context="{'default_change_id': id}"/>
-          </group>
-          <p>Last edit by <field name="write_uid"/> on <field name="write_date"/>.<br/>
-          Created by <field name="create_uid"/> on <field name="create_date"/>.</p>
+          <notebook>
+            <page string="General Information">
+              <group>
+                <group>
+                  <field name="project_title" />
+                  <field name="classification_id" />
+                  <field name="certificate_id" />
+                  <field name="authority_reference" />
+                  <field name="reference" />
+                </group>
+                <group>
+                  <field name="version" />
+                  <field name="target_approval_date" />
+                  <field name="approval_date" />
+                  <field name="references" />
+                </group>
+              </group>
+              <p class="oe_edit_only">Note: Adding an existing Document Revision will remove it from
+                a linked Change</p>
+              <group>
+                <field name="revision_ids" widget="many2many" context="{'default_change_id': id}">
+                  <tree default_order="document_id">
+                    <field name="document_id" />
+                    <field name="title" />
+                    <field name="type_id" />
+                    <field name="index_id" />
+                    <field name="reason" />
+                    <field name="current_revision_id" />
+                  </tree>
+                </field>
+              </group>
+              <p class="oe_edit_only">Note: Change can linked with multiple Parts</p>
+              <group>
+                <field name="part_ids" widget="many2many" />
+              </group>
+              <p class="oe_edit_only">Note: Adding an existing Post Certification Item will remove
+                it from a linked Change</p>
+              <group>
+                <field name="item_ids" widget="many2many" context="{'default_change_id': id}" />
+              </group>
+            </page>
+            <page string="Description">
+              <group>
+                <field name="description" />
+              </group>
+            </page>
+            <page string="Survey">
+              <group>
+                <group>
+                  <field name="dcc_survey_template_id" invisible="1" />
+                  <field name="occ_survey_template_id" invisible="1" />
+                  <field name="conclusion_survey_template_id" invisible="1" />
+                  <field name="dcc_survey_result_id"
+                    options="{'no_quick_create': True, 'no_create_edit': True}"
+                    domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done')]" />
+                  <field name="occ_survey_result_id"
+                    options="{'no_quick_create': True, 'no_create_edit': True}"
+                    domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done')]" />
+                  <field name="conclusion_survey_result_id"
+                    options="{'no_quick_create': True, 'no_create_edit': True}"
+                    domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done')]" />
+                </group>
+              </group>
+            </page>
+          </notebook>
+          <p>Last edit by <field name="write_uid" /> on <field name="write_date" />.<br /> Created
+            by <field name="create_uid" /> on <field name="create_date" />.</p>
         </sheet>
         <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers"/>
-          <field name="message_ids" widget="mail_thread"/>
-          <field name="activity_ids" widget="mail_activity"/>
+          <field name="message_follower_ids" widget="mail_followers" />
+          <field name="message_ids" widget="mail_thread" />
+          <field name="activity_ids" widget="mail_activity" />
         </div>
       </form>
     </field>

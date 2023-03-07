@@ -9,7 +9,7 @@ class Change(models.Model):
     _rec_name = 'change_id_id'
 
     project_title = fields.Char(required=True)
-    description = fields.Char()
+    description = fields.Text()
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
