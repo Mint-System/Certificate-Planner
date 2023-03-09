@@ -50,19 +50,20 @@ class MCRReport(models.AbstractModel):
         
         # Iterate through list of parts
         for part in part_ids:
-
             
             documents = part.document_ids.filtered(lambda d: d.type_id.class_id.mcr_design)
             document_revisions = documents.current_revision_id.filtered(lambda r: r.change_id == change_id)
 
             # Append part to parts list
-            subparts.append({
-                'marker': '-'*level,
-                'level': level,
-                'name': part.name,
-                'designation': part.designation,
-                'document_revisions': document_revisions
-            })
+            _logger.warning([level, document_revisions])
+            if level == 0 or document_revisions:
+                subparts.append({
+                    'marker': '-'*level,
+                    'level': level,
+                    'name': part.name,
+                    'designation': part.designation,
+                    'document_revisions': document_revisions
+                })
 
             # Append subparts
             subpart_ids = part.bom_id.part_ids.certificate_planer_part_id
@@ -72,16 +73,6 @@ class MCRReport(models.AbstractModel):
 
     def _get_design_data(self, change_id):
         subparts = self._get_subparts(part_ids=change_id.part_ids, change_id=change_id, level=0, subparts=[])
-
-        # design_data = []
-        # for part in subparts:
-
-        #     design_data.append({
-        #         'level': part['level'],
-        #         'name': part['name'],
-        #         'designation': part['designation'],
-        #         'document_revisions': part['document_revisions'],
-        #     })
         
         return subparts
 
