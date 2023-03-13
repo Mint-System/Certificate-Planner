@@ -150,18 +150,52 @@
             <page string="Survey">
               <group>
                 <group>
+
+                  <label for="action_start_dcc_survey"
+                    attrs="{'invisible': [('dcc_survey_result_id', '!=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Start DCC Survey"
+                    name="action_start_dcc_survey" type="object"
+                    attrs="{'invisible': [('dcc_survey_result_id', '!=', False)]}" />
+                  <label for="action_repeat_dcc_result"
+                    attrs="{'invisible': [('dcc_survey_result_id', '=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Repeat DCC Survey"
+                    name="action_repeat_dcc_result" type="object"
+                    attrs="{'invisible': [('dcc_survey_result_id', '=', False)]}" />
                   <field name="dcc_survey_template_id" invisible="1" />
-                  <field name="occ_survey_template_id" invisible="1" />
-                  <field name="conclusion_survey_template_id" invisible="1" />
                   <field name="dcc_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
                     domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done')]" />
+
+                  <label for="action_start_occ_survey"
+                    attrs="{'invisible': [('occ_survey_result_id', '!=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Start OCC Survey"
+                    name="action_start_occ_survey" type="object"
+                    attrs="{'invisible': [('occ_survey_result_id', '!=', False)]}" />
+                  <label for="action_repeat_occ_result"
+                    attrs="{'invisible': [('occ_survey_result_id', '=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Repeat OCC Survey"
+                    name="action_repeat_occ_result" type="object"
+                    attrs="{'invisible': [('occ_survey_result_id', '=', False)]}" />
+                  <field name="occ_survey_template_id" invisible="1" />
                   <field name="occ_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
                     domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done')]" />
+
+                  <label for="action_start_conclusion_survey"
+                    attrs="{'invisible': [('conclusion_survey_result_id', '!=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Start Conclusion Survey"
+                    name="action_start_conclusion_survey" type="object"
+                    attrs="{'invisible': [('conclusion_survey_result_id', '!=', False)]}" />
+                  <label for="action_repeat_conclusion_result"
+                    attrs="{'invisible': [('conclusion_survey_result_id', '=', False)]}" />
+                  <button class="btn btn-primary btn-sm mt-3" string="Repeat Conclusion Survey"
+                    name="action_repeat_conclusion_result" type="object"
+                    attrs="{'invisible': [('conclusion_survey_result_id', '=', False)]}" />
+                  <field name="conclusion_survey_template_id" invisible="1" />
                   <field name="conclusion_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
                     domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done')]" />
+
                 </group>
               </group>
             </page>

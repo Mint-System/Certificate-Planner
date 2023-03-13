@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class Change(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -94,3 +95,45 @@ class Change(models.Model):
             "domain": [("change_id", "=", self.id)],
             "context": "{'create': False}",
         }
+
+    def action_start_dcc_survey(self):
+        self.ensure_one()
+        answer = self.dcc_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        res = self.dcc_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
+
+    def action_repeat_dcc_result(self):
+        self.ensure_one()
+        answer = self.dcc_survey_result_id
+        res = self.dcc_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
+
+    def action_start_occ_survey(self):
+        self.ensure_one()
+        answer = self.occ_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        res = self.occ_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
+
+    def action_repeat_occ_result(self):
+        self.ensure_one()
+        answer = self.occ_survey_result_id
+        res = self.occ_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
+
+    def action_start_conclusion_survey(self):
+        self.ensure_one()
+        answer = self.conclusion_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        res = self.conclusion_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
+
+    def action_repeat_conclusion_result(self):
+        self.ensure_one()
+        answer = self.conclusion_survey_result_id
+        res = self.conclusion_survey_template_id.action_start_survey(answer)
+        res['target'] = 'new'
+        return res
