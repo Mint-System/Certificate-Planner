@@ -25,7 +25,7 @@ class MCRReport(models.AbstractModel):
             if not survey_input.is_page:
             
                 # Process question options
-                if survey_input.question_type == 'multiple_choice':
+                if survey_input.question_type in ['simple_choice', 'multiple_choice']:
                     entry['options'] = [ {'id': suggestion.id, 'value': suggestion.value } for suggestion in survey_input.suggested_answer_ids]
 
                 # Get answers
@@ -55,7 +55,6 @@ class MCRReport(models.AbstractModel):
             document_revisions = documents.current_revision_id.filtered(lambda r: r.change_id == change_id)
 
             # Append part to parts list
-            _logger.warning([level, document_revisions])
             if level == 0 or document_revisions:
                 subparts.append({
                     'marker': '-'*level,
