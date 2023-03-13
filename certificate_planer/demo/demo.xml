@@ -113,8 +113,10 @@
             <field name="project_title">corrective actions resulting from FDA-5717,improvement and corrections to FMS-024-0229582-501 and OPM-024-0229582-501, minor modifications</field>
             <field name="classification_id" ref="certificate_planer.certificate_planer_change_classification_1"/>
             <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+            <field name="aircraft_type_id" ref="certificate_planer.certificate_planer_aircraft_type_1"/>
             <field name="status_id" ref="certificate_planer.certificate_planer_change_status_1"/>
             <field name="authority_reference">EASA 00060078856-001</field>
+            <field name="reference">P13011</field>
             <field name="target_approval_date" eval="(DateTime.now() - timedelta(days=1))" />
             <field name="approval_date" eval="DateTime.now()" />
             <field name="references">P13011</field>

@@ -36,7 +36,7 @@
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
         <t t-set="change_id" t-value="doc.current_revision_id.change_id" />
-        <t t-set="certificate_id" t-value="doc.certificate_id" />
+        <t t-set="certificate_id" t-value="doc.current_revision_id.change_id.certificate_id" />
 
         <!-- Header definition -->
         <div class="header">
@@ -63,7 +63,7 @@
 
             <h1 t-esc="doc.type_id.designation" />
             <h2 t-field="doc.name" />
-            <p>Current Revision: <span t-field="doc.current_revision_id.change_id.version" /><br/>
+            <p>Version: <span t-field="doc.current_revision_id.change_id.version" /><br/>
             Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" /></p>
             
             <style>
@@ -145,7 +145,7 @@
               </tr>
               <tr>
                 <th>Aircraft Type</th>
-                <td><span t-field="certificate_id.aircraft_type_id" /></td>
+                <td><span t-field="change_id.aircraft_type_id" /></td>
                 <th>Target Approval Date</th>
                 <td><span t-field="change_id.target_approval_date" /></td>
 

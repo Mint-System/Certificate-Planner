@@ -17,7 +17,6 @@ class DocumentClass(models.Model):
     show_reason = fields.Boolean()
     mcr_planning = fields.Boolean("MCR Planning")
     mcr_design = fields.Boolean("MCR Inst. and Design")
-    mcr_documents = fields.Boolean("MCR Documents")
 
     status_ids = fields.Many2many("certificate_planer.change_status", relation='certificate_planer_change_status_document_class_rel', string="Filter Change Status")
 

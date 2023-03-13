@@ -12,6 +12,7 @@ class Change(models.Model):
     project_title = fields.Char(required=True)
     description = fields.Text()
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
+    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", tracking=True, ondelete="restrict")
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
     part_count = fields.Integer(compute='_compute_part_count')

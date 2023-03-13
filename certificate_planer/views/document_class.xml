@@ -25,7 +25,6 @@
         <field name="show_reason"/>
         <field name="mcr_planning"/>
         <field name="mcr_design"/>
-        <field name="mcr_documents"/>
       </tree>
     </field>
   </record>
@@ -69,7 +68,6 @@
             <group>
               <field name="mcr_planning"/>
               <field name="mcr_design"/>
-              <field name="mcr_documents"/>
             </group>
           </group>
           <group>
