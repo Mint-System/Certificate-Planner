@@ -51,8 +51,8 @@ class MCRReport(models.AbstractModel):
         # Iterate through list of parts
         for part in part_ids:
             
-            documents = part.document_ids.filtered(lambda d: d.type_id.class_id.mcr_design)
-            document_revisions = documents.current_revision_id.filtered(lambda r: r.change_id == change_id)
+            documents = part.document_ids.filtered(lambda r: r.type_id.class_id.mcr_design)
+            document_revisions = documents.revision_ids.filtered(lambda r: r.change_id == change_id)
 
             # Append part to parts list
             if level == 0 or document_revisions:
@@ -76,22 +76,22 @@ class MCRReport(models.AbstractModel):
         return subparts
 
     def _get_planning_data(self, change_id):
-        documents = change_id.revision_ids.document_id
+        revisions = change_id.revision_ids
 
         # Filter and sort documents by name, type_id.sequence, class_id.sequence
-        documents = documents.filtered(lambda d: d.type_id.class_id.mcr_planning)
-        documents = sorted(documents, key=lambda d: d.name)
-        documents = sorted(documents, key=lambda d: d.type_id.sequence)
-        documents = sorted(documents, key=lambda d: d.type_id.class_id.sequence)
+        revisions = revisions.filtered(lambda r: r.document_id.type_id.class_id.mcr_planning)
+        revisions = sorted(revisions, key=lambda r: r.document_id.name)
+        revisions = sorted(revisions, key=lambda r: r.document_id.type_id.sequence)
+        revisions = sorted(revisions, key=lambda r: r.document_id.type_id.class_id.sequence)
 
         planning_data = []
-        for document in documents:
+        for revision in revisions:
 
             planning_data.append({
-                'name': document.name,
-                'title': document.title,
-                'index': document.current_revision_id.index_id.name,
-                'reason': document.current_revision_id.reason,
+                'name': revision.document_id.name,
+                'title': revision.document_id.title,
+                'index': revision.index_id.name,
+                'reason': revision.reason,
             })
         return planning_data
 

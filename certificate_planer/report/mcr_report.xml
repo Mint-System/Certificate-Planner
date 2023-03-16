@@ -145,9 +145,9 @@
               </tr>
               <tr>
                 <th>Aircraft Type</th>
-                <td><span t-field="change_id.aircraft_type_id" /></td>
+                <td><span t-esc="context_timestamp(change_id.aircraft_type_id).strftime('%Y-%m-%d')" /></td>
                 <th>Target Approval Date</th>
-                <td><span t-field="change_id.target_approval_date" /></td>
+                <td><span t-esc="context_timestamp(change_id.target_approval_date).strftime('%Y-%m-%d')" /></td>
 
               </tr>
               <tr>

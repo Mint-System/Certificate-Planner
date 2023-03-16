@@ -55,7 +55,6 @@
       <kanban default_group_by="status_id" class="o_kanban_small_column">
         <field name="change_id_id" />
         <field name="certificate_id" />
-        <field name="aircraft_type_id" />
         <templates>
           <t t-name="kanban-box">
             <div class="oe_kanban_card oe_kanban_global_click">
@@ -109,6 +108,7 @@
                   <field name="project_title" />
                   <field name="classification_id" />
                   <field name="certificate_id" />
+                  <field name="aircraft_type_id" />
                   <field name="authority_reference" />
                   <field name="reference" />
                 </group>
