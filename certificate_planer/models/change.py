@@ -100,6 +100,9 @@ class Change(models.Model):
     def action_start_dcc_survey(self):
         self.ensure_one()
         answer = self.dcc_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        answer.write({
+            'change_id': self.id
+        })
         res = self.dcc_survey_template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
@@ -114,6 +117,9 @@ class Change(models.Model):
     def action_start_occ_survey(self):
         self.ensure_one()
         answer = self.occ_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        answer.write({
+            'change_id': self.id
+        })
         res = self.occ_survey_template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
@@ -128,6 +134,9 @@ class Change(models.Model):
     def action_start_conclusion_survey(self):
         self.ensure_one()
         answer = self.conclusion_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        answer.write({
+            'change_id': self.id
+        })
         res = self.conclusion_survey_template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
@@ -138,3 +147,9 @@ class Change(models.Model):
         res = self.conclusion_survey_template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
+
+    def action_reload(self):
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload'
+        }

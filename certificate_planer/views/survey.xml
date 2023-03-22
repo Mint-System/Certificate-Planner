@@ -3,16 +3,27 @@
     <record id="survey_form" model="ir.ui.view">
         <field name="name">certificate_planer.survey_form</field>
         <field name="model">survey.survey</field>
-        <field name="inherit_id" ref="survey.survey_form"/>
+        <field name="inherit_id" ref="survey.survey_form" />
         <field name="arch" type="xml">
             <xpath expr="//h1" position="after">
                 <div name="options" groups="base.group_user">
                     <div>
-                        <field name="is_certificate_planner"/>
-                        <label for="is_certificate_planner"/>
+                        <field name="is_certificate_planner" />
+                        <label for="is_certificate_planner" />
                     </div>
                 </div>
             </xpath>
+        </field>
+    </record>
+
+    <record id="survey_user_input_view_form" model="ir.ui.view">
+        <field name="name">certificate_planer.survey_user_input_view_form</field>
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_view_form" />
+        <field name="arch" type="xml">
+            <field name="survey_id" position="after">
+                <field name="change_id" />
+            </field>
         </field>
     </record>
 

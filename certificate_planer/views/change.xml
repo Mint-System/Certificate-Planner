@@ -165,7 +165,7 @@
                   <field name="dcc_survey_template_id" invisible="1" />
                   <field name="dcc_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
-                    domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done')]" />
+                    domain="[('survey_id', '=', dcc_survey_template_id), ('state', '=', 'done'), ('change_id', '=', active_id)]" />
 
                   <label for="action_start_occ_survey"
                     attrs="{'invisible': [('occ_survey_result_id', '!=', False)]}" />
@@ -180,7 +180,7 @@
                   <field name="occ_survey_template_id" invisible="1" />
                   <field name="occ_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
-                    domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done')]" />
+                    domain="[('survey_id', '=', occ_survey_template_id), ('state', '=', 'done'), ('change_id', '=', active_id)]" />
 
                   <label for="action_start_conclusion_survey"
                     attrs="{'invisible': [('conclusion_survey_result_id', '!=', False)]}" />
@@ -195,7 +195,10 @@
                   <field name="conclusion_survey_template_id" invisible="1" />
                   <field name="conclusion_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
-                    domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done')]" />
+                    domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done'), ('change_id', '=', active_id)]" />
+
+                  <button class="btn btn-primary btn-sm mt-3" string="Reload Survey Result Selection"
+                    name="action_reload" type="object" />
 
                 </group>
               </group>
