@@ -30,6 +30,10 @@
             <field name="name">B</field>
         </record>
 
+        <record id="certificate_planer_document_revision_index_e" model="certificate_planer.document_revision_index">
+            <field name="name">E</field>
+        </record>
+
         <record id="certificate_planer_aircraft_type_1" model="certificate_planer.aircraft_type">
             <field name="name">PC-24</field>
         </record>
@@ -154,6 +158,13 @@
             <field name="class_id" ref="certificate_planer.certificate_planer_document_class_2"/>
         </record>
 
+        <record id="certificate_planer_document_type_adwg" model="certificate_planer.document_type">
+            <field name="identification">AGWG</field>
+            <field name="designation">	Assembly Drawing</field>
+            <field name="description">Bau- und Unterbaugruppenzeichnungen beschreiben, wie die Einzel- und Normteile zu Komponenten zusammengebaut werden. Drawings of assemblies and subassemblies describe how the single and standard parts are assembled to form components.</field>
+            <field name="class_id" ref="certificate_planer.certificate_planer_document_class_2"/>
+        </record>
+
         <record id="certificate_planer_document_1" model="certificate_planer.document">
             <field name="name">MDL-16-005</field>
             <field name="title">Master Document List</field>
@@ -177,7 +188,16 @@
             <field name="type_id" ref="certificate_planer.certificate_planer_document_type_idwg"/>
             <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
             <field name="part_ids" eval="[(4, ref('certificate_planer.certificate_planer_part_4'))]"/>
-        </record>
+        </record>        
+
+        <record id="certificate_planer_document_4" model="certificate_planer.document">
+            <field name="name">007-0249842-501</field>
+            <field name="title">Kit, Battery</field>
+            <field name="description"></field>
+            <field name="type_id" ref="certificate_planer.certificate_planer_document_type_adwg"/>
+            <field name="certificate_id" ref="certificate_planer.certificate_planer_certificate_1"/>
+            <field name="part_ids" eval="[(4, ref('certificate_planer.certificate_planer_part_5'))]"/>
+        </record>  
 
         <record id="certificate_planer_document_1_revision_1" model="certificate_planer.document_revision">
             <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_l"/>
@@ -210,6 +230,13 @@
             <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_c"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_3"/>
             <field name="reason">ECR-22-023</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+        </record>
+
+        <record id="certificate_planer_document_4_revision_1" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_e"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_4"/>
+            <field name="reason">ECR-21-229</field>
             <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
