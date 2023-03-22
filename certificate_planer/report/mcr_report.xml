@@ -167,6 +167,9 @@
               table.mcr_planning th {
                 vertical-align: bottom;
               }
+              table.mcr_planning {
+                width: 100%;
+              }
             </style>
             <table class="table-bordered table-sm mcr_planning" name="mcr_planning">
               <thead>

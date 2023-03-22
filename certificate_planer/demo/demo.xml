@@ -197,7 +197,6 @@
             <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_nc"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
             <field name="reason">Initial release</field>
-            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 
         <record id="certificate_planer_document_2_revision_3" model="certificate_planer.document_revision">
