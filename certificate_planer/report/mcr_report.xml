@@ -6,7 +6,7 @@
     <field name="report_type">qweb-pdf</field>
     <field name="report_name">certificate_planer.mcr_report_view</field>
     <field name="report_file">'%s' % (object.name)</field>
-    <field name="attachment">'%s' % (object.name) + '.pdf'</field>
+    <field name="attachment">'%s-%s' % (object.name, object.current_revision_id.change_id.version) + '.pdf'</field>
     <field name="paperformat_id" ref="certificate_planer.paperformat_certificate_planer" />
   </record>
 
@@ -43,11 +43,10 @@
           <div class="row">
             <div class="col-4">
               <span>Engineering</span>
-              <h4 t-esc="doc.type_id.designation" />
+              <h5 t-esc="doc.type_id.designation" />
             </div>
             <div class="col-4 text-center">
-              <br />
-              <h4 t-esc="print_report_name" />
+              <h5 t-esc="doc.name" />
             </div>
             <div class="col-4 text-right">
               <img t-if="res_company.logo" t-att-src="image_data_uri(res_company.logo)"
@@ -73,6 +72,9 @@
               }
               table.signatures td {
                 height: 100px;
+              }
+              table.signatures {
+                width: 100%;
               }
             </style>
             <table class="table-bordered table-sm signatures" name="signatures">
@@ -104,6 +106,9 @@
               }
               table.revisions td.page {
                 background-color: rgba(0, 0, 0, 0.05);
+              }
+              table.revisions {
+                width: 100%;
               }
             </style>
             <table class="table-bordered table-sm revisions" name="revisions">
@@ -206,6 +211,9 @@
               table.design_data th {
                 vertical-align: bottom;
               }
+              table.design_data {
+                width: 100%;
+              }
             </style>
             <table class="table-bordered table-sm design_data" name="design_data">
               <thead>
@@ -268,7 +276,7 @@
           <hr />
           <div class="row">
             <div class="col-3">
-              <span>Revision: <span t-esc="doc.current_revision_id.index_id.name" /></span>
+              <span>Revision: <span t-esc="doc.current_revision_id.index_id.name" /> | Version: <span t-esc="doc.current_revision_id.change_id.version" /></span>
               <br />
               <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" />
             </div>

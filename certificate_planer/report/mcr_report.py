@@ -119,10 +119,9 @@ class MCRReport(models.AbstractModel):
         # Get the linked change
         change_id = docs.current_revision_id.change_id
 
-        # Increase change version and update rpint date
+        # Update the print date
         if data['report_type'] == 'pdf' or not doc.print_date:
-            doc.sudo().print_date = datetime.now()
-            change_id.version += 1
+            doc.sudo().print_date = datetime.now()            
 
         return {
             'docids': docids, 

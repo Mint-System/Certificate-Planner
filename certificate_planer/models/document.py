@@ -120,6 +120,10 @@ class Document(models.Model):
             ('name', 'in', [self.name + '.pdf'])
         ]).unlink()
 
+        # Update version on change
+        change_id = self.current_revision_id.change_id
+        change_id.write({ 'version': change_id.version + 1 })
+
         # Render report
         pdf_content, content_type = self.env.ref('certificate_planer.mcr_report')._render_qweb_pdf(self.id)
 
