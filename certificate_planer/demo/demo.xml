@@ -22,6 +22,14 @@
             <field name="name">C</field>
         </record>
 
+        <record id="certificate_planer_document_revision_index_nc" model="certificate_planer.document_revision_index">
+            <field name="name">N/C</field>
+        </record>
+
+        <record id="certificate_planer_document_revision_index_b" model="certificate_planer.document_revision_index">
+            <field name="name">B</field>
+        </record>
+
         <record id="certificate_planer_aircraft_type_1" model="certificate_planer.aircraft_type">
             <field name="name">PC-24</field>
         </record>
@@ -182,6 +190,20 @@
             <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_a"/>
             <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
             <field name="reason">Update</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+        </record>
+
+        <record id="certificate_planer_document_2_revision_2" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_nc"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
+            <field name="reason">Initial release</field>
+            <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
+        </record>
+
+        <record id="certificate_planer_document_2_revision_3" model="certificate_planer.document_revision">
+            <field name="index_id" ref="certificate_planer.certificate_planer_document_revision_index_b"/>
+            <field name="document_id" ref="certificate_planer.certificate_planer_document_2"/>
+            <field name="reason">New Version</field>
             <field name="change_id" ref="certificate_planer.certificate_planer_change_id_1"/>
         </record>
 

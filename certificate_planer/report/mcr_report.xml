@@ -63,7 +63,8 @@
 
             <h1 t-esc="doc.type_id.designation" />
             <h2 t-field="doc.name" />
-            <p>Version: <span t-field="doc.current_revision_id.change_id.version" /><br/>
+            <p>Revision: <span t-field="doc.current_revision_id.index_id" /><br/>
+            Version: <span t-field="doc.current_revision_id.change_id.version" /><br/>
             Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" /></p>
             
             <style>
@@ -113,7 +114,7 @@
                 </tr>
               </thead>
               <tbody>
-                <t t-foreach="doc.revision_ids" t-as="revision">
+                <t t-foreach="revisions_data" t-as="revision">
                   <tr>
                     <td id="index">
                       <span t-esc="revision.index_id.name" />
@@ -145,14 +146,18 @@
               </tr>
               <tr>
                 <th>Aircraft Type</th>
-                <td><span t-esc="context_timestamp(change_id.aircraft_type_id).strftime('%Y-%m-%d')" /></td>
+                <td><span t-field="change_id.aircraft_type_id" /></td>
                 <th>Target Approval Date</th>
-                <td><span t-esc="context_timestamp(change_id.target_approval_date).strftime('%Y-%m-%d')" /></td>
+                <td><span t-esc="change_id.target_approval_date" t-options='{"widget": "date","format": "yyyy-MM-dd"}' /></td>
 
               </tr>
               <tr>
                 <th>Project Title</th>
                 <td colspan="99"><span t-field="change_id.project_title" /></td>
+              </tr>
+              <tr>
+                <th>References</th>
+                <td colspan="99"><span t-field="change_id.references" /></td>
               </tr>
             </table>
 

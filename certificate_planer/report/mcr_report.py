@@ -95,6 +95,13 @@ class MCRReport(models.AbstractModel):
             })
         return planning_data
 
+    def _get_revisions_data(self, doc):
+        revision_data = []
+        for revision in doc.revision_ids:
+            revision_data.append(revision)
+            if revision == doc.current_revision_id:
+                break
+        return revision_data
 
     def _get_report_values(self, docids, data=None):
 
@@ -121,6 +128,7 @@ class MCRReport(models.AbstractModel):
             'docids': docids, 
             'docs': docs,
             'print_date': docs.print_date,
+            'revisions_data': self._get_revisions_data(doc),
             'planning_data': self._get_planning_data(change_id),
             'design_data': self._get_design_data(change_id),
             'dcc_survey_data': self._get_survey_data(change_id.dcc_survey_result_id),
