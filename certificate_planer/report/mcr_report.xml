@@ -63,7 +63,7 @@
             <h1 t-esc="doc.type_id.designation" />
             <h2 t-field="doc.name" />
             <p>Revision: <span t-field="doc.current_revision_id.index_id" /><br/>
-            Version: <span t-field="doc.current_revision_id.change_id.version" /><br/>
+            <!-- Version: <span t-field="doc.current_revision_id.change_id.version" /><br/> -->
             Print Date: <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" /></p>
             
             <style>
@@ -132,6 +132,12 @@
               </tbody>
             </table>
 
+            <br/>
+
+            <h2>Change Description</h2>
+
+            <p t-field="change_id.description" />
+
             <p style="page-break-before:always;" />
 
             <h2>Planning Data</h2>
@@ -196,12 +202,6 @@
               </t>
               </tbody>
             </table>
-
-            <p style="page-break-before:always;" />
-
-            <h2>Change Descriptions</h2>
-
-            <p t-field="change_id.description" />
 
             <p style="page-break-before:always;" />
 

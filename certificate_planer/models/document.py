@@ -118,14 +118,14 @@ class Document(models.Model):
         # Remove existing report attachments
         self.env['ir.attachment'].search([
             ('name', 'in', [self.name + '.pdf'])
-        ]).unlink()
+        ]).unlink()        
+
+        # Render report
+        pdf_content, content_type = self.env.ref('certificate_planer.mcr_report')._render_qweb_pdf(self.id)
 
         # Update version on change
         change_id = self.current_revision_id.change_id
         change_id.write({ 'version': change_id.version + 1 })
-
-        # Render report
-        pdf_content, content_type = self.env.ref('certificate_planer.mcr_report')._render_qweb_pdf(self.id)
 
         # Return message
         message_id = self.env['certificate_planer.document.message'].create({'message': 'The report has been generated. See attachments of this document.'})

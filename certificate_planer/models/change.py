@@ -12,7 +12,7 @@ class Change(models.Model):
     project_title = fields.Char(required=True)
     description = fields.Text()
     certificate_id = fields.Many2one("certificate_planer.certificate", string="Certificate", tracking=True)
-    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", required=True, string="Aircraft Type", tracking=True, ondelete="restrict")
+    aircraft_type_id = fields.Many2one("certificate_planer.aircraft_type", string="Aircraft Type", tracking=True, ondelete="restrict")
     authority_reference = fields.Char()
     reference = fields.Char(string="Aerolite Reference")
     part_count = fields.Integer(compute='_compute_part_count')
@@ -28,8 +28,8 @@ class Change(models.Model):
     occ_survey_template_id = fields.Many2one('survey.survey', related='company_id.occ_survey_template_id')
     conclusion_survey_template_id = fields.Many2one('survey.survey', related='company_id.conclusion_survey_template_id')
 
-    dcc_survey_result_id = fields.Many2one('survey.user_input', tring="DCC Survey Result")
-    occ_survey_result_id = fields.Many2one('survey.user_input', string="OCC Survey Result")
+    dcc_survey_result_id = fields.Many2one('survey.user_input')
+    occ_survey_result_id = fields.Many2one('survey.user_input')
     conclusion_survey_result_id = fields.Many2one('survey.user_input')
 
     status_id = fields.Many2one("certificate_planer.change_status", tracking=True, default=lambda self: self.env['certificate_planer.change_status'].search([]), ondelete="restrict")
