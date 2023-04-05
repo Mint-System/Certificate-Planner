@@ -155,12 +155,12 @@
                   <label for="action_start_dcc_survey"
                     attrs="{'invisible': [('dcc_survey_result_id', '!=', False)]}" />
                   <button class="btn btn-primary btn-sm mt-3" string="Start DCC Survey"
-                    name="action_start_dcc_survey" type="object"
+                    name="action_start_dcc_survey" type="object" help="Start a survey with version 1."
                     attrs="{'invisible': [('dcc_survey_result_id', '!=', False)]}" />
-                  <label for="action_repeat_dcc_result"
+                  <label for="action_revise_dcc_result"
                     attrs="{'invisible': [('dcc_survey_result_id', '=', False)]}" />
-                  <button class="btn btn-primary btn-sm mt-3" string="Repeat DCC Survey"
-                    name="action_repeat_dcc_result" type="object"
+                  <button class="btn btn-primary btn-sm mt-3" string="Revise DCC Survey"
+                    name="action_revise_dcc_result" type="object" help="Start a new survey with an incremented version number."
                     attrs="{'invisible': [('dcc_survey_result_id', '=', False)]}" />
                   <field name="dcc_survey_template_id" invisible="1" />
                   <field name="dcc_survey_result_id"
@@ -170,12 +170,12 @@
                   <label for="action_start_occ_survey"
                     attrs="{'invisible': [('occ_survey_result_id', '!=', False)]}" />
                   <button class="btn btn-primary btn-sm mt-3" string="Start OCC Survey"
-                    name="action_start_occ_survey" type="object"
+                    name="action_start_occ_survey" type="object" help="Start a survey with version 1."
                     attrs="{'invisible': [('occ_survey_result_id', '!=', False)]}" />
-                  <label for="action_repeat_occ_result"
+                  <label for="action_revise_occ_result"
                     attrs="{'invisible': [('occ_survey_result_id', '=', False)]}" />
-                  <button class="btn btn-primary btn-sm mt-3" string="Repeat OCC Survey"
-                    name="action_repeat_occ_result" type="object"
+                  <button class="btn btn-primary btn-sm mt-3" string="Revise OCC Survey"
+                    name="action_revise_occ_result" type="object" help="Start a new survey with an incremented version number."
                     attrs="{'invisible': [('occ_survey_result_id', '=', False)]}" />
                   <field name="occ_survey_template_id" invisible="1" />
                   <field name="occ_survey_result_id"
@@ -185,20 +185,21 @@
                   <label for="action_start_conclusion_survey"
                     attrs="{'invisible': [('conclusion_survey_result_id', '!=', False)]}" />
                   <button class="btn btn-primary btn-sm mt-3" string="Start Conclusion Survey"
-                    name="action_start_conclusion_survey" type="object"
+                    name="action_start_conclusion_survey" type="object" help="Start a survey with version 1."
                     attrs="{'invisible': [('conclusion_survey_result_id', '!=', False)]}" />
-                  <label for="action_repeat_conclusion_result"
+                  <label for="action_revise_conclusion_result"
                     attrs="{'invisible': [('conclusion_survey_result_id', '=', False)]}" />
-                  <button class="btn btn-primary btn-sm mt-3" string="Repeat Conclusion Survey"
-                    name="action_repeat_conclusion_result" type="object"
+                  <button class="btn btn-primary btn-sm mt-3" string="Revise Conclusion Survey"
+                    name="action_revise_conclusion_result" type="object" help="Start a new survey with an incremented version number."
                     attrs="{'invisible': [('conclusion_survey_result_id', '=', False)]}" />
                   <field name="conclusion_survey_template_id" invisible="1" />
                   <field name="conclusion_survey_result_id"
                     options="{'no_quick_create': True, 'no_create_edit': True}"
                     domain="[('survey_id', '=', conclusion_survey_template_id), ('state', '=', 'done'), ('change_id', '=', active_id)]" />
 
-                  <button class="btn btn-primary btn-sm mt-3" string="Reload Survey Result Selection"
-                    name="action_reload" type="object" />
+                  <p>Once a survey has been finished and the result is not selectable, reload the current view with:</p>
+                  <button class="btn btn-primary btn-sm mt-3" string="Reload Survey Result Lists"
+                    name="action_reload" type="object"/>
 
                 </group>
               </group>

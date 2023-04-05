@@ -15,15 +15,24 @@ class SurveyUserInput(models.Model):
     _inherit = 'survey.user_input'
 
     change_id = fields.Many2one("certificate_planer.change", string="Change")
+    version = fields.Integer(readonly=True)
 
     def name_get(self):
         res = []
         user = self.env.user
         for rec in self:           
             create_date = fields.Datetime.context_timestamp(user, rec.create_date).strftime(DEFAULT_SERVER_DATETIME_FORMAT)
-            res.append((rec.id, '%(title)s on %(create_date)s by %(partner)s' % {
-                'title': rec.survey_id.title,
-                'create_date': create_date,
-                'partner': rec.partner_id.display_name
-            }))
+            if rec.version:
+                res.append((rec.id, '%(title)s #%(version)s on %(create_date)s by %(partner)s' % {
+                    'title': rec.survey_id.title,
+                    'version': rec.version,
+                    'create_date': create_date,
+                    'partner': rec.partner_id.display_name
+                }))
+            else:
+                res.append((rec.id, '%(title)s on %(create_date)s by %(partner)s' % {
+                    'title': rec.survey_id.title,
+                    'create_date': create_date,
+                    'partner': rec.partner_id.display_name
+                }))
         return res

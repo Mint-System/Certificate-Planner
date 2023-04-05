@@ -97,56 +97,45 @@ class Change(models.Model):
             "context": "{'create': False}",
         }
 
-    def action_start_dcc_survey(self):
+    def action_start_survey(self, template_id):
         self.ensure_one()
-        answer = self.dcc_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        answer = template_id.sudo()._create_answer(user=self.env.user, partner=self.env.user.partner_id)
         answer.write({
-            'change_id': self.id
+            'change_id': self.id,
+            'version': 1,
         })
-        res = self.dcc_survey_template_id.action_start_survey(answer)
+        res = template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
 
-    def action_repeat_dcc_result(self):
+    def action_revise_result(self, template_id, result_id):
         self.ensure_one()
-        answer = self.dcc_survey_result_id
-        res = self.dcc_survey_template_id.action_start_survey(answer)
+        answer = template_id.sudo()._create_answer(user=self.env.user, partner=self.env.user.partner_id)
+        answer.write({
+            'change_id': self.id,
+            'version': result_id.version + 1,
+        })
+        res = template_id.action_start_survey(answer)
         res['target'] = 'new'
         return res
+
+    def action_start_dcc_survey(self):
+        return self.action_start_survey(self.dcc_survey_template_id)
+
+    def action_revise_dcc_result(self):
+        return self.action_revise_result(self.dcc_survey_template_id, self.dcc_survey_result_id)
 
     def action_start_occ_survey(self):
-        self.ensure_one()
-        answer = self.occ_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
-        answer.write({
-            'change_id': self.id
-        })
-        res = self.occ_survey_template_id.action_start_survey(answer)
-        res['target'] = 'new'
-        return res
+        return self.action_start_survey(self.occ_survey_template_id)
 
-    def action_repeat_occ_result(self):
-        self.ensure_one()
-        answer = self.occ_survey_result_id
-        res = self.occ_survey_template_id.action_start_survey(answer)
-        res['target'] = 'new'
-        return res
+    def action_revise_occ_result(self):
+        return self.action_revise_result(self.occ_survey_template_id, self.occ_survey_result_id)
 
     def action_start_conclusion_survey(self):
-        self.ensure_one()
-        answer = self.conclusion_survey_template_id._create_answer(user=self.env.user, partner=self.env.user.partner_id)
-        answer.write({
-            'change_id': self.id
-        })
-        res = self.conclusion_survey_template_id.action_start_survey(answer)
-        res['target'] = 'new'
-        return res
+        return self.action_start_survey(self.conclusion_survey_template_id)
 
-    def action_repeat_conclusion_result(self):
-        self.ensure_one()
-        answer = self.conclusion_survey_result_id
-        res = self.conclusion_survey_template_id.action_start_survey(answer)
-        res['target'] = 'new'
-        return res
+    def action_revise_conclusion_result(self):
+        return self.action_revise_result(self.conclusion_survey_template_id, self.conclusion_survey_result_id)
 
     def action_reload(self):
         return {
