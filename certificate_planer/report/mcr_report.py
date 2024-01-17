@@ -18,7 +18,7 @@ class MCRReport(models.AbstractModel):
                 'type': 'question' if not survey_input.is_page else 'page',
                 'text': survey_input.title,
                 'options': '',
-                'answer': '',
+                'answers': '',
                 'comment': '',
             }
 
@@ -38,9 +38,10 @@ class MCRReport(models.AbstractModel):
                         entry['comment'] = answer.value_char_box or answer.value_text_box
 
                 # Process answer of type sugestion
-                answer = answers.filtered(lambda a: a.answer_type == 'suggestion')[:1]
-                if answer:
-                    entry['answer'] = answer.suggested_answer_id.id
+                suggested_answers = answers.filtered(lambda a: a.answer_type == 'suggestion').mapped('suggested_answer_id')
+                _logger.warning(suggested_answers.mapped('id'))
+                if suggested_answers:
+                    entry['answers'] = suggested_answers.mapped('id')
 
             survey_data.append(entry)
         

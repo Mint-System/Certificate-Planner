@@ -335,8 +335,8 @@
                 <td>
                   <t t-foreach="line['options']" t-as="option">
                     <!-- <span t-esc="option['id']" />
-                    <span t-esc="line['answer']" /> -->
-                    <t t-if="option['id'] == line['answer']">
+                    <span t-esc="line['answers']" /> -->
+                    <t t-if="option['id'] in line['answers']">
                       <input type="checkbox" checked="True"> <span t-esc="option['value']" /><br /></input>
                     </t>
                     <t t-else="">
