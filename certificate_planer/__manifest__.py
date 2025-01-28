@@ -3,7 +3,7 @@
     "summary": """
         Approve and manage aircraft documents and certificates.
     """,
-    "author": "Mint System GmbH, Odoo Community Association (OCA)",
+    "author": "Mint System GmbH",
     "website": "https://www.mint-system.ch",
     "category": "Operations",
     "version": "14.0.1.14.0",
