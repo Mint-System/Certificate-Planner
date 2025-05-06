@@ -37,6 +37,7 @@ class Document(models.Model):
         default = dict(default or {})
         default.update({
                 "name": _("%s (Copy)") % self.name,
+                "current_revision_id": False,
         })
         return super().copy(default=default)
     
