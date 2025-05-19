@@ -16,6 +16,7 @@
     <field name="arch" type="xml">
       <tree limit="200" delete="true">
         <field name="part_id"/>
+        <field name="designation"/>
       </tree>
     </field>
   </record>

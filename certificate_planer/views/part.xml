@@ -86,11 +86,13 @@
                 <field name="part_ids">
                   <tree>
                     <field name="certificate_planer_part_id"/>
+                    <field name="designation"/>
                   </tree>
                 </field>
                 <field name="prerequisite_ids">
                   <tree>
                     <field name="certificate_planer_part_id"/>
+                    <field name="designation"/>
                   </tree>
                 </field>
               </group>

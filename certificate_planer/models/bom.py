@@ -19,6 +19,7 @@ class Bom(models.Model):
         "certificate_planer_bom_id",
         string="Prerequisites",
     )
+    designation = fields.Char(related="part_id.designation", string="Designation", store=True)
 
     _sql_constraints = [
         ('part_id_unique', 'unique (part_id)', "BoM with this Part already exists."),
