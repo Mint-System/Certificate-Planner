@@ -11,6 +11,7 @@
     "depends": ["base", "mail", "survey"],
     "data": [
         "wizard/change.xml",
+        "wizard/confirm_revision_reassignment_view.xml",
         "views/menu.xml",
         "data/report_paperformat.xml",
         "security/certificate_planner_security.xml",

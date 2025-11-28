@@ -142,3 +142,32 @@ class Change(models.Model):
             'type': 'ir.actions.client',
             'tag': 'reload'
         }
+
+
+
+    def write(self, vals):
+        if 'revision_ids' in vals:
+            for cmd in vals['revision_ids']:
+                if cmd[0] == 6:   # replace all
+                    revision_ids = cmd[2]
+                    revisions = self.env['certificate_planer.document_revision'].browse(revision_ids)
+                    _logger.warning(f"revisions: {revisions}")
+
+                    for rev in revisions:
+                        if rev.change_id and rev.change_id.id != self.id:
+                            _logger.warning(f"Revision {rev.title} is already linked to Change {rev.change_id.project_title}.")
+                            return {
+                                'name': 'Confirm Reassignment',
+                                'type': 'ir.actions.act_window',
+                                'view_mode': 'form',
+                                'res_model': 'certificate_planer.confirm.revision.reassignment',
+                                'target': 'new',
+                                'context': {
+                                    'default_revision_id': rev.id,
+                                    'default_new_change_id': self.id,
+                                }
+                            }
+                           
+                            
+        return super(Change, self).write(vals)
+
