@@ -4,6 +4,7 @@
     <template id="assets_backend" name="Assets Backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <link rel="stylesheet" href="/certificate_planer/static/src/css/style.css"/>
+            <script type="text/javascript" src="/certificate_planer/static/src/js/revision_selection_confirm.js"/>
         </xpath>
     </template>
 

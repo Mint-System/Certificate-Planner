@@ -130,6 +130,7 @@
                     <field name="index_id" />
                     <field name="reason" />
                     <field name="current_revision_id" />
+                    <field name="change_id" invisible='1' />
                   </tree>
                 </field>
               </group>
