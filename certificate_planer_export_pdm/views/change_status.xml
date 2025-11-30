@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="change_status_form">
+        <field name="name">Change Status Form</field>
+        <field name="model">certificate_planer.change_status</field>
+        <field name="inherit_id" ref="certificate_planer.change_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='hide_partnumbers']" position="after">
+                <field name="pdm_export_trigger" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -138,3 +138,5 @@ class Part(models.Model):
             "domain": [("id", "in", [t.part_id.id for t in self.prequisite_bom_ids])],
             "context": "{'create': False}",
         }
+
+    

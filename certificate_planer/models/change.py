@@ -142,3 +142,6 @@ class Change(models.Model):
             'type': 'ir.actions.client',
             'tag': 'reload'
         }
+
+
+    

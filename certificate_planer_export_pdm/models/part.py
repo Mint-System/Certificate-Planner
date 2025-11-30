@@ -13,46 +13,50 @@ class Part(models.Model):
         self.ensure_one()
         return bool(self.certificate_id)
 
+    def _get_certificate(self):
+        """Return a singleton certificate for this part (or False)"""
+        self.ensure_one() 
+        certificate = self.env['certificate_planer.certificate'].search(
+            [('part_id', '=', self.id)], limit=1
+        )
+        return certificate or False
 
-    def action_export_xml(self):
-        return self._export_to_xml()
-
-    def _export_to_xml(self):
-        transactions_el = etree.Element("transactions")
-        transaction_el = etree.SubElement(transactions_el, "transaction", date="12345") 
-        document_el = etree.SubElement(transaction_el, "document") 
-        _logger.warning(f"document_el: {document_el}")
-        configuration_el = etree.SubElement(document_el, "configuration") 
-        counter = 0
+    def walk_down(self, visited=None):
+        """Collect ids of this part and all children (recursively) via BoM lines."""
+        if visited is None:
+            visited = set()
         for part in self:
-            if part._has_certificate():
-                attribute_el = etree.SubElement(configuration_el, "attribute", Certificate=part.certificate_id.part_id.name)
-                counter += 1
+            if part.id in visited:
+                continue
+            visited.add(part.id)
+            # part.part_ids are BomPartRel records
+            for bom_line in part.part_ids:
+                child = bom_line.certificate_planer_part_id
+                if child and child.id not in visited:
+                    # recursive call on Part record
+                    child.walk_down(visited)
 
-        if counter > 0:
-            xml_string = etree.tostring(
-                transactions_el, pretty_print=True, encoding="UTF-8", xml_declaration=True
-            )
+        return visited
 
-            # --- Encode for Odoo ---
-            xml_b64 = base64.b64encode(xml_string)
 
-            # --- Create attachment ---
-            attachment = self.env['ir.attachment'].create({
-                'res_model': self._name,
-                'res_id': self.id,
-                'name': f'part_{self.id}.xml',
-                'datas': xml_b64,
-                'type': 'binary',
-                'mimetype': 'application/xml',
-            })
+    def walk_up(self, visited=None):
+        """Collect ids of this part and all parents (recursively) via parent BoMs."""
+        if visited is None:
+            visited = set()
+        for part in self:
+            if part.id in visited:
+                continue
+            visited.add(part.id)
+            # parent_bom_ids are BoM records; bom.part_id is the parent part
+            for bom in part.parent_bom_ids:
+                parent = bom.part_id
+                if parent and parent.id not in visited:
+                    parent.walk_up(visited)
+        return visited
 
-            # --- Trigger download ---
-            return {
-                'type': 'ir.actions.act_url',
-                'url': f'/web/content/{attachment.id}?download=true',
-                'target': 'self',
-            }
-        else:
-            return False
+
+    
+
+
+
         

@@ -13,14 +13,10 @@
     "depends": ["certificate_planer"],
     "data": [
         "views/part.xml",
+        "views/change_status.xml",
     ],
     "installable": True,
     "application": False,
     "auto_install": False,
     "images": ["images/screen.png"],
-    "assets": {
-        "web.assets_backend": [
-            "certificate_planer_export_pdm/static/src/css/style.css",
-        ]
-    },
 }

@@ -7,7 +7,6 @@
         <field name="inherit_id" ref="certificate_planer.part_form"/>
         <field name="arch" type="xml">
 
-            <!-- Insert into the header -->
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_export_xml"
                         type="object"
