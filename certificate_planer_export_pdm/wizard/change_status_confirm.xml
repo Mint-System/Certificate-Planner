@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_change_export_confirm" model="ir.ui.view">
+        <field name="name">change.export.confirm</field>
+        <field name="model">certificate_planer.change_export_confirm</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <p>
+                        The status was changed successfully.
+                        Do you want to export the XML now?
+                    </p>
+                </sheet>
+                <footer>
+                    <button name="action_confirm_export" type="object" string="Yes, Export" class="oe_highlight"/>
+                    <button string="No" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+</record>
+
+<record id="action_change_export_confirm" model="ir.actions.act_window">
+    <field name="name">Confirm Export</field>
+    <field name="res_model">certificate_planer.change_export_confirm</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+</odoo>

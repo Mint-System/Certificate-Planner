@@ -12,7 +12,8 @@
     "license": "AGPL-3",
     "depends": ["certificate_planer"],
     "data": [
-        "views/part.xml",
+        "security/ir.model.access.csv",
+        "wizard/change_status_confirm.xml",
         "views/change_status.xml",
     ],
     "installable": True,

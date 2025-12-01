@@ -117,24 +117,24 @@ class Change(models.Model):
             encoding="UTF-8"
         )
 
-    @api.model
-    def write(self, vals):
-        _logger.warning(f"vals: {vals}")
-        # Capture previous statuses before write
-        previous_status = {rec.id: rec.status_id for rec in self}
-        _logger.warning(f"previous_status: {previous_status}")
+    # @api.model
+    # def write(self, vals):
+    #     _logger.warning(f"vals: {vals}")
+    #     # Capture previous statuses before write
+    #     previous_status = {rec.id: rec.status_id for rec in self}
+    #     _logger.warning(f"previous_status: {previous_status}")
 
-        res = super().write(vals)
+    #     res = super().write(vals)
 
-        for rec in self:
-            new_status = rec.status_id
-            _logger.warning(f"new status: {new_status}")
+    #     for rec in self:
+    #         new_status = rec.status_id
+    #         _logger.warning(f"new status: {new_status}")
 
-            if 'status_id' in vals:
-                old = previous_status.get(rec.id)
-                _logger.warning(f"old: {old}")
-                if not old or old != new_status:
-                    if new_status and new_status.pdm_export_trigger:
-                        rec._action_export_to_file()
+    #         if 'status_id' in vals:
+    #             old = previous_status.get(rec.id)
+    #             _logger.warning(f"old: {old}")
+    #             if not old or old != new_status:
+    #                 if new_status and new_status.pdm_export_trigger:
+    #                     rec._action_export_to_file()
 
-        return res
+    #     return res
