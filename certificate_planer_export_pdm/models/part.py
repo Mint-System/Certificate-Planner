@@ -21,14 +21,26 @@ class Part(models.Model):
         )
         return certificate or False
 
+    def walk_top(self, visited=[]):
+        """Return the top part in the BOM structure."""
+        for bom in self.parent_bom_ids:
+            parent = bom.part_id
+            if parent and parent not in visited:
+                visited.append(parent)
+                parent.walk_top(visited)
+        
+        return visited
+            
+
     def walk_down(self, visited=None):
         """Collect ids of this part and all children (recursively) via BoM lines."""
         if visited is None:
             visited = set()
         for part in self:
-            if part.id in visited:
+            if part in visited:
+            # if part.id in visited:
                 continue
-            visited.add(part.id)
+            visited.add(part)
             # part.part_ids are BomPartRel records
             for bom_line in part.part_ids:
                 child = bom_line.certificate_planer_part_id
@@ -43,19 +55,34 @@ class Part(models.Model):
         """Collect ids of this part and all parents (recursively) via parent BoMs."""
         if visited is None:
             visited = set()
-        for part in self:
-            if part.id in visited:
-                continue
-            visited.add(part.id)
-            # parent_bom_ids are BoM records; bom.part_id is the parent part
-            for bom in part.parent_bom_ids:
-                parent = bom.part_id
-                if parent and parent.id not in visited:
-                    parent.walk_up(visited)
+        # for part in self:
+        #     if part.id in visited:
+        #         continue
+        #     visited.add(part.id)
+        # parent_bom_ids are BoM records; bom.part_id is the parent part
+        for bom in self.parent_bom_ids:
+            parent = bom.part_id
+            if parent and parent.id not in visited:
+                visited.add(parent.id)
+                parent.walk_up(visited)
         return visited
 
 
-    
+    # def walk_up(self, visited=None):
+    #     """Collect ids of this part and all parents (recursively) via parent BoMs."""
+    #     if visited is None:
+    #         visited = set()
+    #     for part in self:
+    #         if part.id in visited:
+    #             continue
+    #         visited.add(part.id)
+    #         # parent_bom_ids are BoM records; bom.part_id is the parent part
+    #         for bom in part.parent_bom_ids:
+    #             parent = bom.part_id
+    #             if parent and parent.id not in visited:
+    #                 parent.walk_up(visited)
+    #     return visited
+
 
 
 

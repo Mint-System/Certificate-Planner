@@ -12,12 +12,40 @@ class Change(models.Model):
     _inherit = "certificate_planer.change"
     
     def _collect_parts(self, root_part):
+        """Collect all parts in the BOM structure starting from root_part.
+        Called by _export_change_to_xml.
+        """
+        # find top part without parents
+        visited = root_part.walk_top([])
+        root_part = visited[-1]
+
+        # find all children of the top part
         visited = root_part.walk_down()
-        visited = root_part.walk_up(visited)
+
+        # TODO: children with multiple parents
+        # find all other parents of the collected parts
+        # does not work yet
+        root_parts = set()
+        for part in visited:
+            root_part = part.walk_top([])[-1]
+            _logger.debug(f"root_part: {root_part}")
+            root_parts.add(root_part)
+        
+        # NOTE: meaning?
         return self.env['certificate_planer.part'].browse(list(visited))
 
+    # NOTE: Old version, may be not needed anymore
+    # def _collect_parts(self, root_part):
+    #     """Collect all parts in the BOM structure starting from root_part.
+    #     Called by _export_change_to_xml.
+    #     """
+    #     visited = root_part.walk_down()
+    #     visited = root_part.walk_up(visited)
+    #     return self.env['certificate_planer.part'].browse(list(visited))
+
     def _find_top_part(self, parts):
-        """Return the part with no parents."""
+        """Return the part with no parents.
+        called by _export_change_to_xml."""
         for part in parts:
             if not part.parent_bom_ids:
                 return part
@@ -78,6 +106,9 @@ class Change(models.Model):
 
 
     def _export_change_to_xml(self):
+        """Called by _action_export_to_file and _action_export_to_attachment.
+        Export XML for this change, including all parts in the BOM structure.
+        """
         self.ensure_one()
 
         _logger.warning(f"self: {self}")
@@ -88,11 +119,27 @@ class Change(models.Model):
         _logger.warning(f"part: {part}")
 
         parts = self._collect_parts(part)
+
+        for part in parts:
+            part._get_certificate().part_id.name if part._get_certificate() else ""
+            _logger.debug(f"part: {part}, certificate: {part._get_certificate()}")
+
+        # NOTE: Temporary simple XML for testing
+        return etree.tostring(
+            etree.Element(
+                "test"
+            ),
+            pretty_print=True,
+            xml_declaration=False,
+            encoding="UTF-8",
+        )
+
         top = self._find_top_part(parts)
 
         _logger.warning(f"parts: {parts}")
         _logger.warning(f"top: {top}")
-            
+
+
         top_certificate = top._get_certificate()
         _logger.warning(f"top certificate: {top_certificate}")
 
