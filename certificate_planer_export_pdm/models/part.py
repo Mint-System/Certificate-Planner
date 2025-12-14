@@ -16,8 +16,9 @@ class Part(models.Model):
     def _get_certificate(self):
         """Return a singleton certificate for this part (or False)"""
         self.ensure_one() 
+        part = self.id
         certificate = self.env['certificate_planer.certificate'].search(
-            [('part_id', '=', self.id)], limit=1
+            [('part_id', '=', part.id)], limit=1
         )
         return certificate or False
 

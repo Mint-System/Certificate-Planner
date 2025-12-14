@@ -27,9 +27,10 @@ class Change(models.Model):
         # does not work yet
         root_parts = set()
         for part in visited:
-            root_part = part.walk_top([])[-1]
-            _logger.debug(f"root_part: {root_part}")
-            root_parts.add(root_part)
+            if len(part.walk_top([])) > 0:
+                root_part = part.walk_top([])[-1]
+                _logger.debug(f"root_part: {root_part}")
+                root_parts.add(root_part)
         
         # NOTE: meaning?
         return self.env['certificate_planer.part'].browse(list(visited))
