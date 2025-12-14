@@ -2,6 +2,9 @@ import os
 import logging
 from lxml import etree
 import base64
+from anytree import Node
+from anytree.exporter import UniqueDotExporter
+
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -31,6 +34,11 @@ class Change(models.Model):
                 root_part = part.walk_top([])[-1]
                 _logger.debug(f"root_part: {root_part}")
                 root_parts.add(root_part)
+
+        tree = self._build_tree(root_parts)
+        self._print_tree(tree)
+        
+
         
         # NOTE: meaning?
         return self.env['certificate_planer.part'].browse(list(visited))
@@ -119,6 +127,7 @@ class Change(models.Model):
         part = certificate.part_id
         _logger.warning(f"part: {part}")
 
+
         parts = self._collect_parts(part)
 
         for part in parts:
@@ -186,3 +195,26 @@ class Change(models.Model):
     #                     rec._action_export_to_file()
 
     #     return res
+
+    def _build_tree(self, root_parts):
+        root_nodes = []
+        for root_part in root_parts:
+            root_node = Node(root_part.name)
+            root_nodes.append(root_node)
+            self._build_tree_helper(root_part, root_node)
+        return root_nodes
+
+    def _build_tree_helper(self, part, node):
+        for bom_line in part.part_ids:
+            child_part = bom_line.certificate_planer_part_id
+            child_node = Node(child_part.name, parent=node)
+            self._build_tree_helper(child_part, child_node)
+
+    def _print_tree(self, tree):
+        export_dir = '/tmp/odoo_exports'
+        os.makedirs(export_dir, exist_ok=True)
+
+        for tree_node in tree:
+            fname = f'change_{self.id}_export_{tree_node.name}.png'
+            file_path = os.path.join(export_dir, fname)
+            UniqueDotExporter(tree_node).to_picture(file_path)        
