@@ -4,6 +4,9 @@ from lxml import etree
 import base64
 import copy
 
+# from anytree import Node
+# from anytree.exporter import UniqueDotExporter
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
@@ -23,6 +26,10 @@ class Change(models.Model):
         visited_tmp = copy.copy(visited)
         for part in visited_tmp:
             visited = part.walk_up(visited)
+
+
+        # tree = self._build_tree(root_parts)
+        # self._print_tree(tree)
         
         # NOTE: meaning?
         return self.env['certificate_planer.part'].browse(list(visited))
@@ -113,6 +120,7 @@ class Change(models.Model):
 
 
         parts = self._collect_parts(part)
+        _logger.debug(f"collected parts: {parts}")
 
         for part in parts:
             part._get_certificate().part_id.name if part._get_certificate() else ""
