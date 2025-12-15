@@ -2,6 +2,7 @@ import os
 import logging
 from lxml import etree
 import base64
+import copy
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -12,25 +13,16 @@ class Change(models.Model):
     _inherit = "certificate_planer.change"
     
     def _collect_parts(self, root_part):
-        """Collect all parts in the BOM structure starting from root_part.
+        """Collect all parts in the BOM structure starting from root part (initiator of the change).
         Called by _export_change_to_xml.
         """
-        # find top part without parents
-        visited = root_part.walk_top([])
-        root_part = visited[-1]
-
-        # find all children of the top part
+        # find all children of the root part
         visited = root_part.walk_down()
 
-        # TODO: children with multiple parents
-        # find all other parents of the collected parts
-        # does not work yet
-        root_parts = set()
-        for part in visited:
-            if len(part.walk_top([])) > 0:
-                root_part = part.walk_top([])[-1]
-                _logger.debug(f"root_part: {root_part}")
-                root_parts.add(root_part)
+        # find all parents of the visited parts
+        visited_tmp = copy.copy(visited)
+        for part in visited_tmp:
+            visited = part.walk_up(visited)
         
         # NOTE: meaning?
         return self.env['certificate_planer.part'].browse(list(visited))
