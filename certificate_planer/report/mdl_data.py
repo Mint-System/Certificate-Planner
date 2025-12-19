@@ -5,6 +5,14 @@ _logger = logging.getLogger(__name__)
 from datetime import datetime
 
 
+def _sort_key(item):
+    name = getattr(item.get('doc'), 'name', '') or ''
+    return (
+        not name.startswith('135-'),
+        name                         
+    )
+
+
 def _get_report_values(self, docids, data=None, report_name=''):
 
         # Get the report and its context
@@ -150,7 +158,8 @@ def _get_report_values(self, docids, data=None, report_name=''):
                 items = items + new_items
             else:
                 items = new_items
-            items = sorted(items, key=lambda r: r['doc'].name)
+            # items = sorted(items, key=lambda r: r['doc'].name)
+            items = sorted(items, key=_sort_key)
             items = sorted(items, key=lambda r: r['doc'].type_id.sequence)
             documents_by_class[key] = items
         # Remove keys without docs
