@@ -16,7 +16,8 @@ class Part(models.Model):
     def _get_certificate(self):
         """Return a singleton certificate for this part (or False)"""
         self.ensure_one() 
-        part = self.id
+        part = self
+        # model
         certificate = self.env['certificate_planer.certificate'].search(
             [('part_id', '=', part.id)], limit=1
         )
@@ -43,7 +44,7 @@ class Part(models.Model):
             # if part.id in visited:
                 continue
             visited.add(part)
-            # part.part_ids are BomPartRel records
+            # part.part_ids are BomPartRel records (certificate_planer_bom_certificate_planer_part_rel)
             for bom_line in part.part_ids:
                 child = bom_line.certificate_planer_part_id
                 if child and child not in visited:
@@ -54,18 +55,32 @@ class Part(models.Model):
         return visited
 
 
-    def walk_up(self, visited=None):
+    def walk_up(self, path_list, visited=None):
         """Collect ids of this part and all parents (recursively) via parent BoMs."""
         if visited is None:
             visited = set()
 
+        path_list.append(self.id)
+        # certificate = self._get_certificate().display_name if self._get_certificate() else ""
+        # if not root_part_id in cert_collection:
+        #     cert_collection[root_part_id] = [certificate]
+        # else:
+        #     cert_collection[root_part_id].append(certificate)
+
+        
         # parent_bom_ids are BoM records; bom.part_id is the parent part
         for bom in self.parent_bom_ids:
             parent = bom.part_id
+            # path_list.append(parent.id)
             if parent and parent not in visited:
+                # certificate = parent.certificate_id if parent.certificate_id else None
+                # parent.certificate_id
+                # logger.warning(f"walk_up: parent part {parent.designation} has certificate {certificate}")
                 visited.add(parent)
-                parent.walk_up(visited)
+            # TEST
+            parent.walk_up(path_list, visited)
         return visited
+        # return visited, cert_collection
 
 
     # def walk_up(self, visited=None):

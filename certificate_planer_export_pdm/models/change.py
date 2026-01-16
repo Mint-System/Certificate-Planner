@@ -3,6 +3,7 @@ import logging
 from lxml import etree
 import base64
 import copy
+import datetime
 
 # from anytree import Node
 # from anytree.exporter import UniqueDotExporter
@@ -24,15 +25,20 @@ class Change(models.Model):
 
         # find all parents of the visited parts
         visited_tmp = copy.copy(visited)
+
+        # collect certs for this part from his parents
+        path_lists_dict = {}
         for part in visited_tmp:
-            visited = part.walk_up(visited)
+            path_lists_dict[part.id] = []
+            visited = part.walk_up(path_lists_dict[part.id], visited)
 
 
         # tree = self._build_tree(root_parts)
         # self._print_tree(tree)
         
         # NOTE: meaning?
-        return self.env['certificate_planer.part'].browse(list(visited))
+        return visited, path_lists_dict
+        # return self.env['certificate_planer.part'].browse(list(visited))
 
     # NOTE: Old version, may be not needed anymore
     # def _collect_parts(self, root_part):
@@ -117,52 +123,88 @@ class Change(models.Model):
         _logger.warning(f"certificate: {certificate}")
         part = certificate.part_id
         _logger.warning(f"part: {part}")
+        
+
+        parts, path_lists_dict = self._collect_parts(part)
+        # _logger.critical(f"collected parts: {parts}")
+        for part in parts:
+            _logger.critical(f"PDMEXP: part: {part.name}")
+            # _logger.critical(f"PDMEXP: part: {part}, certificate: {part.certificate_id.id if part.certificate_id else 'None'}")
+            # _logger.critical(f"part: {part}, certificate: {part._get_certificate()}")
+
+        # for part in parts:            
+        #     # part._get_certificate().part_id.name if part._get_certificate() else ""
+        #     _logger.critical(f"part: {part}")
+        #     # _logger.critical(f"part: {part}, certificate: {part.certificate_id.id if part.certificate_id else 'None'}")
+        #     # _logger.critical(f"part: {part}, certificate: {part._get_certificate()}")
+
+        # return etree.tostring(
+        #     etree.Element(
+        #         "test"
+        #     ),
+        #     pretty_print=True,
+        #     xml_declaration=False,
+        #     encoding="UTF-8",
+        # )
+
+        # TODO: does top part have a certificate?
+        # top = self._find_top_part(parts)
+
+        _logger.critical(f"PDMEXP: parts: {parts}")
+        # _logger.warning(f"top: {top}")
 
 
-        parts = self._collect_parts(part)
-        _logger.debug(f"collected parts: {parts}")
+
+        # top_certificate = top._get_certificate()
+        # _logger.warning(f"top certificate: {top_certificate}")
+
+        now_epoch = int(datetime.datetime.now().timestamp())
+        # NOTE: Temporary simple XML for testing
+        # Top-level attribute if certificate exists
+        # if top and top_certificate:
+        root = etree.Element("transactions")
+        # transaction_el = etree.SubElement(root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
+        # document_el = etree.SubElement(transaction_el, "document") 
+        # conf_el = etree.SubElement(document_el, "configuration", name="Standard", quantity="1") 
+        # attr = etree.SubElement(root, "attribute")
+        # attr.set("name", "Certificate")
+        # attr.text = top_certificate.part_id.name
 
         for part in parts:
-            part._get_certificate().part_id.name if part._get_certificate() else ""
-            _logger.debug(f"part: {part}, certificate: {part._get_certificate()}")
-
-        # NOTE: Temporary simple XML for testing
-        return etree.tostring(
-            etree.Element(
-                "test"
-            ),
-            pretty_print=True,
-            xml_declaration=False,
-            encoding="UTF-8",
-        )
-
-        top = self._find_top_part(parts)
-
-        _logger.warning(f"parts: {parts}")
-        _logger.warning(f"top: {top}")
-
-
-        top_certificate = top._get_certificate()
-        _logger.warning(f"top certificate: {top_certificate}")
-
-        # Top-level attribute if certificate exists
-        if top and top_certificate:
-            root = etree.Element("transactions")
-            transaction_el = etree.SubElement(root, "transaction", date="12345") 
+            _logger.critical(f"PDMEXP: part: {part.name}, {part.id}")
+            # try:
+            #     certificate = part.certificate_id.id
+            # except:
+            #     certificate = None
+            # certificate = part._get_certificate()
+            # _logger.critical(f"part cert: {certificate}")
+            if part.id in path_lists_dict:
+                certificates_str = ";".join(f"{part_id}" for part_id in path_lists_dict[part.id])
+                # certificates_str = ";".join(path_lists_dict[part.id])
+            else:
+                certificates_str = f"{part.id} hat nur ein Zertifikat"
+            transaction_el = etree.SubElement(root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
             document_el = etree.SubElement(transaction_el, "document") 
-            attr = etree.SubElement(root, "attribute")
-            attr.set("name", "Certificate")
-            attr.text = top_certificate.part_id.name
-
-            for part in parts:
-                configuration_el = etree.SubElement(document_el, "configuration") 
-                certificate = part._get_certificate().part_id.name if part._get_certificate() else ""
-                attribute_el = etree.SubElement(configuration_el, "attribute", Certificate=certificate)
+            conf_el = etree.SubElement(document_el, "configuration", name="Standard", quantity="1") 
+            # _logger.critical(f"part in XML export: {part.id}, {part.designation}, {part.certificate_id.id if part.certificate_id else 'None'}")
+            attr_el = etree.SubElement(conf_el, "attribute", name="Artikelnummer", value=part.name)
+            # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=';'.join(cert_collection[part.id]) if part.id in cert_collection else "")
+            # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=certificate.display_name if certificate else "")
+            # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=f"{certificate}")
+            attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=certificates_str)
+            
+            # <attribute name="Aircraft type" value="PC-24"/>
+            attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=part.designation)
+            # part.certificate_id.aircraft_type_id.name if part.certificate_id else ""
+            
+            # configuration_el = etree.SubElement(document_el, "configuration") 
+            # certificate = part._get_certificate().part_id.name if part._get_certificate() else ""
+            # attribute_el = etree.SubElement(configuration_el, "attribute", Certificate=certificate)
 
         return etree.tostring(
             root, 
             pretty_print=True, 
-            xml_declaration=False, 
+            xml_declaration=True, 
             encoding="UTF-8"
         )
 
