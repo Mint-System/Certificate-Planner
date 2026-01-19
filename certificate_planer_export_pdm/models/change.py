@@ -2,13 +2,12 @@ import os
 import logging
 from lxml import etree
 import base64
-import copy
 import datetime
 
 # from anytree import Node
 # from anytree.exporter import UniqueDotExporter
 
-from odoo import models, fields, api, _
+from odoo import models, _
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -21,23 +20,56 @@ class Change(models.Model):
         Called by _export_change_to_xml.
         """
         # find all children of the root part
-        visited = root_part.walk_down()
+        root_part.walk_down()
+
+        # construct tree from change to children
+        tree_root = root_part.tree_down_recursive()
+        print("Down tree:", flush=True)
+        tree_root.hshow()
+        print("====", flush=True)
+
+
+
+        # children without children (leaf nodes)
+        leaf_nodes = [node for node in tree_root.descendants if not node.children]
+        child_part_list = [self.env['certificate_planer.part'].browse(leaf_node.part_id) for leaf_node in leaf_nodes]
+
 
         # find all parents of the visited parts
-        visited_tmp = copy.copy(visited)
+        # visited_tmp = copy.copy(visited)
 
-        # collect certs for this part from his parents
-        path_lists_dict = {}
-        for part in visited_tmp:
-            path_lists_dict[part.id] = []
-            visited = part.walk_up(path_lists_dict[part.id], visited)
+        # find bottom parts (no children)
+        # bottom_parts = []   
+        # for part in visited_tmp:
+        #     has_children = False
+        #     for bom_line in part.part_ids:
+        #         child = bom_line.certificate_planer_part_id
+        #         if child and child in visited_tmp:
+        #             has_children = True
+        #             break
+        #     if not has_children:
+        #         bottom_parts.append(part)
 
+        # collect all possible routes to parents -> dict of part path's
+        # paths_dict = {}
+        # for part in visited_tmp:
+        #     paths_dict[part.id] = []
+        #     visited = part.walk_up(paths_dict[part.id], visited)
 
-        # tree = self._build_tree(root_parts)
-        # self._print_tree(tree)
+        # test
+        # test_part_id = 12 # F part
+        # # test_part_id = 11 # E part
+        # part = self.env['certificate_planer.part'].browse(test_part_id)
+        # root = part.walk_up_bigtree()
+
+        tree_list = []
+        for part in child_part_list:
+            tree = part.walk_up_bigtree()
+            tree_list.append(tree)
         
         # NOTE: meaning?
-        return visited, path_lists_dict
+        return tree_list
+        # return visited, paths_dict
         # return self.env['certificate_planer.part'].browse(list(visited))
 
     # NOTE: Old version, may be not needed anymore
@@ -48,6 +80,68 @@ class Change(models.Model):
     #     visited = root_part.walk_down()
     #     visited = root_part.walk_up(visited)
     #     return self.env['certificate_planer.part'].browse(list(visited))
+
+    def _collect_certificates(self, tree_list):
+        for tree in tree_list:
+            root = tree
+            part = self.env['certificate_planer.part'].browse(root.part_id)
+            certificate_id = part._get_certificate().id if part._get_certificate() else None
+            root.collected_certificates = [certificate_id] if certificate_id else []
+            for i, node in enumerate(root.descendants):
+                part = self.env['certificate_planer.part'].browse(node.part_id)
+                certificate_id = part._get_certificate().id if part._get_certificate() else None
+                root.collected_certificates.append(certificate_id)
+
+            for node in root.descendants:
+                part = self.env['certificate_planer.part'].browse(node.part_id)
+                certificate_id = part._get_certificate().id if part._get_certificate() else None
+                node.collected_certificates = [certificate_id] if certificate_id else []
+                for tmp_node in node.descendants:
+                    part = self.env['certificate_planer.part'].browse(tmp_node.part_id)
+                    certificate_id = part._get_certificate().id if part._get_certificate() else None
+                    node.collected_certificates.append(certificate_id)
+
+
+    # def _collect_certificates(self, parts, paths_dict):
+    #     """Collect certificates for each part in path of parts.
+    #     called by _export_change_to_xml.
+    #     """
+    #     certificate_collection = {}
+    #     for part in parts:
+
+    #         # part id's as part names to one string separated by ;
+    #         if part.id in paths_dict:
+
+    #             # ignore this path if last part of path has no certificate
+    #             last_part_in_path_id = paths_dict[part.id][-1]
+    #             last_part_in_path = self.env['certificate_planer.part'].browse(last_part_in_path_id)
+    #             if not last_part_in_path._get_certificate():
+    #                 certificate_collection[part.id] = ""
+    #                 continue
+    #             certificate_list = []
+    #             for part_id in paths_dict[part.id]:
+    #                 path_list_part = self.env['certificate_planer.part'].browse(part_id)
+    #                 if path_list_part._get_certificate():
+    #                     certificate_list.append(path_list_part.name)
+    #                     # certificate_list.append(path_list_part._get_certificate())
+    #                 # part_name_list.append(path_list_part.name)
+    #                 # certificate_str = path_list_part._get_certificate() if ._has_certificate() else 
+    #                 # certificate = path_list_part._get_certificate() if ._has_certificate() else 
+    #             certificate_collection[part.id] = ";".join(certificate_list)                      
+    #             # certificate_collection[part.id] = ";".join(f"{part_id}" for part_id in paths_dict[part.id])
+    #         else:
+    #             certificate_collection[part.id] = part.name if part._get_certificate() else ""
+
+    #             # for part_id in paths_dict[part.id]:
+    #                 # certificate_collection[part_id] = ";".join(f"{part_id}" for part_id in paths_dict[part.id])
+    #     return certificate_collection
+    #     # for part in parts:
+    #     #     certs = []
+    #     #     certificate = part._get_certificate()
+    #     #     if certificate:
+    #     #         certs.append(certificate.display_name)
+    #     #     certifcate_collection[part.id] = certs
+    #     # return certifcate_collection
 
     def _find_top_part(self, parts):
         """Return the part with no parents.
@@ -125,10 +219,45 @@ class Change(models.Model):
         _logger.warning(f"part: {part}")
         
 
-        parts, path_lists_dict = self._collect_parts(part)
+        print("Up tree:", flush=True)
+        tree_list = self._collect_parts(part)
+        for tree in tree_list:
+            tree.hshow()
+        print("====", flush=True)
+
+        self._collect_certificates(tree_list)
+
+        xml_parts_dict = {}
+        for i, tree in enumerate(tree_list):
+            # print(f"Tree: {i}")
+            root = tree
+            part_id = root.part_id
+            if part_id not in xml_parts_dict:
+                xml_parts_dict[part_id] = {
+                    'part': self.env['certificate_planer.part'].browse(part_id),
+                }
+                xml_parts_dict[part_id]['collected_certificates'] = root.collected_certificates
+            for node in root.descendants:
+                part_id = node.part_id
+                if part_id not in xml_parts_dict:
+                    xml_parts_dict[part_id] = {
+                        'part': self.env['certificate_planer.part'].browse(part_id),
+                    }
+                xml_parts_dict[part_id]['collected_certificates'] = node.collected_certificates
+        print(xml_parts_dict)
+            # part = self.env['certificate_planer.part'].browse(part_id)
+            # print(f"part_id: {root.part_id}, collected_certificates: {root.collected_certificates}")
+            # for node in root.descendants:
+            #     print(f"part_id: {node.part_id}, collected_certificates: {node.collected_certificates}")
+
+        # parts, paths_dict = self._collect_parts(part)
+
+        # collecting certificates for each part
+        # certifcate_collection = self._collect_certificates(parts, paths_dict)
+
         # _logger.critical(f"collected parts: {parts}")
-        for part in parts:
-            _logger.critical(f"PDMEXP: part: {part.name}")
+        # for part in parts:
+        #     _logger.critical(f"PDMEXP: part: {part.name}")
             # _logger.critical(f"PDMEXP: part: {part}, certificate: {part.certificate_id.id if part.certificate_id else 'None'}")
             # _logger.critical(f"part: {part}, certificate: {part._get_certificate()}")
 
@@ -150,7 +279,7 @@ class Change(models.Model):
         # TODO: does top part have a certificate?
         # top = self._find_top_part(parts)
 
-        _logger.critical(f"PDMEXP: parts: {parts}")
+        # _logger.critical(f"PDMEXP: parts: {parts}")
         # _logger.warning(f"top: {top}")
 
 
@@ -162,7 +291,7 @@ class Change(models.Model):
         # NOTE: Temporary simple XML for testing
         # Top-level attribute if certificate exists
         # if top and top_certificate:
-        root = etree.Element("transactions")
+        xml_root = etree.Element("transactions")
         # transaction_el = etree.SubElement(root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
         # document_el = etree.SubElement(transaction_el, "document") 
         # conf_el = etree.SubElement(document_el, "configuration", name="Standard", quantity="1") 
@@ -170,39 +299,59 @@ class Change(models.Model):
         # attr.set("name", "Certificate")
         # attr.text = top_certificate.part_id.name
 
-        for part in parts:
-            _logger.critical(f"PDMEXP: part: {part.name}, {part.id}")
-            # try:
-            #     certificate = part.certificate_id.id
-            # except:
-            #     certificate = None
-            # certificate = part._get_certificate()
-            # _logger.critical(f"part cert: {certificate}")
-            if part.id in path_lists_dict:
-                certificates_str = ";".join(f"{part_id}" for part_id in path_lists_dict[part.id])
-                # certificates_str = ";".join(path_lists_dict[part.id])
-            else:
-                certificates_str = f"{part.id} hat nur ein Zertifikat"
-            transaction_el = etree.SubElement(root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
+        for part_id in xml_parts_dict:
+            if len(xml_parts_dict[part_id]['collected_certificates']) == 0:
+                continue
+            transaction_el = etree.SubElement(xml_root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
             document_el = etree.SubElement(transaction_el, "document") 
-            conf_el = etree.SubElement(document_el, "configuration", name="Standard", quantity="1") 
-            # _logger.critical(f"part in XML export: {part.id}, {part.designation}, {part.certificate_id.id if part.certificate_id else 'None'}")
+
+            # Artikelnummer
+            conf_el = etree.SubElement(document_el, "configuration", name="Standard", quantity="1")
+            part = xml_parts_dict[part_id]['part']
             attr_el = etree.SubElement(conf_el, "attribute", name="Artikelnummer", value=part.name)
+
+            # EMS
+            attr_el = etree.SubElement(conf_el, "attribute", name="EMS", value="")
+
+            # cert_str = ""
+            # for i, cert_id in enumerate(xml_parts_dict[part_id]['collected_certificates']):
+            cert_display_names = [self.env['certificate_planer.certificate'].browse(cert_id).display_name for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
+            certificate_str = ";".join(cert_display_names)
+            attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=f"{certificate_str}")
+
+            # aircraft_type
+            aircraft_ids = [int(self.env['certificate_planer.certificate'].browse(cert_id).aircraft_type_id) for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
+            aircraft_type_names = [self.env['certificate_planer.aircraft_type'].browse(ac_id).name for ac_id in aircraft_ids if ac_id]
+            aircraft_ids_str = ";".join(aircraft_type_names)
+            attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=aircraft_ids_str)
+
+            attr_el = etree.SubElement(conf_el, "attribute", name="Typ", value="CPL")
+
+
+            # if len(aircraft_ids):
+            #     aircraft_ids_str = ";".join(aircraft_ids)
+            # else:
+            #     aircraft_ids_str = ""
+            # attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=aircraft_ids_str)
+
+                # attr_el = etree.SubElement(conf_el, "attribute", name=f"Certificate_Level_{i+1}", value=certificate.display_name if certificate else "")
+
+
             # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=';'.join(cert_collection[part.id]) if part.id in cert_collection else "")
             # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=certificate.display_name if certificate else "")
             # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=f"{certificate}")
-            attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=certificates_str)
+            # attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=certificates_str)
             
-            # <attribute name="Aircraft type" value="PC-24"/>
-            attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=part.designation)
-            # part.certificate_id.aircraft_type_id.name if part.certificate_id else ""
+        #     # <attribute name="Aircraft type" value="PC-24"/>
+        #     attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=part.designation)
+        #     # part.certificate_id.aircraft_type_id.name if part.certificate_id else ""
             
-            # configuration_el = etree.SubElement(document_el, "configuration") 
-            # certificate = part._get_certificate().part_id.name if part._get_certificate() else ""
-            # attribute_el = etree.SubElement(configuration_el, "attribute", Certificate=certificate)
+        #     # configuration_el = etree.SubElement(document_el, "configuration") 
+        #     # certificate = part._get_certificate().part_id.name if part._get_certificate() else ""
+        #     # attribute_el = etree.SubElement(configuration_el, "attribute", Certificate=certificate)
 
         return etree.tostring(
-            root, 
+            xml_root, 
             pretty_print=True, 
             xml_declaration=True, 
             encoding="UTF-8"
