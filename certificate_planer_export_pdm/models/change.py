@@ -20,47 +20,15 @@ class Change(models.Model):
         Called by _export_change_to_xml.
         """
         # find all children of the root part
-        root_part.walk_down()
+        # root_part.walk_down()
 
         # construct tree from change to children
-        tree_root = root_part.tree_down_recursive()
-        print("Down tree:", flush=True)
-        tree_root.hshow()
-        print("====", flush=True)
-
-
+        tree_root = root_part.tree_down()
+        tree_root.vshow()
 
         # children without children (leaf nodes)
         leaf_nodes = [node for node in tree_root.descendants if not node.children]
         child_part_list = [self.env['certificate_planer.part'].browse(leaf_node.part_id) for leaf_node in leaf_nodes]
-
-
-        # find all parents of the visited parts
-        # visited_tmp = copy.copy(visited)
-
-        # find bottom parts (no children)
-        # bottom_parts = []   
-        # for part in visited_tmp:
-        #     has_children = False
-        #     for bom_line in part.part_ids:
-        #         child = bom_line.certificate_planer_part_id
-        #         if child and child in visited_tmp:
-        #             has_children = True
-        #             break
-        #     if not has_children:
-        #         bottom_parts.append(part)
-
-        # collect all possible routes to parents -> dict of part path's
-        # paths_dict = {}
-        # for part in visited_tmp:
-        #     paths_dict[part.id] = []
-        #     visited = part.walk_up(paths_dict[part.id], visited)
-
-        # test
-        # test_part_id = 12 # F part
-        # # test_part_id = 11 # E part
-        # part = self.env['certificate_planer.part'].browse(test_part_id)
-        # root = part.walk_up_bigtree()
 
         tree_list = []
         for part in child_part_list:
@@ -219,11 +187,11 @@ class Change(models.Model):
         _logger.warning(f"part: {part}")
         
 
-        print("Up tree:", flush=True)
+        # print("Up tree:", flush=True)
         tree_list = self._collect_parts(part)
         for tree in tree_list:
             tree.hshow()
-        print("====", flush=True)
+        # print("====", flush=True)
 
         self._collect_certificates(tree_list)
 
@@ -244,7 +212,7 @@ class Change(models.Model):
                         'part': self.env['certificate_planer.part'].browse(part_id),
                     }
                 xml_parts_dict[part_id]['collected_certificates'] = node.collected_certificates
-        print(xml_parts_dict)
+        # print(xml_parts_dict)
             # part = self.env['certificate_planer.part'].browse(part_id)
             # print(f"part_id: {root.part_id}, collected_certificates: {root.collected_certificates}")
             # for node in root.descendants:
@@ -311,7 +279,7 @@ class Change(models.Model):
             attr_el = etree.SubElement(conf_el, "attribute", name="Artikelnummer", value=part.name)
 
             # EMS
-            attr_el = etree.SubElement(conf_el, "attribute", name="EMS", value="")
+            attr_el = etree.SubElement(conf_el, "attribute", name="EMS", value=f"{1 if part.is_ems_equipment else 0}")
 
             # cert_str = ""
             # for i, cert_id in enumerate(xml_parts_dict[part_id]['collected_certificates']):
