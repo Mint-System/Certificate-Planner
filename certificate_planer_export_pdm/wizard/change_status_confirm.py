@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 class ChangeExportConfirm(models.TransientModel):
     _name = "certificate_planer.change_export_confirm"
@@ -8,7 +8,12 @@ class ChangeExportConfirm(models.TransientModel):
 
     def action_confirm_export(self):
         self.ensure_one()
-        self.change_id._action_export_to_file()
+
+        # as attachment
+        self.change_id._action_export_to_attachment()
+
+    
+        # self.change_id._action_export_to_file()
 
         
         return {"type": "ir.actions.act_window_close"}
