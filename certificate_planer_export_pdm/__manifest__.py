@@ -14,7 +14,9 @@
     "data": [
         "security/ir.model.access.csv",
         "wizard/change_status_confirm.xml",
+        "wizard/change.xml",
         "views/change_status.xml",
+        "views/res_config_settings.xml",
     ],
     "installable": True,
     "application": False,
