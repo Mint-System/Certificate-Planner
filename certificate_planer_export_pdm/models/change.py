@@ -31,22 +31,36 @@ class Change(models.Model):
         
         return tree_list
 
-    def _collect_certificates(self, tree_list):
+    def _collect_certificates_ems(self, tree_list):
         for tree in tree_list:
             root = tree
             for descendant in root.descendants:
                 
-                # save certificate ids for this node ...
-                certificate_id = descendant.certificate_id
+                # save certificate ids and ems for this node ...
+                this_certificate_id = descendant.certificate_id
+                this_is_ems_equipment = descendant.is_ems_equipment
+                this_part_name = descendant.part_name
+
+
                 if not hasattr(descendant, "collected_certificates"):
                     descendant.collected_certificates = []
-                descendant.collected_certificates.append(certificate_id)
-                
+                descendant.collected_certificates.append(this_certificate_id)
+
+                if not hasattr(descendant, "collected_ems"):
+                    descendant.collected_ems = []
+                if this_is_ems_equipment:
+                    descendant.collected_ems.append(this_part_name)
+
                 # ... and all its ancestors
                 for ancestor in descendant.ancestors:
                     if not hasattr(ancestor, "collected_certificates"):
                         ancestor.collected_certificates = []
-                    ancestor.collected_certificates.append(certificate_id)
+                    ancestor.collected_certificates.append(this_certificate_id)
+
+                    if not hasattr(ancestor, "collected_ems"):
+                        ancestor.collected_ems = []
+                    if this_is_ems_equipment:
+                        ancestor.collected_ems.append(this_part_name)
 
     def _action_export_to_attachment(self):
         self.ensure_one()
@@ -121,7 +135,7 @@ class Change(models.Model):
         _logger.warning("End collect Parts.")
 
         _logger.warning("Start Certificates collecte")
-        self._collect_certificates(tree_list)
+        self._collect_certificates_ems(tree_list)
         _logger.warning("End Certificates collected.")
 
         xml_parts_dict = {}
@@ -133,6 +147,7 @@ class Change(models.Model):
                     'part': self.env['certificate_planer.part'].browse(part_id),
                 }
                 xml_parts_dict[part_id]['collected_certificates'] = root.collected_certificates
+                xml_parts_dict[part_id]['collected_ems'] = root.collected_ems
             for node in root.descendants:
                 part_id = node.part_id
                 if part_id not in xml_parts_dict:
@@ -140,6 +155,7 @@ class Change(models.Model):
                         'part': self.env['certificate_planer.part'].browse(part_id),
                     }
                 xml_parts_dict[part_id]['collected_certificates'] = node.collected_certificates
+                xml_parts_dict[part_id]['collected_ems'] = node.collected_ems
         _logger.warning("xml_parts_dict created.")
 
         now_epoch = int(datetime.datetime.now().timestamp())
@@ -151,6 +167,15 @@ class Change(models.Model):
                 continue
 
             part = xml_parts_dict[part_id]['part']
+            _logger.warning(f"part: {part.name}, cert: {part.certificate_id}")
+
+            # don't export this part if certificate
+            if part.certificate_id:
+                continue
+
+            # dont export this part if EMS equipment
+            if part.is_ems_equipment:
+                continue
 
             # no valid part
             if "EASA" in part.name:
@@ -164,21 +189,19 @@ class Change(models.Model):
             attr_el = etree.SubElement(conf_el, "attribute", name="Artikelnummer", value=part.name)
 
             # EMS
-            attr_el = etree.SubElement(conf_el, "attribute", name="EMS", value=f"{1 if part.is_ems_equipment else 0}")
+            ems_names = {ems_name for ems_name in xml_parts_dict[part_id]['collected_ems'] if ems_name}
+            ems_str = "; ".join(ems_names)
+            attr_el = etree.SubElement(conf_el, "attribute", name="EMS", value=ems_str)
 
             # Certificate
-            cert_display_names = [cert_id.part_id.name for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
-            # cert_display_names = [self.env['certificate_planer.certificate'].browse(cert_id).part_id.name for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
-            certificate_str = ";".join(cert_display_names)
+            cert_display_names = {cert_id.part_id.name for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id}
+            certificate_str = "; ".join(cert_display_names)
             attr_el = etree.SubElement(conf_el, "attribute", name="Certificate", value=f"{certificate_str}")
 
             # aircraft_type
             aircraft_ids = [int(cert_id.aircraft_type_id) for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
-            # aircraft_ids = [int(self.env['certificate_planer.certificate'].browse(cert_id).aircraft_type_id) for cert_id in xml_parts_dict[part_id]['collected_certificates'] if cert_id]
-            aircraft_type_names = [self.env['certificate_planer.aircraft_type'].browse(ac_id).name for ac_id in aircraft_ids if ac_id]
-            # make distinct
-            aircraft_type_names = list(set(aircraft_type_names))
-            aircraft_ids_str = ";".join(aircraft_type_names)
+            aircraft_type_names = {self.env['certificate_planer.aircraft_type'].browse(ac_id).name for ac_id in aircraft_ids if ac_id}
+            aircraft_ids_str = "; ".join(aircraft_type_names)
             attr_el = etree.SubElement(conf_el, "attribute", name="Aircraft type", value=aircraft_ids_str)
 
             attr_el = etree.SubElement(conf_el, "attribute", name="Typ", value="CPL")

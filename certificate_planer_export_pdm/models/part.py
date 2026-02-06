@@ -75,6 +75,7 @@ class Part(models.Model):
             part_id=self.id,
             part_name=self.name,
             certificate_id=self.env['certificate_planer.certificate'].search([("part_id", "=", self.id)]),
+            is_ems_equipment=self.is_ems_equipment,
         )
 
         self._walk_up_bigtree_recursive(node)
@@ -104,6 +105,7 @@ class Part(models.Model):
                     part_id=parent_part.id,
                     part_name=parent_part.name,
                     certificate_id=self.env['certificate_planer.certificate'].search([("part_id", "=", parent_part.id)]),
+                    is_ems_equipment=parent_part.is_ems_equipment,
                 )
 
                 # Recursively process this parent's parents
