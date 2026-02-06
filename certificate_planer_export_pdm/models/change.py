@@ -213,12 +213,3 @@ class Change(models.Model):
             fname = f'change_{self.id}_export_{tree_node.name}.png'
             file_path = os.path.join(export_dir, fname)
             UniqueDotExporter(tree_node).to_picture(file_path)
-
-    def write(self, vals):
-        res = super().write(vals)
-
-        if 'status_id' in vals:
-            new_status = self.env['certificate_planer.change_status'].browse(vals['status_id'])
-            if new_status and new_status.pdm_export_trigger and self.certificate_id: 
-                self._action_export_to_attachment()
-        return res
