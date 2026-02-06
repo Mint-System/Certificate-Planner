@@ -40,7 +40,7 @@ class Part(models.Model):
     
     category_ids = fields.Many2many("certificate_planer.part_category", string="Categories", ondelete="restrict")
 
-    is_ems_equipment = fields.Boolean("EMS Equipment", default=False)
+    is_ems_equipment = fields.Boolean("Installation Group", default=False)
 
     _sql_constraints = [
         ('name_unique', 'unique (name)', "Part with this Partnumber already exists."),
