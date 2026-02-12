@@ -160,7 +160,8 @@ class Change(models.Model):
 
         now_epoch = int(datetime.datetime.now().timestamp())
 
-        xml_root = etree.Element("transactions")
+        xml_root = etree.Element("xml")
+        transactions_el = etree.SubElement(xml_root, "transactions") 
 
         for part_id in xml_parts_dict:
             if len(xml_parts_dict[part_id]['collected_certificates']) == 0:
@@ -181,7 +182,7 @@ class Change(models.Model):
             if "EASA" in part.name:
                 continue
 
-            transaction_el = etree.SubElement(xml_root, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
+            transaction_el = etree.SubElement(transactions_el, "transaction", date=f"{now_epoch}", type="wf_import_document_attributes", vaultname="Aerolite") 
             document_el = etree.SubElement(transaction_el, "document", aliasset="", pdmweid=part.name) 
 
             # Artikelnummer
