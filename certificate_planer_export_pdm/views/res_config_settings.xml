@@ -41,6 +41,20 @@
                                 </div>
                             </div>
 
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Path for PDM Export directory.
+                                </div>
+                                <div class="content-group">
+
+                                    <div class="row mt16">
+                                        <label class="col-lg-3 o_light_label" string="PDM Export directory" for="pdm_export_dir"/>                                        
+                                        <field name="pdm_export_dir" class="oe_inline" style="width: 70% !important;"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     

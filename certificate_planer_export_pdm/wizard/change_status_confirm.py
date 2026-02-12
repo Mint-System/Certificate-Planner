@@ -24,7 +24,7 @@ class ChangeStatusConfirm(models.TransientModel):
 
         change.write({"status_id": new_status_id})
 
-        # as attachment
-        self.change_id._action_export_to_attachment()
+        # export as XML file
+        self.change_id._action_export_to_file()
         
         return {"type": "ir.actions.act_window_close"}
