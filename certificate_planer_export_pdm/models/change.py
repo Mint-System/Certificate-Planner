@@ -101,6 +101,7 @@ class Change(models.Model):
         # File name
         fname = f'change_{self.id}_export.xml'
         file_path = os.path.join(export_dir, fname)
+        _logger.warning(f"export file path: {file_path}")
 
         # Write the file
         try:
