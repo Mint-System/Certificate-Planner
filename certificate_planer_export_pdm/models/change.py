@@ -114,8 +114,9 @@ class Change(models.Model):
                 subject="XML Export",
                 message_type='notification'
             )
-        except:
-            raise UserError(_('no export'))
+        except Exception as e:
+            _logger.exception("Export failed")
+            raise UserError(str(e))
 
         return True
 
