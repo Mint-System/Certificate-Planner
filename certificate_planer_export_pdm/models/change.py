@@ -92,10 +92,8 @@ class Change(models.Model):
         xml_data = self._export_change_to_xml()
         _logger.warning(f"xml_data: {xml_data}")
 
-        # configure export directory and ensure it exists
-        export_dir = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_dir')
-        if not export_dir:
-            raise UserError(_('Export directory not configured. Please set the "PDM Export Directory" parameter.'))
+        # define export directory and ensure it exists
+        export_dir = '/mnt/addons/certificate_planer_export_pdm/exports'
         os.makedirs(export_dir, exist_ok=True)
 
         # File name

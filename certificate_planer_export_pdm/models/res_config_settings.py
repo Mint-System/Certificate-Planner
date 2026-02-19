@@ -7,9 +7,8 @@ class ResConfigSettings(models.TransientModel):
     change_status_text = fields.Char(config_parameter='certificate_planer_export_pdm.change_status_text')
     change_status_confirm_text = fields.Char(config_parameter='certificate_planer_export_pdm.change_status_confirm_text')
 
-    pdm_export_dir = fields.Char(config_parameter='certificate_planer_export_pdm.pdm_export_dir')
-
     pdm_export_type = fields.Selection(
         config_parameter='certificate_planer_export_pdm.pdm_export_type',
         selection=[('file', 'File export'), ('attachment', 'Attachment')],
+        default='attachment',
     )
