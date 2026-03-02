@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="model_parts_export_pdm" model="ir.actions.server">
+        <field name="name">Export PDM</field>
+        <field name="groups_id" eval="[(4, ref('certificate_planer.group_certificate_planer_administrator'))]"/>
+        <field name="model_id" ref="certificate_planer.model_certificate_planer_part" />
+        <field name="binding_model_id" ref="certificate_planer.model_certificate_planer_part" />
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records._export_all_to_pdm()</field>
+    </record>
+
+</odoo>
