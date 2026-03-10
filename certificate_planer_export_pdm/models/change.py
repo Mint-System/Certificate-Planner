@@ -44,7 +44,8 @@ class Change(models.Model):
 
                 if not hasattr(descendant, "collected_certificates"):
                     descendant.collected_certificates = []
-                descendant.collected_certificates.append(this_certificate_id)
+                if this_certificate_id:
+                    descendant.collected_certificates.append(this_certificate_id)
 
                 if not hasattr(descendant, "collected_ems"):
                     descendant.collected_ems = []
@@ -55,7 +56,8 @@ class Change(models.Model):
                 for ancestor in descendant.ancestors:
                     if not hasattr(ancestor, "collected_certificates"):
                         ancestor.collected_certificates = []
-                    ancestor.collected_certificates.append(this_certificate_id)
+                    if this_certificate_id:
+                        ancestor.collected_certificates.append(this_certificate_id)
 
                     if not hasattr(ancestor, "collected_ems"):
                         ancestor.collected_ems = []
