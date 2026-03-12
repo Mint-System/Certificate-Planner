@@ -10,6 +10,10 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 class Change(models.Model):
+    """
+    Collect all parts belonging to the change and build a list a tree's from bottom (leaf nodes) to top parent part(s).
+    Generate XML from the tree list and export it as file or attachment.
+    """
     _inherit = "certificate_planer.change"
     
     def _collect_parts(self, root_part):
@@ -31,43 +35,46 @@ class Change(models.Model):
         
         return tree_list
 
-    def _collect_certificates_ems(self, tree_list):
-        for tree in tree_list:
-            root = tree
-            for descendant in root.descendants:
-                
-                # save certificate ids and ems for this node ...
-                this_certificate_id = descendant.certificate_id
-                this_is_ems_equipment = descendant.is_ems_equipment
-                this_part_name = descendant.part_name
-
-
-                if not hasattr(descendant, "collected_certificates"):
-                    descendant.collected_certificates = []
-                if this_certificate_id:
-                    descendant.collected_certificates.append(this_certificate_id)
-
-                if not hasattr(descendant, "collected_ems"):
-                    descendant.collected_ems = []
-                if this_is_ems_equipment:
-                    descendant.collected_ems.append(this_part_name)
-
-                # ... and all its ancestors
-                for ancestor in descendant.ancestors:
-                    if not hasattr(ancestor, "collected_certificates"):
-                        ancestor.collected_certificates = []
-                    if this_certificate_id:
-                        ancestor.collected_certificates.append(this_certificate_id)
-
-                    if not hasattr(ancestor, "collected_ems"):
-                        ancestor.collected_ems = []
-                    if this_is_ems_equipment:
-                        ancestor.collected_ems.append(this_part_name)
-
-    def _action_export_to_attachment(self):
+    def _gen_xml(self):
+        """Called by _action_export_to_file and _action_export_to_attachment.
+        Export XML for this change, including all parts in the BOM structure.
+        """
         self.ensure_one()
 
-        xml_data = self._export_change_to_xml() 
+        _logger.warning(f"self: {self}")
+
+        certificate = self.certificate_id
+        _logger.warning(f"certificate: {certificate}")
+        part = certificate.part_id
+        _logger.warning(f"part: {part}")
+        
+
+        _logger.warning("Start collect Parts")
+        tree_list = self._collect_parts(part)
+        _logger.warning("End collect Parts.")
+
+        _logger.warning("Start Certificates collecte")
+        self.env['certificate_planer.part']._collect_certificates_ems(tree_list)
+        # self._collect_certificates_ems(tree_list)
+        _logger.warning("End Certificates collected.")
+
+        # generate XML
+        xml_str = self.env['certificate_planer.xml_export']._treelist_to_xml(tree_list)
+        return xml_str
+
+    def _action_export_xml(self):
+        self.ensure_one()
+
+        xml_data = self._gen_xml() 
+
+        export_type = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_type')
+        if export_type == 'attachment':
+            return self._export_to_attachment(xml_data)
+        else:
+            return self._export_to_file(xml_data)
+
+    def _export_to_attachment(self, xml_data):
+        self.ensure_one()
 
         fname = f'change_{self.id}_approved.xml'
         xml_b64 = base64.b64encode(xml_data)
@@ -89,10 +96,10 @@ class Change(models.Model):
                 'target': 'self',
             }
 
-    def _action_export_to_file(self):
+    def _export_to_file(self, xml_data):
         self.ensure_one()
-        xml_data = self._export_change_to_xml()
-        _logger.warning(f"xml_data: {xml_data}")
+        # xml_data = self._gen_xml()
+        # _logger.warning(f"xml_data: {xml_data}")
 
         # define export directory and ensure it exists
         export_dir = '/mnt/addons/certificate_planer_export_pdm/exports'
@@ -119,53 +126,3 @@ class Change(models.Model):
             raise UserError(str(e))
 
         return True
-
-
-    def _export_change_to_xml(self):
-        """Called by _action_export_to_file and _action_export_to_attachment.
-        Export XML for this change, including all parts in the BOM structure.
-        """
-        self.ensure_one()
-
-        _logger.warning(f"self: {self}")
-
-        certificate = self.certificate_id
-        _logger.warning(f"certificate: {certificate}")
-        part = certificate.part_id
-        _logger.warning(f"part: {part}")
-        
-
-        _logger.warning("Start collect Parts")
-        tree_list = self._collect_parts(part)
-        _logger.warning("End collect Parts.")
-
-        _logger.warning("Start Certificates collecte")
-        self._collect_certificates_ems(tree_list)
-        _logger.warning("End Certificates collected.")
-
-        # generate XML
-        xml_str = self.env['certificate_planer.xml_export']._treelist_to_xml(tree_list)
-        return xml_str
-
-    def _build_tree(self, root_parts):
-        root_nodes = []
-        for root_part in root_parts:
-            root_node = Node(root_part.name)
-            root_nodes.append(root_node)
-            self._build_tree_helper(root_part, root_node)
-        return root_nodes
-
-    def _build_tree_helper(self, part, node):
-        for bom_line in part.part_ids:
-            child_part = bom_line.certificate_planer_part_id
-            child_node = Node(child_part.name, parent=node)
-            self._build_tree_helper(child_part, child_node)
-
-    def _print_tree(self, tree):
-        export_dir = '/tmp/odoo_exports'
-        os.makedirs(export_dir, exist_ok=True)
-
-        for tree_node in tree:
-            fname = f'change_{self.id}_export_{tree_node.name}.png'
-            file_path = os.path.join(export_dir, fname)
-            UniqueDotExporter(tree_node).to_picture(file_path)
