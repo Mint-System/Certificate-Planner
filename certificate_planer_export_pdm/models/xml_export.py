@@ -10,20 +10,6 @@ class XmlExport(models.TransientModel):
     _description = "XML Export for PDM"
 
 
-    def _action_export_to_file(self):
-        """
-        Export XML file to server and return download link.
-        """
-
-        # collect all parts in the change
-        tree_list = self._collect_parts(self.initiator_part_id)
-
-        # collect certificates and EMS for all collected parts
-        self._collect_certificates_ems(tree_list)
-
-        # export XML file to server and return download link
-        return self._export_xml(tree_list)
-
     def _treelist_to_xml(self, tree_list):
         """
         Convert tree list to XML format.

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="export_parts_confirm_wizard" model="ir.ui.view">
+            <field name="name">Export Parts</field>
+            <field name="model">certificate_planer.exports_parts_confirm</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>    
+                        <p>Please confirm export for the selected parts.</p>
+                        <group>
+                            <field name="part_count" readonly="1"/>
+                            <field name="confirm_text" readonly="1" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_confirm_export_parts" string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
