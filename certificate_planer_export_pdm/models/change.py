@@ -35,8 +35,20 @@ class Change(models.Model):
         
         return tree_list
 
+
+    def _action_export_xml(self):
+        self.ensure_one()
+
+        xml_data = self._gen_xml() 
+
+        export_type = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_type')
+        if export_type == 'attachment':
+            return self._export_to_attachment(xml_data)
+        else:
+            return self._export_to_file(xml_data)
+
     def _gen_xml(self):
-        """Called by _action_export_to_file and _action_export_to_attachment.
+        """Called by _action_export_xml and _action_export_to_attachment.
         Export XML for this change, including all parts in the BOM structure.
         """
         self.ensure_one()
@@ -49,29 +61,16 @@ class Change(models.Model):
         _logger.warning(f"part: {part}")
         
 
-        _logger.warning("Start collect Parts")
+        _logger.warning("Collect parts")
         tree_list = self._collect_parts(part)
-        _logger.warning("End collect Parts.")
 
-        _logger.warning("Start Certificates collecte")
+        _logger.warning("Collect certificates and EMS")
         self.env['certificate_planer.part']._collect_certificates_ems(tree_list)
         # self._collect_certificates_ems(tree_list)
-        _logger.warning("End Certificates collected.")
 
         # generate XML
         xml_str = self.env['certificate_planer.xml_export']._treelist_to_xml(tree_list)
         return xml_str
-
-    def _action_export_xml(self):
-        self.ensure_one()
-
-        xml_data = self._gen_xml() 
-
-        export_type = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_type')
-        if export_type == 'attachment':
-            return self._export_to_attachment(xml_data)
-        else:
-            return self._export_to_file(xml_data)
 
     def _export_to_attachment(self, xml_data):
         self.ensure_one()

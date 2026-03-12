@@ -24,13 +24,6 @@ class ChangeStatusConfirm(models.TransientModel):
 
         change.write({"status_id": new_status_id})
 
-        export_type = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_type')
-        if export_type == 'attachment':
-            # as attachment
-            self.change_id._action_export_to_attachment()
-        else:
-            # export as XML file
-            self.change_id._action_export_to_file()
-
+        self.change_id._action_export_xml()
         
         return {"type": "ir.actions.act_window_close"}
