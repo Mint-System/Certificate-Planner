@@ -1,4 +1,6 @@
 from odoo import models
+import base64
+import os
 
 from bigtree import Node
 
@@ -22,6 +24,45 @@ class Part(models.Model):
             [('part_id', '=', part.id)], limit=1
         )
         return certificate or False
+
+    def _collect_certificates_ems(self, tree_list):
+        for tree in tree_list:
+            root = tree
+
+            # edge case: top part, no children (in case of export some selected parts)
+            if root.is_leaf:
+                root.collected_certificates = [root.certificate_id] if root.certificate_id else []
+                root.collected_ems = [root.part_name] if root.is_ems_equipment else []
+            else:
+                for descendant in root.descendants:
+                    
+                    # save certificate ids and ems for this node ...
+                    this_certificate_id = descendant.certificate_id
+                    this_is_ems_equipment = descendant.is_ems_equipment
+                    this_part_name = descendant.part_name
+
+
+                    if not hasattr(descendant, "collected_certificates"):
+                        descendant.collected_certificates = []
+                    if this_certificate_id:
+                        descendant.collected_certificates.append(this_certificate_id)
+
+                    if not hasattr(descendant, "collected_ems"):
+                        descendant.collected_ems = []
+                    if this_is_ems_equipment:
+                        descendant.collected_ems.append(this_part_name)
+
+                    # ... and all its ancestors
+                    for ancestor in descendant.ancestors:
+                        if not hasattr(ancestor, "collected_certificates"):
+                            ancestor.collected_certificates = []
+                        if this_certificate_id:
+                            ancestor.collected_certificates.append(this_certificate_id)
+
+                        if not hasattr(ancestor, "collected_ems"):
+                            ancestor.collected_ems = []
+                        if this_is_ems_equipment:
+                            ancestor.collected_ems.append(this_part_name)
 
     def tree_down(self, tree_root=None, parent=None):
         """
@@ -111,6 +152,86 @@ class Part(models.Model):
                 # Recursively process this parent's parents
                 parent_part._walk_up_bigtree_recursive(child_node)
 
+    def _action_export_all_xml(self):
+        # self.ensure_one()
 
+        xml_data = self._gen_xml() 
 
+        export_type = self.env['ir.config_parameter'].sudo().get_param('certificate_planer_export_pdm.pdm_export_type')
+        if export_type == 'attachment':
+            return self._export_to_attachment(xml_data)
+        else:
+            # 'file'
+            return self._export_to_file(xml_data)
+
+    def _gen_xml(self):
+        """
+        Called by _action_export_xml and _action_export_to_attachment.
+        Export XML for this change, including all parts in the BOM structure.
+        self: Record set of all parts selected for export
+        """
+        # loop over all selected parts, build tree for each part and collect certificates and EMS info for all trees
+        _logger.warning("Collect parts")
+        for part in self:
+             _logger.warning(f"Exporting part: {part.id} - {part.name}")
+        tree_list = []
+        for part in self:
+            tree = part.walk_up_bigtree()
+            tree_list.append(tree)
+        _logger.warning(f"Built {len(tree_list)} trees for export.")
+
+        # collect certificates and EMS info for all trees
+        self._collect_certificates_ems(tree_list)
+
+        # generate XML
+        xml_str = self.env['certificate_planer.xml_export']._treelist_to_xml(tree_list)
+        return xml_str
+
+    def _export_to_attachment(self, xml_data):
+        fname = f'change_{self.id}_approved.xml'
+        xml_b64 = base64.b64encode(xml_data)
+
+        attachment = self.env['ir.attachment'].create({
+            'name': fname,
+            'type': 'binary',
+            'datas': xml_b64,
+            'res_model': self._name,
+            'res_id': self.id,
+            'mimetype': 'application/xml',
+        })
+
+        _logger.warning(f"attachment: {attachment}")
+
+        return {
+                'type': 'ir.actions.act_url',
+                'url': f'/web/content/{attachment.id}?download=true',
+                'target': 'self',
+            }
+
+    def _export_to_file(self, xml_data):
+        # define export directory and ensure it exists
+        export_dir = '/mnt/addons/certificate_planer_export_pdm/exports'
+        os.makedirs(export_dir, exist_ok=True)
+
+        # File name
+        fname = f'parts_export.xml'
+        file_path = os.path.join(export_dir, fname)
+        _logger.warning(f"export file path: {file_path}")
+
+        # Write the file
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(xml_data.decode('utf-8'))
+
+            _logger.info(f"Exported {len(self)} Parts to {file_path}")
+            # self.message_post(
+            #     body=f"XML export created: {file_path}",
+            #     subject="XML Export",
+            #     message_type='notification'
+            # )
+        except Exception as e:
+            _logger.exception(f"Export failed: {e}")
+            raise UserError(str(e))
+
+        return True
 
