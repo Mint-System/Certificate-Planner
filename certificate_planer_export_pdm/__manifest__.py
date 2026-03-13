@@ -19,6 +19,7 @@
         "views/res_config_settings.xml",
         "views/export_parts.xml",
         "wizard/export_parts_confirm.xml",
+        "views/menu.xml",
     ],
     "installable": True,
     "application": False,
