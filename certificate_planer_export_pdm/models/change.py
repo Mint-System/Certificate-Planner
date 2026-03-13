@@ -85,15 +85,16 @@ class Change(models.Model):
             'res_model': self._name,
             'res_id': self.id,
             'mimetype': 'application/xml',
+            'description': 'pdm export',
         })
 
         _logger.warning(f"attachment: {attachment}")
 
         return {
-                'type': 'ir.actions.act_url',
-                'url': f'/web/content/{attachment.id}?download=true',
-                'target': 'self',
-            }
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
+        }
 
     def _export_to_file(self, xml_data):
         self.ensure_one()
