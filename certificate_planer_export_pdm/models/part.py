@@ -188,25 +188,24 @@ class Part(models.Model):
         return xml_str
 
     def _export_to_attachment(self, xml_data):
-        fname = f'change_{self.id}_approved.xml'
+        fname = f'all_parts.xml'
         xml_b64 = base64.b64encode(xml_data)
-
+        
         attachment = self.env['ir.attachment'].create({
             'name': fname,
             'type': 'binary',
             'datas': xml_b64,
-            'res_model': self._name,
-            'res_id': self.id,
             'mimetype': 'application/xml',
+            'description': 'pdm export',
         })
 
         _logger.warning(f"attachment: {attachment}")
 
         return {
-                'type': 'ir.actions.act_url',
-                'url': f'/web/content/{attachment.id}?download=true',
-                'target': 'self',
-            }
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
+        }
 
     def _export_to_file(self, xml_data):
         # define export directory and ensure it exists
@@ -224,7 +223,8 @@ class Part(models.Model):
                 f.write(xml_data.decode('utf-8'))
 
             _logger.info(f"Exported {len(self)} Parts to {file_path}")
-            # self.message_post(
+            # Optionale Benachrichtigung aber muss an einen Part gebunden sein
+            # self[0].message_post(
             #     body=f"XML export created: {file_path}",
             #     subject="XML Export",
             #     message_type='notification'
