@@ -1,6 +1,7 @@
 from odoo import models
 import base64
 import os
+import datetime
 
 from bigtree import Node
 
@@ -187,8 +188,14 @@ class Part(models.Model):
         xml_str = self.env['certificate_planer.xml_export']._treelist_to_xml(tree_list)
         return xml_str
 
+    def _get_file_name(self):
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        fname = f'parts_export_{timestamp}.xml'
+        return fname
+
     def _export_to_attachment(self, xml_data):
-        fname = f'all_parts.xml'
+        fname = self._get_file_name()
+
         xml_b64 = base64.b64encode(xml_data)
         
         attachment = self.env['ir.attachment'].create({
@@ -213,7 +220,8 @@ class Part(models.Model):
         os.makedirs(export_dir, exist_ok=True)
 
         # File name
-        fname = f'parts_export.xml'
+        fname = self._get_file_name()
+
         file_path = os.path.join(export_dir, fname)
         _logger.warning(f"export file path: {file_path}")
 
