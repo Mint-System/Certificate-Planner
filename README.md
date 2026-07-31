@@ -7,7 +7,7 @@ Odoo modules extending the `certificate` module.
 Clone this repo into the Odoo addons directory.
 
 ```bash
-git clone git@github.com:Mint-System/Odoo-Apps-Certificate-Planer.git ./addons/certificate_planer
+git clone git@github.com:Mint-System/Certificate-Planner.git ./addons/certificate_planner
 ```
 
 ## Available modules
