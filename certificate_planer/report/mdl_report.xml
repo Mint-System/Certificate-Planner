@@ -1,0 +1,532 @@
+<odoo>
+
+  <!-- Register report -->
+  <!-- <report id="mdl_report"
+    model="certificate_planer.document"
+    string="MDL v2 Report"
+    name="certificate_planer.mdl_report_view"
+    file="certificate_planer.mdl_report"
+    attachment="'%s' % (object.name) + '.pdf'"
+    report_type="qweb-pdf"
+    print_report_name="'%s' % (object.name)"
+    menu="False"
+    paperformat="paperformat_certificate_planer"/> -->
+
+  <record id="mdl_report" model="ir.actions.report">
+    <field name="name">MDL v2 Report</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">certificate_planer.mdl_report_view</field>
+    <field name="report_file">'%s' % (object.name)</field>
+    <field name="attachment">'%s' % (object.name) + '.pdf'</field>
+    <field
+            name="paperformat_id"
+            ref="certificate_planer.paperformat_certificate_planer"
+        />
+  </record>
+
+  <!-- Custom layout definition -->
+  <template id="mdl_layout">
+    <t t-if="not o" t-set="o" t-value="doc" />
+    <t t-if="not company">
+      <!-- Multicompany -->
+      <t t-if="company_id">
+        <t t-set="company" t-value="company_id" />
+      </t>
+      <t t-elif="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id.sudo()" />
+      </t>
+      <t t-else="else">
+        <t t-set="company" t-value="res_company" />
+      </t>
+    </t>
+    <div
+            class="article"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+      <t t-raw="0" />
+    </div>
+  </template>
+
+  <!-- MDL report definition -->
+  <template id="mdl_report_view">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+
+        <!-- Header definition -->
+        <div class="header">
+          <div class="row">
+            <div class="col-4">
+              <span>Engineering</span>
+              <h4 t-esc="doc.type_id.designation" />
+            </div>
+            <div class="col-4 text-center">
+              <br />
+              <h4 t-esc="print_report_name" />
+            </div>
+            <div class="col-4 text-right">
+              <img
+                                t-if="res_company.logo"
+                                t-att-src="image_data_uri(res_company.logo)"
+                                style="max-height: 40px; max-width: 300px"
+                                alt="Logo"
+                            />
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <!-- Page definition -->
+        <t t-call="certificate_planer.mdl_layout">
+          <div class="page">
+
+            <h1 t-esc="doc.type_id.designation" />
+            <p>Print Date: <span
+                                t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"
+                            /></p>
+            <br />
+            <br />
+            <style>
+              table.title span {
+                font-size: 2rem;
+              }
+            </style>
+            <table class="table title">
+              <tbody>
+                <tr>
+                  <td>Document No:</td>
+                  <td>
+                    <span t-field="doc.name" />
+                  </td>
+                  <td>Revision:</td>
+                  <td>
+                    <span t-field="current_revision.index_id" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Subject:</td>
+                  <td>
+                    <span t-field="doc.certificate_id.part_id.designation" />
+                  </td>
+                  <td />
+                  <td />
+                </tr>
+                <tr>
+                  <td>Certificate:</td>
+                  <td>
+                    <span t-field="doc.certificate_id.part_id.name" />
+                  </td>
+                  <td />
+                  <td />
+                </tr>
+                <tr>
+                  <td>Aircraft Type:</td>
+                  <td>
+                    <span t-esc="doc.certificate_id.aircraft_type_id.name" />
+                  </td>
+                  <td />
+                  <td />
+                </tr>
+                <tr>
+                  <td>Requirements:</td>
+                  <td>
+                    <span t-esc="doc.certificate_id.specification_id.name" />
+                  </td>
+                  <td />
+                  <td />
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <style>
+              div.signature {
+                width: 400px;
+                height: 120px;
+                border: solid 1px black;
+              }
+              table.signature td {
+                border-top: none;
+                vertical-align: bottom;
+              }
+            </style>
+            <table class="table signature">
+              <tbody>
+                <tr>
+                  <td style="padding-bottom: 1rem;">
+                    <span class="o_bold">Prepared:</span>
+                  </td>
+                  <td>
+                    <div class="signature" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-bottom: 1rem;">
+                    <span class="o_bold">Verified CVE:</span>
+                  </td>
+                  <td>
+                    <div class="signature" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p t-esc="design_organisation_statement_text" />
+            <br />
+            <p t-esc="title_page_text" />
+
+            <p style="page-break-before:always;" />
+
+            <h2>Record of Revisions</h2>
+            <table class="table-striped table-bordered table-sm" width="100%">
+              <thead>
+                <tr>
+                  <th>Revision</th>
+                  <th>Reason</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <tbody>
+              <t t-foreach="revisions" t-as="revision">
+                <tr>
+                  <td style="padding: 0.2rem;">
+                    <span t-field="revision.index_id" />
+                  </td>
+                  <td style="padding: 0.2rem;">
+                    <span t-field="revision.reason" />
+                  </td>
+                  <td style="padding: 0.2rem;">
+                    <span t-field="revision.change_id.change_id_id" />
+                  </td>
+                </tr>
+              </t>
+              </tbody>
+            </table>
+            <p style="page-break-before:always;" />
+
+            <h2>Log of Amendments</h2>
+            <t t-foreach="changes" t-as="change">
+              <t
+                                t-set="hide_legacy_class"
+                                t-value="change.status_id.hide_legacy_class"
+                            />
+              <t t-set="hide_partnumbers" t-value="change.status_id.hide_partnumbers" />
+              <t
+                                t-set="filter_document_class_names"
+                                t-value="[r.name for r in change.status_id.class_ids] or []"
+                            />
+
+              <div style="page-break-inside: avoid;">
+                <h3 t-field="change.change_id_id" />
+                <table class="table table-bordered table-sm">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span
+                                                    class="o_bold"
+                                                    t-field="change.classification_id.designation"
+                                                />
+                      </td>
+                      <td>
+                        <span class="o_bold">Authority Reference</span>
+                      </td>
+                      <td>
+                        <span t-field="change.authority_reference" />
+                      </td>
+                      <td>
+                        <span class="o_bold">Aerolite Reference</span>
+                      </td>
+                      <td>
+                        <span t-field="change.reference" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5">
+                        <span t-field="change.project_title" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <t t-foreach="change_revisions[change.id]" t-as="class_key">
+                <t t-if="class_key_value['class']">
+                  <t
+                                        t-set="show_reason"
+                                        t-value="class_key_value['class'].show_reason"
+                                    />
+                  <t
+                                        t-set="show_on_report"
+                                        t-value="class_key_value['class'].show_on_report"
+                                    />
+                  <t
+                                        t-set="change_connected"
+                                        t-value="class_key in filter_document_class_names"
+                                    />
+                </t>
+                <t
+                                    t-if="change_connected and show_on_report and (class_key_value['items'] or not hide_legacy_class)"
+                                >
+                  <table class="table-striped table-bordered table-sm" width="100%">
+                    <thead>
+                      <tr>
+                        <th style="width: 300px;"><span t-esc="class_key" /></th>
+                        <th style="width: 300px;">Title</th>
+                        <t t-if="show_reason"><th style="width: 200px;">Reason</th></t>
+                        <th style="width: 100px;">Revision</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <t t-if="class_key_value['items']">
+                      <t t-foreach="class_key_value['items']" t-as="revision">
+                        <tr>
+                          <td>
+                            <span t-field="revision.document_id.name" />
+                          </td>
+                          <td>
+                            <span t-field="revision.document_id.title" />
+                          </td>
+                          <t t-if="show_reason"><td>
+                            <span t-field="revision.reason" />
+                          </td></t>
+                          <td>
+                            <span t-field="revision.index_id" />
+                          </td>
+                        </tr>
+                      </t>
+                    </t>
+                    <t t-else="">
+                      <tr>
+                        <td colspan="4">NONE</td>
+                      </tr>
+                    </t>
+                    </tbody>
+                  </table>
+                  <br />
+                </t>
+              </t>
+
+              <code t-if="request.session.debug">
+              <span class="o_bold">DEBUG</span><br />
+              filter_document_class_names:<span
+                                    t-esc="filter_document_class_names"
+                                /><br />
+              <t t-foreach="change_revisions[change.id]" t-as="class_key">
+                class_key:<span t-esc="class_key" /><br />
+                hide_legacy_class:<span t-esc="hide_legacy_class" /><br />
+                hide_partnumbers:<span t-esc="hide_partnumbers" /><br />
+                change_connected:<span
+                                        t-esc="class_key in filter_document_class_names"
+                                    /><br />
+                <t t-if="class_key_value['class']">
+                  <t
+                                            t-set="show_reason"
+                                            t-value="class_key_value['class'].show_reason"
+                                        />
+                  <t
+                                            t-set="show_on_report"
+                                            t-value="class_key_value['class'].show_on_report"
+                                        />
+                  show_reason:<span t-esc="show_reason" /><br />
+                  show_on_report:<span t-esc="show_on_report" /><br />
+                </t>
+                <t t-foreach="class_key_value['items']" t-as="revision">
+                  - name:<span t-field="revision.document_id.name" /><br />
+                  &#160;&#160;title:<span t-field="revision.document_id.title" /><br />
+                  &#160;&#160;reason:<span t-field="revision.reason" /><br />
+                  &#160;&#160;state:<span t-field="revision.index_id" /><br />
+                </t>
+                <br />
+              </t>
+              </code>
+
+              <t
+                                t-if="not hide_partnumbers and (change.part_ids or not hide_legacy_class)"
+                            >
+                <table class="table-striped table-bordered table-sm" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Partnumber</th>
+                      <th>Designation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <t t-if="change.part_ids">
+                    <t t-foreach="change.part_ids" t-as="part">
+                      <tr>
+                        <td>
+                          <span t-field="part.name" />
+                        </td>
+                        <td>
+                          <span t-field="part.designation" />
+                        </td>
+                      </tr>
+                    </t>
+                  </t>
+                  <t t-else="">
+                      <tr>
+                        <td colspan="2">NONE</td>
+                      </tr>
+                  </t>
+                  </tbody>
+                </table>
+                <br />
+              </t>
+
+            </t>
+
+            <p style="page-break-before:always;" />
+
+            <h2>Product Structure</h2>
+            <table class="table-striped table-bordered table-sm" width="100%">
+              <thead>
+                <tr>
+                  <th />
+                  <th>Partnumber</th>
+                  <th>Designation</th>
+                </tr>
+              </thead>
+              <tbody>
+              <style>
+                h3 {
+                  margin-bottom: 0;
+                  line-height: 1.5;
+                }
+              </style>
+              <t t-foreach="parts" t-as="item">
+                <tr>
+                  <td style="white-space: nowrap;">
+                    <span t-esc="item['marker']" />
+                  </td>
+                  <td style="white-space: nowrap;">
+                    <h3
+                                                t-if="(item['type'] == 'main') and (2 > item['level'])"
+                                                t-esc="item['part'].name"
+                                            />
+                    <span
+                                                style="font-size: 1.5rem;"
+                                                t-if="(item['type'] == 'main') and (item['level'] == 2)"
+                                                t-esc="item['part'].name"
+                                            />
+                    <span
+                                                style="font-size: 1.25rem;"
+                                                t-if="(item['type'] == 'main') and (item['level'] > 2)"
+                                                t-esc="item['part'].name"
+                                            />
+                    <span t-if="item['type'] == 'sub'" t-esc="item['part'].name" />
+                  </td>
+                  <td>
+                    <span
+                                                style="font-size: 1.75rem;"
+                                                t-if="(item['type'] == 'main') and (2 > item['level'])"
+                                                t-esc="item['part'].designation"
+                                            />
+                    <span
+                                                style="font-size: 1.5rem;"
+                                                t-if="(item['type'] == 'main') and (item['level'] == 2)"
+                                                t-esc="item['part'].designation"
+                                            />
+                    <span
+                                                style="font-size: 1.25rem;"
+                                                t-if="(item['type'] == 'main') and (item['level'] > 2)"
+                                                t-esc="item['part'].designation"
+                                            />
+                    <span
+                                                t-if="item['type'] == 'sub'"
+                                                t-esc="item['part'].designation"
+                                            />
+                  </td>
+                </tr>
+              </t>
+              </tbody>
+            </table>
+
+            <p style="page-break-before:always;" />
+
+            <h2>List of Documents</h2>
+            <t t-foreach="documents_by_class" t-as="document_class">
+              <h3 t-esc="document_class" />
+              <style>
+                #list-of-documents td {
+                  vertical-align: top;
+                }
+                #list-of-documents thead {
+                  display: table-row-group;
+                }
+              </style>
+              <table
+                                class="table-striped table-bordered table-sm"
+                                id="list-of-documents"
+                                width="100%"
+                            >
+                <thead>
+                  <tr>
+                    <th style="width: 200px;">Document</th>
+                    <th style="width: 400px;">Title</th>
+                    <th style="width: 100px;">Revision</th>
+                    <th style="width: 200px;">Partnumber</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <t t-foreach="document_class_value" t-as="item">
+                  <tr>
+                    <td>
+                      <span t-esc="item['doc'].name" />
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].title" />
+                    </td>
+                    <td>
+                      <span t-esc="item['doc'].current_revision_id.index_id.name" />
+                    </td>
+                    <td>
+                      <!-- <t t-set="parts" t-value="len(item['parts'])" /> -->
+                      <t t-foreach="item['parts']" t-as="part">
+                        <span t-esc="part.name" /><br />
+                        <!-- <t t-if="part_index == 50">
+                          <br/>
+                          <br/>
+                        </t> -->
+                      </t>
+                    </td>
+                  </tr>
+                </t>
+                </tbody>
+              </table>
+              <br />
+            </t>
+
+          </div>
+        </t>
+
+        <!-- Footer definition -->
+        <div class="footer">
+          <hr />
+          <div class="row">
+            <div class="col-3">
+              <span>Revision: <span t-esc="current_revision.index_id.name" /></span><br
+                            />
+              <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" />
+            </div>
+            <div class="col-6 text-center">
+              <span t-esc="footer_text" />
+            </div>
+            <div class="col-3 text-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <span class="page" />
+                </li>
+                <li class="list-inline-item">/</li>
+                <li class="list-inline-item">
+                  <span class="topage" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </t>
+    </t>
+  </template>
+
+</odoo>

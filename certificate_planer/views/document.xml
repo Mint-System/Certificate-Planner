@@ -1,0 +1,183 @@
+<odoo>
+
+  <record model="ir.ui.view" id="document_search">
+    <field name="name">Document Search</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <field name="title" />
+        <field string="Current Revision" name="index_id" />
+        <field name="type_id" />
+        <field name="description" />
+        <filter name="group_type" string="By Type" context="{'group_by': 'type_id'}" />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="document_attachment">
+    <field name="name">Document Attachment</field>
+    <field name="model">ir.attachment</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+        <field name="datas" widget="binary" filename="name" />
+        <field name="url" widget="url" />
+        <field name="company_id" groups="base.group_multi_company" />
+        <field name="create_uid" />
+        <field name="create_date" />
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="document_list">
+    <field name="name">Document List</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <tree limit="200" delete="true">
+        <field name="name" />
+        <field name="title" />
+        <field string="Current Revision" name="index_id" />
+        <field name="type_id" />
+        <field name="description" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="document_list_delete_rule" model="ir.ui.view">
+      <field name="name">document_list_delete_rule</field>
+      <field name="model">certificate_planer.document</field>
+      <field name="inherit_id" ref="document_list" />
+      <field name="arch" type="xml">
+        <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+          <attribute name='delete'>true</attribute>
+        </xpath>
+      </field>
+  </record>
+
+  <record model="ir.ui.view" id="document_form">
+    <field name="name">Document Form</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="arch" type="xml">
+      <form string="Document Form">
+        <header>
+          <button
+                        name="view_document_report"
+                        type="object"
+                        string="View MDL v1 Report"
+                        groups="base.group_no_one"
+                    />
+          <button name="view_mdl_report" type="object" string="View MDL v2 Report" />
+          <button name="view_tpi_report" type="object" string="View TPI Report" />
+          <button name="view_mcr_report" type="object" string="View MCR Report" />
+          <button
+                        name="store_tpi_report"
+                        type="object"
+                        string="Generate MDL/TPI reports"
+                        class="oe_highlight"
+                    />
+          <button
+                        name="store_mcr_report"
+                        type="object"
+                        string="Generate MCR report"
+                        class="oe_highlight"
+                    />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+                            name="view_document_revisions"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-files-o"
+                        >
+              <field string="Revisions" name="revision_count" widget="statinfo" />
+            </button>
+            <button
+                            name="view_part_ids"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-sitemap"
+                        >
+              <field string="Parts" name="part_count" widget="statinfo" />
+            </button>
+            <button
+                            class="oe_stat_button"
+                            icon="fa-file-o"
+                            type="action"
+                            name="certificate_planer.document_attachment_action"
+                        >
+              <field string="Attachments" name="attachment_count" widget="statinfo" />
+            </button>
+          </div>
+          <p>Document</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="name" />
+            </div>
+            <h1>
+              <field name="name" />
+            </h1>
+          </div>
+          <group>
+            <field name="title" />
+            <field name="type_id" />
+            <field name="description" />
+            <field
+                            name="current_revision_id"
+                            attrs="{'invisible':[('id', '=', False)]}"
+                            context="{'default_document_id': id}"
+                        />
+            <field name="certificate_id" />
+          </group>
+          <p
+                        class="oe_edit_only"
+                    >Note: A Document can have multiple Document Revisions and can be linked with multiple Parts.</p>
+          <group>
+            <field name="revision_ids" widget="one2many" context="{'default_id': id}">
+              <tree editable="bottom">
+                <field name="index_id" />
+                <field name="reason" />
+                <field name="change_id" />
+                <field name="change_status_id" />
+              </tree>
+            </field>
+            <field name="part_ids" />
+          </group>
+          <p>Last edit by <field name="write_uid" /> on <field name="write_date" />.<br
+                        />
+          Created by <field name="create_uid" /> on <field name="create_date" />.</p>
+        </sheet>
+        <div class="oe_chatter">
+          <field name="message_follower_ids" widget="mail_followers" />
+          <field name="message_ids" widget="mail_thread" />
+          <field name="activity_ids" widget="mail_activity" />
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="document_message" model="ir.ui.view">
+      <field name="name">Document Message</field>
+      <field name="model">certificate_planer.document.message</field>
+      <field name="arch" type="xml">
+          <form>
+              <field name="message" readonly="True" />
+              <footer>
+                  <button
+                        name="action_close"
+                        string="Ok"
+                        type="object"
+                        default_focus="1"
+                        class="oe_highlight"
+                    />
+              </footer>
+          </form>
+      </field>
+  </record>
+
+</odoo>

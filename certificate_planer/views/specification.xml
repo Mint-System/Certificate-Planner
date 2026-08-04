@@ -1,0 +1,61 @@
+<odoo>
+
+  <record model="ir.ui.view" id="specification_search">
+    <field name="name">Specification Search</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="specification_list">
+    <field name="name">Specification List</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <tree limit="200" delete="true">
+        <field name="name" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="specification_delete_rule" model="ir.ui.view">
+    <field name="name">specification_delete_rule</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="inherit_id" ref="specification_list" />
+    <field name="arch" type="xml">
+      <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+        <attribute name='delete'>true</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="specification_form">
+    <field name="name">Specification Form</field>
+    <field name="model">certificate_planer.specification</field>
+    <field name="arch" type="xml">
+      <form string="Specification Form" duplicate="false">
+        <sheet>
+          <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+          <field name="active" invisible="1" />
+          <p>Specification</p>
+          <group>
+            <field name="name" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,97 @@
+<odoo>
+
+  <record model="ir.ui.view" id="document_class_search">
+    <field name="name">Document Class Search</field>
+    <field name="model">certificate_planer.document_class</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <field name="description" />
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="document_class_list">
+    <field name="name">Document Class List</field>
+    <field name="model">certificate_planer.document_class</field>
+    <field name="arch" type="xml">
+      <tree limit="200" multi_edit="1" delete="true">
+        <field name="sequence" widget="handle" />
+        <field name="name" />
+        <field name="description" />
+        <field name="show_on_report" />
+        <field name="show_on_tpi_report" />
+        <field name="show_reason" />
+        <field name="mcr_planning" />
+        <field name="mcr_design" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="document_class_delete_rule" model="ir.ui.view">
+    <field name="name">document_class_delete_rule</field>
+    <field name="model">certificate_planer.document_class</field>
+    <field name="inherit_id" ref="document_class_list" />
+    <field name="arch" type="xml">
+      <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+        <attribute name='delete'>true</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="document_class_form">
+    <field name="name">Document Class Form</field>
+    <field name="model">certificate_planer.document_class</field>
+    <field name="arch" type="xml">
+      <form string="Document Class Form">
+        <sheet>
+          <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+          <field name="active" invisible="1" />
+          <p>Document Class</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="name" />
+            </div>
+            <h1>
+              <field name="name" />
+            </h1>
+          </div>
+          <group>
+            <group>
+              <field name="description" />
+              <field name="show_on_report" />
+              <field name="show_on_tpi_report" />
+              <field name="show_reason" />
+            </group>
+            <group>
+              <field name="mcr_planning" />
+              <field name="mcr_design" />
+            </group>
+          </group>
+          <group>
+            <field name="status_ids">
+              <tree limit="200">
+                <field name="designation" />
+                <field name="description" />
+              </tree>
+            </field>
+          </group>
+          <p>Last edit by <field name="write_uid" /> on <field name="write_date" />.<br
+                        />
+          Created by <field name="create_uid" /> on <field name="create_date" />.</p>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>

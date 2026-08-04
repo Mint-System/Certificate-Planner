@@ -1,0 +1,109 @@
+<odoo>
+
+  <record model="ir.ui.view" id="post_certification_item_search">
+    <field name="name">Post Certification Item Search</field>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="pci_id" />
+        <field name="description" />
+        <filter
+                    name="group_change_id"
+                    string="By Change"
+                    context="{'group_by': 'change_id'}"
+                />
+        <filter
+                    name="group_status_id"
+                    string="By Status"
+                    context="{'group_by': 'status_id'}"
+                />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="post_certification_item_list">
+    <field name="name">Post Certification Item List</field>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="arch" type="xml">
+      <tree limit="200" delete="true">
+        <field name="pci_id" />
+        <field name="description" />
+        <field name="status_id" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="post_certification_item_delete_rule" model="ir.ui.view">
+    <field name="name">post_certification_item_delete_rule</field>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="inherit_id" ref="post_certification_item_list" />
+    <field name="arch" type="xml">
+      <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+        <attribute name='delete'>true</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="post_certification_item_kanban">
+    <field name="name">Post Certification Item Kanban</field>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="status_id" class="o_kanban_small_column">
+        <field name="pci_id" />
+        <field name="description" />
+        <templates>
+        <t t-name="kanban-box">
+          <div class="oe_kanban_card oe_kanban_global_click">
+            <div class="oe_kanban_content">
+              <strong>
+                <field name="pci_id" />
+              </strong>
+              <field name="description" />
+            </div>
+          </div>
+        </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="post_certification_item_form">
+    <field name="name">Post Certification Item Form</field>
+    <field name="model">certificate_planer.post_certification_item</field>
+    <field name="arch" type="xml">
+      <form string="Post Certification Item Form">
+        <header>
+          <field name="status_id" widget="statusbar" options="{'clickable': '1'}" />
+        </header>
+        <sheet>
+          <p>Post Certification Item</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="pci_id" />
+            </div>
+            <h1>
+              <field name="pci_id" />
+            </h1>
+          </div>
+          <group>
+            <field name="description" />
+            <field name="change_id" />
+          </group>
+          <p>Last edit by <field name="write_uid" /> on <field name="write_date" />.<br
+                        />
+          Created by <field name="create_uid" /> on <field name="create_date" />.</p>
+        </sheet>
+        <div class="oe_chatter">
+          <field name="message_follower_ids" widget="mail_followers" />
+          <field name="message_ids" widget="mail_thread" />
+          <field name="activity_ids" widget="mail_activity" />
+        </div>
+      </form>
+    </field>
+  </record>
+
+</odoo>

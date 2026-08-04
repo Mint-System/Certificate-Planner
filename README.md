@@ -13,5 +13,5 @@ git clone git@github.com:Mint-System/Certificate-Planner.git ./addons/certificat
 ## Available modules
 
 | Module | Summary |
-| ------ | ------- |
-|        |         |
+| --- | --- |
+| [certificate_planer](certificate_planer) | Approve and manage aircraft documents and certificates. |

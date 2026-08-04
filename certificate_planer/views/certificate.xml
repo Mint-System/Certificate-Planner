@@ -1,0 +1,90 @@
+<odoo>
+
+  <record model="ir.ui.view" id="certificate_search">
+    <field name="name">Certificate Search</field>
+    <field name="model">certificate_planer.certificate</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="part_id" />
+        <field name="aircraft_type_id" />
+        <filter
+                    name="group_aircraft"
+                    string="By Aircraft Type"
+                    context="{'group_by': 'aircraft_type_id'}"
+                />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="certificate_list">
+    <field name="name">Certificate List</field>
+    <field name="model">certificate_planer.certificate</field>
+    <field name="arch" type="xml">
+      <tree limit="200" delete="true">
+        <field name="part_id" />
+        <field name="aircraft_type_id" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="certificate_delete_rule" model="ir.ui.view">
+    <field name="name">certificate_delete_rule</field>
+    <field name="model">certificate_planer.certificate</field>
+    <field name="inherit_id" ref="certificate_list" />
+    <field name="arch" type="xml">
+      <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+        <attribute name='delete'>true</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="certificate_form">
+    <field name="name">Certificate Form</field>
+    <field name="model">certificate_planer.certificate</field>
+    <field name="arch" type="xml">
+      <form string="Certificate Form" duplicate="false">
+        <sheet>
+          <p>Certificate</p>
+          <group>
+            <field name="part_id" />
+            <field name="aircraft_type_id" />
+            <field name="specification_id" />
+          </group>
+          <p
+                        class="oe_edit_only"
+                    >Note: A Certificate is linked by Documents and Issues.</p>
+          <group>
+            <field name="document_ids" context="{'default_certificate_id': id}" />
+            <field name="change_ids" context="{'default_certificate_id': id}">
+              <tree limit="200" delete="true">
+                <field name="certificate_id" />
+                <field name="change_id_id" />
+                <field name="classification_id" optional="show" />
+                <field name="reference" optional="show" />
+                <field name="authority_reference" optional="show" />
+                <field name="status_id" optional="show" />
+                <field name="description" />
+              </tree>
+            </field>
+          </group>
+          <p>Last edit by <field name="write_uid" />
+ on <field name="write_date" />
+.        <br />
+          Created by <field name="create_uid" />
+ on <field name="create_date" />
+.</p>
+  </sheet>
+  <div class="oe_chatter">
+    <field name="message_follower_ids" widget="mail_followers" />
+    <field name="message_ids" widget="mail_thread" />
+    <field name="activity_ids" widget="mail_activity" />
+  </div>
+</form>
+</field>
+</record>
+
+</odoo>

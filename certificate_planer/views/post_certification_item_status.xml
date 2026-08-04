@@ -1,0 +1,74 @@
+<odoo>
+
+  <record model="ir.ui.view" id="post_certification_item_status_search">
+    <field name="name">Post Certification Item Status Search</field>
+    <field name="model">certificate_planer.post_certification_item_status</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="designation" />
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="post_certification_item_status_list">
+    <field name="name">Post Certification Item Status List</field>
+    <field name="model">certificate_planer.post_certification_item_status</field>
+    <field name="arch" type="xml">
+      <tree limit="200" delete="true">
+        <field name="sequence" widget="handle" />
+        <field name="designation" />
+        <field name="description" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="post_certification_item_status_delete_rule" model="ir.ui.view">
+    <field name="name">post_certification_item_status_delete_rule</field>
+    <field name="model">certificate_planer.post_certification_item_status</field>
+    <field name="inherit_id" ref="post_certification_item_status_list" />
+    <field name="arch" type="xml">
+      <xpath
+                expr="//tree"
+                position='attributes'
+                groups="certificate_planer.group_certificate_planer_administrator"
+            >
+        <attribute name='delete'>true</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="post_certification_item_status_form">
+    <field name="name">Post Certification Item Status Form</field>
+    <field name="model">certificate_planer.post_certification_item_status</field>
+    <field name="arch" type="xml">
+      <form string="Post Certification Item Status Form">
+        <sheet>
+          <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+          <field name="active" invisible="1" />
+          <p>Post Certification Item Status</p>
+          <div class="oe_title">
+            <div class="oe_edit_only">
+              <label for="designation" />
+            </div>
+            <h1>
+              <field name="designation" />
+            </h1>
+          </div>
+          <group>
+            <field name="description" />
+          </group>
+          <p>Last edit by <field name="write_uid" /> on <field name="write_date" />.<br
+                        />
+          Created by <field name="create_uid" /> on <field name="create_date" />.</p>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>

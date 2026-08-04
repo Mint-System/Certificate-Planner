@@ -1,0 +1,19 @@
+<odoo>
+
+  <record model="ir.ui.view" id="bom_prerequisite_rel_form">
+    <field name="name">BoM Prerequisite Relation Form</field>
+    <field
+            name="model"
+        >certificate_planer.bom_certificate_planer_prerequisite_rel</field>
+    <field name="arch" type="xml">
+      <form string="Prerequisite Form">
+        <sheet>
+          <group>
+            <field name="certificate_planer_part_id" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+</odoo>

@@ -1,0 +1,385 @@
+<odoo>
+
+  <record id="mcr_report" model="ir.actions.report">
+    <field name="name">MCR Report</field>
+    <field name="model">certificate_planer.document</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">certificate_planer.mcr_report_view</field>
+    <field name="report_file">'%s' % (object.name)</field>
+    <field
+            name="attachment"
+        >'%s-%s' % (object.name, object.current_revision_id.change_id.version) + '.pdf'</field>
+    <field
+            name="paperformat_id"
+            ref="certificate_planer.paperformat_certificate_planer"
+        />
+  </record>
+
+  <!-- Custom layout definition -->
+  <template id="mcr_layout">
+    <t t-if="not o" t-set="o" t-value="doc" />
+    <t t-if="not company">
+      <!-- Multicompany -->
+      <t t-if="company_id">
+        <t t-set="company" t-value="company_id" />
+      </t>
+      <t t-elif="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id.sudo()" />
+      </t>
+      <t t-else="else">
+        <t t-set="company" t-value="res_company" />
+      </t>
+    </t>
+    <div
+            class="article"
+            t-att-data-oe-model="o and o._name"
+            t-att-data-oe-id="o and o.id"
+            t-att-data-oe-lang="o and o.env.context.get('lang')"
+        >
+      <t t-raw="0" />
+    </div>
+  </template>
+
+  <!-- MCR report definition -->
+  <template id="mcr_report_view">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-set="change_id" t-value="doc.current_revision_id.change_id" />
+        <t
+                    t-set="certificate_id"
+                    t-value="doc.current_revision_id.change_id.certificate_id"
+                />
+
+        <!-- Header definition -->
+        <div class="header">
+          <div class="row">
+            <div class="col-4">
+              <span>Engineering</span>
+              <h5 t-esc="doc.type_id.designation" />
+            </div>
+            <div class="col-4 text-center">
+              <h5 t-esc="doc.name" />
+            </div>
+            <div class="col-4 text-right">
+              <img
+                                t-if="res_company.logo"
+                                t-att-src="image_data_uri(res_company.logo)"
+                                style="max-height: 40px; max-width: 300px"
+                                alt="Logo"
+                            />
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <!-- Page definition -->
+        <t t-call="certificate_planer.mcr_layout">
+          <div class="page">
+
+            <h1 t-esc="doc.type_id.designation" />
+            <h2 t-field="doc.name" />
+            <p>Revision: <span t-field="doc.current_revision_id.index_id" /><br />
+            <!-- Version: <span t-field="doc.current_revision_id.change_id.version" /><br/> -->
+            Print Date: <span
+                                t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')"
+                            /></p>
+
+            <style>
+              table.signatures th {
+                vertical-align: bottom;
+              }
+              table.signatures td {
+                height: 100px;
+              }
+              table.signatures {
+                width: 100%;
+              }
+            </style>
+            <table class="table-bordered table-sm signatures" name="signatures">
+              <tbody>
+                <tr>
+                  <td><strong>Name / Date / Signature:</strong></td>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th width="25%">Function:</th>
+                  <th width="25%">Prepared</th>
+                  <th width="25%">Project Management</th>
+                  <th width="25%">Head of Office Airworthiness</th>
+                </tr>
+              </thead>
+            </table>
+
+            <br />
+
+            <h2>Record of Revisions</h2>
+
+            <style>
+              table.revisions th {
+                vertical-align: bottom;
+              }
+              table.revisions td.page {
+                background-color: rgba(0, 0, 0, 0.05);
+              }
+              table.revisions {
+                width: 100%;
+              }
+            </style>
+            <table class="table-bordered table-sm revisions" name="revisions">
+              <thead>
+                <tr>
+                  <th width="10%">Revision</th>
+                  <th width="90%">Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="revisions_data" t-as="revision">
+                  <tr>
+                    <td id="index">
+                      <span t-esc="revision.index_id.name" />
+                    </td>
+                    <td id="index">
+                      <span t-esc="revision.reason" />
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <br />
+
+            <h2>Change Description</h2>
+
+            <p t-field="change_id.description" />
+
+            <p style="page-break-before:always;" />
+
+            <h2>Planning Data</h2>
+
+            <style>
+              table.planning_data td,
+              table.planning_data th {
+                width: 25%;
+              }
+            </style>
+            <table class="table-bordered table-sm planning_data" name="planning_data">
+              <tr>
+                <th>Certificate</th>
+                <td><span t-field="certificate_id.part_id" /></td>
+                <th>Aerolite Reference</th>
+                <td><span t-field="change_id.reference" /></td>
+              </tr>
+              <tr>
+                <th>Aircraft Type</th>
+                <td><span t-field="change_id.aircraft_type_id" /></td>
+                <th>Target Approval Date</th>
+                <td><span
+                                        t-esc="change_id.target_approval_date"
+                                        t-options='{"widget": "date","format": "yyyy-MM-dd"}'
+                                    /></td>
+
+              </tr>
+              <tr>
+                <th>Project Title</th>
+                <td colspan="99"><span t-field="change_id.project_title" /></td>
+              </tr>
+              <tr>
+                <th>References</th>
+                <td colspan="99"><span t-field="change_id.references" /></td>
+              </tr>
+            </table>
+
+            <br />
+
+            <style>
+              table.mcr_planning th {
+                vertical-align: bottom;
+              }
+              table.mcr_planning {
+                width: 100%;
+              }
+            </style>
+            <table class="table-bordered table-sm mcr_planning" name="mcr_planning">
+              <thead>
+                <tr>
+                  <th>Document</th>
+                  <th>Rev</th>
+                  <th>Title</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="planning_data" t-as="line">
+                <tr>
+                  <td><span t-esc="line['name']" /></td>
+                  <td><span t-esc="line['index']" /></td>
+                  <td><span t-esc="line['title']" /></td>
+                  <td><span t-esc="line['reason']" /></td>
+                </tr>
+              </t>
+              </tbody>
+            </table>
+
+            <p style="page-break-before:always;" />
+
+            <h2>List of Installations and Design Data</h2>
+
+            <style>
+              table.design_data th {
+                vertical-align: bottom;
+              }
+              table.design_data {
+                width: 100%;
+              }
+            </style>
+            <table class="table-bordered table-sm design_data" name="design_data">
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th>Partnumber</th>
+                  <th>Designation</th>
+                  <th>DWG Rev.</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-foreach="design_data" t-as="line">
+                  <tr>
+                    <td style="white-space: nowrap;">
+                      <span t-esc="line['marker']" />
+                    </td>
+                    <td><span t-esc="line['name']" /></td>
+                    <td><span t-esc="line['designation']" /></td>
+                    <td><t t-foreach="line['document_revisions']" t-as="revision">
+                      <span t-field="revision.index_id" />
+                    </t></td>
+                    <td><t t-foreach="line['document_revisions']" t-as="revision">
+                      <span t-field="revision.reason" />
+                    </t></td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+
+            <p style="page-break-before:always;" />
+
+            <h2>Design Change Classification</h2>
+
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="dcc_survey_data" />
+            </t>
+
+            <p style="page-break-before:always;" />
+
+            <h2>OSD Change Classification</h2>
+
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="occ_survey_data" />
+            </t>
+
+            <p style="page-break-before:always;" />
+
+            <h2>Conclusion</h2>
+
+            <t t-call="certificate_planer.survey_data_table">
+              <t t-set="survey_data" t-value="conclusion_survey_data" />
+            </t>
+
+          </div>
+        </t>
+
+        <!-- Footer definition -->
+        <div class="footer">
+          <hr />
+          <div class="row">
+            <div class="col-3">
+              <span>Revision: <span
+                                    t-esc="doc.current_revision_id.index_id.name"
+                                /> | Version: <span
+                                    t-esc="doc.current_revision_id.change_id.version"
+                                /></span>
+              <br />
+              <span t-esc="context_timestamp(print_date).strftime('%Y-%m-%d %H:%M')" />
+            </div>
+            <div class="col-6 text-center">
+              <span t-esc="footer_text" />
+            </div>
+            <div class="col-3 text-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <span class="page" />
+                </li>
+                <li class="list-inline-item">/</li>
+                <li class="list-inline-item">
+                  <span class="topage" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </t>
+    </t>
+  </template>
+
+  <template id="survey_data_table">
+    <style>
+      table.survey_data th {
+        vertical-align: bottom;
+      }
+      table.survey_data td.page {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    </style>
+    <table class="table-bordered table-sm survey_data" name="survey_data">
+      <thead>
+        <tr>
+          <th>Criteria</th>
+          <th>Result / Options</th>
+          <th>Remark / Justification </th>
+        </tr>
+      </thead>
+      <tbody>
+        <t t-foreach="survey_data" t-as="line">
+          <t t-if="line['type'] == 'page'">
+            <tr>
+            <td id="type" colspan="99" class="page">
+              <span t-esc="line['text']" />
+            </td>
+          </tr>
+          </t>
+          <t t-if="line['type'] == 'question'">
+              <tr>
+                <td>
+                  <span t-esc="line['text']" />
+                </td>
+                <td>
+                  <t t-foreach="line['options']" t-as="option">
+                    <!-- <span t-esc="option['id']" />
+                    <span t-esc="line['answers']" /> -->
+                    <t t-if="line['answers'] != '' and option['id'] in line['answers']">
+                      <input type="checkbox" checked="True"> <span
+                                                t-esc="option['value']"
+                                            /><br /></input>
+                    </t>
+                    <t t-else="">
+                      <input type="checkbox"> <span t-esc="option['value']" /><br
+                                            /></input>
+                    </t>
+                  </t>
+                </td>
+                <td>
+                  <span t-esc="line['comment']" />
+                </td>
+              </tr>
+          </t>
+        </t>
+      </tbody>
+    </table>
+  </template>
+
+</odoo>
