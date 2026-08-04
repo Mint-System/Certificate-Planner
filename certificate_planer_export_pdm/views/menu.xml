@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.actions.act_window" id="export_attachment_action">
+        <field name="name">Attachments</field>
+        <field name="res_model">ir.attachment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('description','=','pdm export')]</field>
+        <field name="context">{'create': False}</field>
+    </record>
+
+<menuitem
+        name="Export Attachments"
+        id="export_attachment_menu"
+        parent="certificate_planer.documents_menu"
+        action="certificate_planer_export_pdm.export_attachment_action"
+    />
+
+</odoo>

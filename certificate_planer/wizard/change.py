@@ -3,6 +3,7 @@ from odoo import fields, models
 
 class ChangeWizard(models.TransientModel):
     _name = "certificate_planer.change.wizard"
+    _description = "Change Wizard"
 
     change_id = fields.Many2one(
         "certificate_planer.change", default=lambda self: self.env.context.get("active_id", None)

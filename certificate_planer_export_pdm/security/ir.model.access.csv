@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_certificate_planer_change_status_confirm,access.change.status.confirm,model_certificate_planer_change_status_confirm,,1,1,1,1
+access_certificate_planer_exports_parts_confirm,access.exports.parts.confirm,model_certificate_planer_exports_parts_confirm,,1,1,1,1
+access_certificate_planer_xml_export,access.xml.export,model_certificate_planer_xml_export,,1,0,0,0

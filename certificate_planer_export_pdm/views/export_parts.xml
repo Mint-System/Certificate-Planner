@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="export_parts_confirm_action" model="ir.actions.act_window">
+            <field name="name">Export Parts To PDM</field>
+            <field name="res_model">certificate_planer.exports_parts_confirm</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field
+                name="binding_model_id"
+                ref="certificate_planer.model_certificate_planer_part"
+            />
+            <field name="binding_view_types">list,form</field>
+            <field
+                name="groups_id"
+                eval="[(4, ref('certificate_planer.group_certificate_planer_administrator'))]"
+            />
+        </record>
+    </data>
+</odoo>

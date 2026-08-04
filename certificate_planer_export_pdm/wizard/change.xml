@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="export_pdm_change_wizard" model="ir.ui.view">
+            <field name="name">Set Status</field>
+            <field name="model">certificate_planer.change.wizard</field>
+            <field name="inherit_id" ref="certificate_planer.change_wizard" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/p" position="replace">
+                    <p>
+                        <field readonly="1" name="change_status_text" />
+                    </p>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
